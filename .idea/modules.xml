@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/2223_LZSCC210_Group_3.iml" filepath="$PROJECT_DIR$/.idea/modules/2223_LZSCC210_Group_3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/core/2223_LZSCC210_Group_3.core.iml" filepath="$PROJECT_DIR$/.idea/modules/core/2223_LZSCC210_Group_3.core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/desktop/2223_LZSCC210_Group_3.desktop.iml" filepath="$PROJECT_DIR$/.idea/modules/desktop/2223_LZSCC210_Group_3.desktop.iml" />
     </modules>
   </component>
 </project>
