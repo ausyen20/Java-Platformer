@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="100" height="56" tilewidth="16" tileheight="16" infinite="0" nextlayerid="2" nextobjectid="1">
+ <tileset firstgid="1" source="tiles.tsx"/>
+ <layer id="1" name="圖塊層 1" width="100" height="56">
+  <data encoding="base64" compression="zlib">
+   eJzt2VEKAiEUhtEZbP9rjrCoqKZxQu8Nz4F/A37oi8sCAAAAAAAAAHDcqcM45nJ268PKdeuPo92tRekw2vRsoUeb3i302G9ECz32GdVCj+9GttBj2+gWenwW0UKP96Ja6PEqsoUez6Jb6HGXoYUeVZYWetQW0Q30qDLdi9l7ZGwxa4+sLWbskblFWfr8AZuZ9Vj0e2lmZmZmZmZmZmb/szNU9hrz
+  </data>
+ </layer>
+</map>
