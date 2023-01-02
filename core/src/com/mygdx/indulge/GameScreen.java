@@ -32,9 +32,9 @@ public class GameScreen implements Screen {
         viewport = new StretchViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
 
         backgrounds = new Texture[3];
-        backgrounds[0] = new Texture("lust0.png");
-        backgrounds[1] = new Texture("lust01.png");
-        backgrounds[2] = new Texture("lust02.png");
+        backgrounds[0] = new Texture("gluttony0.png");
+        backgrounds[1] = new Texture("gluttony1.png");
+        backgrounds[2] = new Texture("gluttony2.png");
 
         bgMaxScrollingSpeed = (float) (WORLD_WIDTH) / 4;
 
@@ -65,11 +65,7 @@ public class GameScreen implements Screen {
             }
             batch.draw(backgrounds[layer], -backgroundOffsets[layer], 0, 3300, WORLD_HEIGHT);
             batch.draw(backgrounds[layer], -backgroundOffsets[layer] + 3300, 0, 3300, WORLD_HEIGHT);
-
-
         }
-
-
     }
 
     
