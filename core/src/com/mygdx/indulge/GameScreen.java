@@ -32,9 +32,9 @@ public class GameScreen implements Screen {
         viewport = new StretchViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
 
         backgrounds = new Texture[3];
-        backgrounds[0] = new Texture("gluttony0.png");
-        backgrounds[1] = new Texture("gluttony1.png");
-        backgrounds[2] = new Texture("gluttony2.png");
+        backgrounds[0] = new Texture("gluttony00.png");
+        backgrounds[1] = new Texture("gluttony01.png");
+        backgrounds[2] = new Texture("gluttony02.png");
 
         bgMaxScrollingSpeed = (float) (WORLD_WIDTH) / 4;
 
