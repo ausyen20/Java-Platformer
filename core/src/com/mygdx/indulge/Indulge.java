@@ -43,7 +43,7 @@ public class Indulge extends Game {
         setScreen(new LevelGreed());
         break;
       case ENVY:
-        setScreen(new LevelLust());
+        setScreen(new LevelEnvy());
         break;
       case PRIDE:
         setScreen(new LevelLust());
@@ -73,7 +73,7 @@ public class Indulge extends Game {
     if(INSTANCE == null)
     INSTANCE = new Indulge();
 
-return INSTANCE;
+    return INSTANCE;
   }
   
 }

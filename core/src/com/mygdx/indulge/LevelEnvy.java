@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-public class LevelGreed implements Screen {
+public class LevelEnvy implements Screen {
 
     // Screen
     private Camera camera;
@@ -28,15 +28,15 @@ public class LevelGreed implements Screen {
     private final int WORLD_WIDTH = 1600;
     private final int WORLD_HEIGHT = 900;
 
-    LevelGreed() {
+    LevelEnvy() {
 
         camera = new OrthographicCamera();
         viewport = new StretchViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
 
         backgrounds = new Texture[3];
-        backgrounds[0] = new Texture("greed00.png");
-        backgrounds[1] = new Texture("greed01.png");
-        backgrounds[2] = new Texture("greed02.png");
+        backgrounds[0] = new Texture("envy00.png");
+        backgrounds[1] = new Texture("envy01.png");
+        backgrounds[2] = new Texture("envy02.png");
 
         bgMaxScrollingSpeed = (float) (WORLD_WIDTH) / 4;
 
@@ -46,8 +46,8 @@ public class LevelGreed implements Screen {
 
     @Override
     public void render(float deltaTime) {
-        if (Gdx.input.isKeyPressed(Input.Keys.F)) {
-            ((Indulge) Indulge.getInstance()).change_screen(Levels.ENVY);
+        if (Gdx.input.isKeyPressed(Input.Keys.G)) {
+            ((Indulge) Indulge.getInstance()).change_screen(Levels.LUST);
         }
         batch.begin();
 
