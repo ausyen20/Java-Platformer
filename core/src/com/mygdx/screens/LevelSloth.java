@@ -1,4 +1,4 @@
-package com.mygdx.indulge;
+package com.mygdx.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -9,8 +9,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.helpers.Levels;
+import com.mygdx.indulge.Indulge;
 
-public class LevelGreed implements Screen {
+public class LevelSloth implements Screen {
 
     // Screen
     private Camera camera;
@@ -28,15 +30,15 @@ public class LevelGreed implements Screen {
     private final int WORLD_WIDTH = 1600;
     private final int WORLD_HEIGHT = 900;
 
-    LevelGreed() {
+    public LevelSloth() {
 
         camera = new OrthographicCamera();
         viewport = new StretchViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
 
         backgrounds = new Texture[3];
-        backgrounds[0] = new Texture("greed00.png");
-        backgrounds[1] = new Texture("greed01.png");
-        backgrounds[2] = new Texture("greed02.png");
+        backgrounds[0] = new Texture("sloth00.png");
+        backgrounds[1] = new Texture("sloth01.png");
+        backgrounds[2] = new Texture("sloth02.png");
 
         bgMaxScrollingSpeed = (float) (WORLD_WIDTH) / 4;
 
@@ -46,8 +48,8 @@ public class LevelGreed implements Screen {
 
     @Override
     public void render(float deltaTime) {
-        if (Gdx.input.isKeyPressed(Input.Keys.F)) {
-            ((Indulge) Indulge.getInstance()).change_screen(Levels.ENVY);
+        if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+            ((Indulge) Indulge.getInstance()).change_screen(Levels.GREED);
         }
         batch.begin();
 

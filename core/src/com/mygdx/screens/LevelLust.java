@@ -1,4 +1,4 @@
-package com.mygdx.indulge;
+package com.mygdx.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -9,8 +9,10 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.helpers.Levels;
+import com.mygdx.indulge.Indulge;
 
-public class LevelEnvy implements Screen {
+public class LevelLust implements Screen {
 
     // Screen
     private Camera camera;
@@ -28,15 +30,15 @@ public class LevelEnvy implements Screen {
     private final int WORLD_WIDTH = 1600;
     private final int WORLD_HEIGHT = 900;
 
-    LevelEnvy() {
+    public LevelLust() {
 
         camera = new OrthographicCamera();
         viewport = new StretchViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
 
         backgrounds = new Texture[3];
-        backgrounds[0] = new Texture("envy00.png");
-        backgrounds[1] = new Texture("envy01.png");
-        backgrounds[2] = new Texture("envy02.png");
+        backgrounds[0] = new Texture("lust0.png");
+        backgrounds[1] = new Texture("lust01.png");
+        backgrounds[2] = new Texture("lust02.png");
 
         bgMaxScrollingSpeed = (float) (WORLD_WIDTH) / 4;
 
@@ -46,14 +48,12 @@ public class LevelEnvy implements Screen {
 
     @Override
     public void render(float deltaTime) {
-        if (Gdx.input.isKeyPressed(Input.Keys.G)) {
-            ((Indulge) Indulge.getInstance()).change_screen(Levels.LUST);
+        if (Gdx.input.isKeyPressed(Input.Keys.A)) {
+            ((Indulge) Indulge.getInstance()).change_screen(Levels.GLUTTONY);
         }
         batch.begin();
-
         // Scrolling background
         renderBackground(deltaTime);
-
         batch.end();
         
     }

@@ -1,7 +1,5 @@
-package com.mygdx.indulge;
+package com.mygdx.screens;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -10,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-public class LevelGluttony implements Screen {
+public class GameScreen implements Screen {
 
     // Screen
     private Camera camera;
@@ -28,7 +26,7 @@ public class LevelGluttony implements Screen {
     private final int WORLD_WIDTH = 1600;
     private final int WORLD_HEIGHT = 900;
 
-    LevelGluttony() {
+    GameScreen() {
 
         camera = new OrthographicCamera();
         viewport = new StretchViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
@@ -46,12 +44,11 @@ public class LevelGluttony implements Screen {
 
     @Override
     public void render(float deltaTime) {
-        if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-            ((Indulge) Indulge.getInstance()).change_screen(Levels.SLOTH);
-        }
         batch.begin();
+
         // Scrolling background
         renderBackground(deltaTime);
+
         batch.end();
         
     }

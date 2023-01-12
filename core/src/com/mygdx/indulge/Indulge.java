@@ -6,6 +6,12 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.mygdx.helpers.Levels;
+import com.mygdx.screens.LevelEnvy;
+import com.mygdx.screens.LevelGluttony;
+import com.mygdx.screens.LevelGreed;
+import com.mygdx.screens.LevelLust;
+import com.mygdx.screens.LevelSloth;
 
 public class Indulge extends Game {
 

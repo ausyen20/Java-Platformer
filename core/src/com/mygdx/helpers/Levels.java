@@ -1,4 +1,4 @@
-package com.mygdx.indulge;
+package com.mygdx.helpers;
 
 public enum Levels {
     LUST,
