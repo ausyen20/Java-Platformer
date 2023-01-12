@@ -33,7 +33,7 @@ public class LevelLust implements Screen {
         viewport = new StretchViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT, camera);
 
         backgrounds = new Texture[3];
-        backgrounds[0] = new Texture("lust0.png");
+        backgrounds[0] = new Texture("lust00.png");
         backgrounds[1] = new Texture("lust01.png");
         backgrounds[2] = new Texture("lust02.png");
 
