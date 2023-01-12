@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.helpers.Levels;
+import com.mygdx.helpers.Constants;
 import com.mygdx.indulge.Indulge;
 
 public class LevelEnvy implements Screen {
@@ -26,21 +27,17 @@ public class LevelEnvy implements Screen {
     private float[] backgroundOffsets = {0, 0, 0};
     private float bgMaxScrollingSpeed;
 
-    // World parameters
-    private final int WORLD_WIDTH = 1600;
-    private final int WORLD_HEIGHT = 900;
-
     public LevelEnvy() {
 
         camera = new OrthographicCamera();
-        viewport = new StretchViewport(WORLD_WIDTH, WORLD_HEIGHT, camera);
+        viewport = new StretchViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT, camera);
 
         backgrounds = new Texture[3];
         backgrounds[0] = new Texture("envy00.png");
         backgrounds[1] = new Texture("envy01.png");
         backgrounds[2] = new Texture("envy02.png");
 
-        bgMaxScrollingSpeed = (float) (WORLD_WIDTH) / 4;
+        bgMaxScrollingSpeed = (float) (Constants.WORLD_WIDTH) / 4;
 
         batch = new SpriteBatch();
     }
@@ -67,11 +64,11 @@ public class LevelEnvy implements Screen {
         backgroundOffsets[2] += deltaTime * bgMaxScrollingSpeed; 
 
         for (int layer = 0; layer < backgroundOffsets.length; layer++) {
-            if (backgroundOffsets[layer] > 3300) {
+            if (backgroundOffsets[layer] > Constants.ASSET_BACKGROUND_WIDTH) {
                 backgroundOffsets[layer] = 0;
             }
-            batch.draw(backgrounds[layer], -backgroundOffsets[layer], 0, 3300, WORLD_HEIGHT);
-            batch.draw(backgrounds[layer], -backgroundOffsets[layer] + 3300, 0, 3300, WORLD_HEIGHT);
+            batch.draw(backgrounds[layer], -backgroundOffsets[layer], 0, Constants.ASSET_BACKGROUND_WIDTH, Constants.WORLD_HEIGHT);
+            batch.draw(backgrounds[layer], -backgroundOffsets[layer] + Constants.ASSET_BACKGROUND_WIDTH, 0, 3300, Constants.WORLD_HEIGHT);
         }
     }
 
