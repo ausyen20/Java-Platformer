@@ -40,7 +40,7 @@ public class LevelLust implements Screen {
         backgrounds[2] = new Texture("backgrounds/lust02.png");
         layout = new Texture("layouts/layoutLust.png");
 
-        layoutScrollingSpeed = (float) (Constants.WORLD_WIDTH) / 4;
+        layoutScrollingSpeed = (float) (Constants.WORLD_WIDTH) / 5;
 
         batch = new SpriteBatch();
     }
@@ -76,12 +76,19 @@ public class LevelLust implements Screen {
     }
 
     private void renderLayout(float deltaTime) {
+        /*
+         * TODO:
+         * the scrolling stops as soon as the layout is completed.
+         * this may cause problems as the character only moves if the background keeps moving.
+         * might have to make the layout a little longer by adding a blank platform with no obstacles at the end.
+         * (it would also be nice to have a blank platform at the beginning so the user can get used to the game first.)
+         */
+
         layoutOffset += deltaTime * layoutScrollingSpeed;
-        if (layoutOffset > Constants.ASSET_LAYOUT_WIDTH) {
+        if (layoutOffset > Constants.ASSET_LAYOUT_WIDTH - Constants.WORLD_WIDTH) {
             layoutScrollingSpeed = 0;
         }
         batch.draw(layout, -layoutOffset, 0, Constants.ASSET_LAYOUT_WIDTH, Constants.WORLD_HEIGHT);
-        batch.draw(layout, -layoutOffset + Constants.ASSET_LAYOUT_WIDTH, 0, Constants.ASSET_LAYOUT_WIDTH, Constants.WORLD_HEIGHT);
     }
 
     
