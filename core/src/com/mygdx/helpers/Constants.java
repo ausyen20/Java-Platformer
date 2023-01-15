@@ -8,4 +8,8 @@ public class Constants {
 
     // Assets
     public static final int ASSET_BACKGROUND_WIDTH = 3300;
+    public static final int ASSET_LAYOUT_WIDTH = 25600;
+    public static final int ASSET_LAYOUT_HEIGHT = 960;
+
+
 }

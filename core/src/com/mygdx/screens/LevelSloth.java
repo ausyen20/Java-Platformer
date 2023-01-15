@@ -33,9 +33,9 @@ public class LevelSloth implements Screen {
         viewport = new StretchViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT, camera);
 
         backgrounds = new Texture[3];
-        backgrounds[0] = new Texture("sloth00.png");
-        backgrounds[1] = new Texture("sloth01.png");
-        backgrounds[2] = new Texture("sloth02.png");
+        backgrounds[0] = new Texture("backgrounds/sloth00.png");
+        backgrounds[1] = new Texture("backgrounds/sloth01.png");
+        backgrounds[2] = new Texture("backgrounds/sloth02.png");
 
         bgMaxScrollingSpeed = (float) (Constants.WORLD_WIDTH) / 4;
 

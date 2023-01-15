@@ -33,9 +33,9 @@ public class LevelGreed implements Screen {
         viewport = new StretchViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT, camera);
 
         backgrounds = new Texture[3];
-        backgrounds[0] = new Texture("greed00.png");
-        backgrounds[1] = new Texture("greed01.png");
-        backgrounds[2] = new Texture("greed02.png");
+        backgrounds[0] = new Texture("backgrounds/greed00.png");
+        backgrounds[1] = new Texture("backgrounds/greed01.png");
+        backgrounds[2] = new Texture("backgrounds/greed02.png");
 
         bgMaxScrollingSpeed = (float) (Constants.WORLD_WIDTH) / 4;
 

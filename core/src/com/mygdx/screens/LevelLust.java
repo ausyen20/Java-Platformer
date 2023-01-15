@@ -22,10 +22,12 @@ public class LevelLust implements Screen {
     // Graphics
     private SpriteBatch batch;
     private Texture[] backgrounds;
+    private Texture layout;
 
     // Timing
     private float[] backgroundOffsets = {0, 0, 0};
-    private float bgMaxScrollingSpeed;
+    private float layoutOffset = 0;
+    private float layoutScrollingSpeed;
 
     public LevelLust() {
 
@@ -33,11 +35,12 @@ public class LevelLust implements Screen {
         viewport = new StretchViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT, camera);
 
         backgrounds = new Texture[3];
-        backgrounds[0] = new Texture("lust00.png");
-        backgrounds[1] = new Texture("lust01.png");
-        backgrounds[2] = new Texture("lust02.png");
+        backgrounds[0] = new Texture("backgrounds/lust00.png");
+        backgrounds[1] = new Texture("backgrounds/lust01.png");
+        backgrounds[2] = new Texture("backgrounds/lust02.png");
+        layout = new Texture("layouts/layoutLust.png");
 
-        bgMaxScrollingSpeed = (float) (Constants.WORLD_WIDTH) / 4;
+        layoutScrollingSpeed = (float) (Constants.WORLD_WIDTH) / 4;
 
         batch = new SpriteBatch();
     }
@@ -51,23 +54,34 @@ public class LevelLust implements Screen {
         batch.begin();
         // Scrolling background
         renderBackground(deltaTime);
+        // Scrolling layout
+        renderLayout(deltaTime);
         batch.end();
         
     }
 
     private void renderBackground(float deltaTime) {
     
-        backgroundOffsets[0] += deltaTime * bgMaxScrollingSpeed / 4; 
-        backgroundOffsets[1] += deltaTime * bgMaxScrollingSpeed / 2; 
-        backgroundOffsets[2] += deltaTime * bgMaxScrollingSpeed; 
+        backgroundOffsets[0] += deltaTime * layoutScrollingSpeed / 6; 
+        backgroundOffsets[1] += deltaTime * layoutScrollingSpeed / 4; 
+        backgroundOffsets[2] += deltaTime * layoutScrollingSpeed / 2;
 
         for (int layer = 0; layer < backgroundOffsets.length; layer++) {
             if (backgroundOffsets[layer] > Constants.ASSET_BACKGROUND_WIDTH) {
                 backgroundOffsets[layer] = 0;
             }
             batch.draw(backgrounds[layer], -backgroundOffsets[layer], 0, Constants.ASSET_BACKGROUND_WIDTH, Constants.WORLD_HEIGHT);
-            batch.draw(backgrounds[layer], -backgroundOffsets[layer] + Constants.ASSET_BACKGROUND_WIDTH, 0, 3300, Constants.WORLD_HEIGHT);
+            batch.draw(backgrounds[layer], -backgroundOffsets[layer] + Constants.ASSET_BACKGROUND_WIDTH, 0, Constants.ASSET_BACKGROUND_WIDTH, Constants.WORLD_HEIGHT);
         }
+    }
+
+    private void renderLayout(float deltaTime) {
+        layoutOffset += deltaTime * layoutScrollingSpeed;
+        if (layoutOffset > Constants.ASSET_LAYOUT_WIDTH) {
+            layoutScrollingSpeed = 0;
+        }
+        batch.draw(layout, -layoutOffset, 0, Constants.ASSET_LAYOUT_WIDTH, Constants.WORLD_HEIGHT);
+        batch.draw(layout, -layoutOffset + Constants.ASSET_LAYOUT_WIDTH, 0, Constants.ASSET_LAYOUT_WIDTH, Constants.WORLD_HEIGHT);
     }
 
     

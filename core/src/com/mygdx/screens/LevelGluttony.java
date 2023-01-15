@@ -33,9 +33,9 @@ public class LevelGluttony implements Screen {
         viewport = new StretchViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT, camera);
 
         backgrounds = new Texture[3];
-        backgrounds[0] = new Texture("gluttony00.png");
-        backgrounds[1] = new Texture("gluttony01.png");
-        backgrounds[2] = new Texture("gluttony02.png");
+        backgrounds[0] = new Texture("backgrounds/gluttony00.png");
+        backgrounds[1] = new Texture("backgrounds/gluttony01.png");
+        backgrounds[2] = new Texture("backgrounds/gluttony02.png");
 
         bgMaxScrollingSpeed = (float) (Constants.WORLD_WIDTH) / 4;
 

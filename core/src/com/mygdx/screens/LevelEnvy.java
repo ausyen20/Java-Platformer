@@ -33,9 +33,9 @@ public class LevelEnvy implements Screen {
         viewport = new StretchViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT, camera);
 
         backgrounds = new Texture[3];
-        backgrounds[0] = new Texture("envy00.png");
-        backgrounds[1] = new Texture("envy01.png");
-        backgrounds[2] = new Texture("envy02.png");
+        backgrounds[0] = new Texture("backgrounds/envy00.png");
+        backgrounds[1] = new Texture("backgrounds/envy01.png");
+        backgrounds[2] = new Texture("backgrounds/envy02.png");
 
         bgMaxScrollingSpeed = (float) (Constants.WORLD_WIDTH) / 4;
 
