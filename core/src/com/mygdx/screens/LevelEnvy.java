@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.helpers.Levels;
@@ -25,7 +26,7 @@ public class LevelEnvy implements Screen {
 
     // Timing
     private float[] backgroundOffsets = {0, 0, 0};
-    private float bgMaxScrollingSpeed;
+    private float layoutScrollingSpeed;
 
     public LevelEnvy() {
 
@@ -37,7 +38,7 @@ public class LevelEnvy implements Screen {
         backgrounds[1] = new Texture("backgrounds/envy01.png");
         backgrounds[2] = new Texture("backgrounds/envy02.png");
 
-        bgMaxScrollingSpeed = (float) (Constants.WORLD_WIDTH) / 4;
+        layoutScrollingSpeed = (float) (Constants.WORLD_WIDTH) / 4;
 
         batch = new SpriteBatch();
     }
@@ -45,6 +46,8 @@ public class LevelEnvy implements Screen {
 
     @Override
     public void render(float deltaTime) {
+        // Clear screen
+        ScreenUtils.clear(0, 0, 0, 1);
         if (Gdx.input.isKeyPressed(Input.Keys.G)) {
             ((Indulge) Indulge.getInstance()).change_screen(Levels.LUST);
         }
@@ -59,9 +62,9 @@ public class LevelEnvy implements Screen {
 
     private void renderBackground(float deltaTime) {
     
-        backgroundOffsets[0] += deltaTime * bgMaxScrollingSpeed / 4; 
-        backgroundOffsets[1] += deltaTime * bgMaxScrollingSpeed / 2; 
-        backgroundOffsets[2] += deltaTime * bgMaxScrollingSpeed; 
+        backgroundOffsets[0] += deltaTime * layoutScrollingSpeed / 4; 
+        backgroundOffsets[1] += deltaTime * layoutScrollingSpeed / 2; 
+        backgroundOffsets[2] += deltaTime * layoutScrollingSpeed; 
 
         for (int layer = 0; layer < backgroundOffsets.length; layer++) {
             if (backgroundOffsets[layer] > Constants.ASSET_BACKGROUND_WIDTH) {

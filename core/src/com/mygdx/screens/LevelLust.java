@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.helpers.Levels;
@@ -48,6 +49,9 @@ public class LevelLust implements Screen {
 
     @Override
     public void render(float deltaTime) {
+        // Clear screen
+        ScreenUtils.clear(0, 0, 0, 1);
+        // Change screens with user input
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
             ((Indulge) Indulge.getInstance()).change_screen(Levels.GLUTTONY);
         }
@@ -57,7 +61,6 @@ public class LevelLust implements Screen {
         // Scrolling layout
         renderLayout(deltaTime);
         batch.end();
-        
     }
 
     private void renderBackground(float deltaTime) {
@@ -80,8 +83,7 @@ public class LevelLust implements Screen {
          * TODO:
          * the scrolling stops as soon as the layout is completed.
          * this may cause problems as the character only moves if the background keeps moving.
-         * might have to make the layout a little longer by adding a blank platform with no obstacles at the end.
-         * (it would also be nice to have a blank platform at the beginning so the user can get used to the game first.)
+         * we might have to add more movement to the character towards the end so it keeps moving when the screen has stopped scrolling.
          */
 
         layoutOffset += deltaTime * layoutScrollingSpeed;

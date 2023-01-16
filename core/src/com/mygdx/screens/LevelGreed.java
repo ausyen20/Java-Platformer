@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.helpers.Levels;
@@ -45,6 +46,8 @@ public class LevelGreed implements Screen {
 
     @Override
     public void render(float deltaTime) {
+        // Clear screen
+        ScreenUtils.clear(0,0,0,1);
         if (Gdx.input.isKeyPressed(Input.Keys.F)) {
             ((Indulge) Indulge.getInstance()).change_screen(Levels.ENVY);
         }
