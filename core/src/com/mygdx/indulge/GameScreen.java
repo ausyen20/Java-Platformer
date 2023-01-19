@@ -33,7 +33,7 @@ public class GameScreen extends ScreenAdapter{
 		this.box2DDebugRenderer = new Box2DDebugRenderer();
 		
 		//Creating map (level)
-		this.tileMapHelper = new tileMapHelper();
+		this.tileMapHelper = new tileMapHelper(this);
 		this.orthogonalTiledMapRenderer = tileMapHelper.setupMap();
 		
 	}
@@ -72,6 +72,10 @@ public class GameScreen extends ScreenAdapter{
 		
 		batch.end();
 		box2DDebugRenderer.render(world, camera.combined.scl(PPM));
+	}
+	
+	public World getWorld() {
+		return World;
 	}
 	
 }
