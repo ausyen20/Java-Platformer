@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.helpers.Levels;
 import com.mygdx.helpers.Constants;
 import com.mygdx.indulge.Indulge;
+import com.mygdx.objects.Player;
 
 public class LevelLust implements Screen {
 
@@ -29,6 +30,9 @@ public class LevelLust implements Screen {
     private float[] backgroundOffsets = {0, 0, 0};
     private float layoutOffset = 0;
     private float layoutScrollingSpeed;
+
+    // Objecty
+    private Player player;
 
     public LevelLust() {
 
@@ -124,6 +128,10 @@ public class LevelLust implements Screen {
     @Override
     public void dispose() {
         
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
     }
     
 }

@@ -25,12 +25,7 @@ public class Indulge extends Game {
 
   @Override
   public void create() {
-    //gameScreen = new GameScreen();
     gameScreen = new LevelLust();
-    //gameScreen = new LevelGluttony();
-    //gameScreen = new LevelSloth();
-    //gameScreen = new LevelGreed();
-
     setScreen(gameScreen);
   }
 

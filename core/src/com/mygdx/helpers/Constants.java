@@ -1,6 +1,8 @@
 package com.mygdx.helpers;
 
 public class Constants {
+
+    public static final float PPM = 32;
     
     // World parameters
     public static final int WORLD_WIDTH = 1600;
