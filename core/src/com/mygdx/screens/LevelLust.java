@@ -62,8 +62,15 @@ public class LevelLust extends GameScreen {
         }
         batch.setProjectionMatrix(this.camera.combined);
         batch.begin();
+        /*batch.draw(backgrounds[0], -backgroundOffsets[0], 0, Constants.ASSET_BACKGROUND_WIDTH, Constants.WORLD_HEIGHT);
+        batch.draw(backgrounds[0], -backgroundOffsets[0] + Constants.ASSET_BACKGROUND_WIDTH, 0, Constants.ASSET_BACKGROUND_WIDTH, Constants.WORLD_HEIGHT);
+        batch.draw(backgrounds[1], -backgroundOffsets[1], 0, Constants.ASSET_BACKGROUND_WIDTH, Constants.WORLD_HEIGHT);
+        batch.draw(backgrounds[1], -backgroundOffsets[1] + Constants.ASSET_BACKGROUND_WIDTH, 0, Constants.ASSET_BACKGROUND_WIDTH, Constants.WORLD_HEIGHT);
+        batch.draw(backgrounds[2], -backgroundOffsets[2], 0, Constants.ASSET_BACKGROUND_WIDTH, Constants.WORLD_HEIGHT);
+        batch.draw(backgrounds[2], -backgroundOffsets[2] + Constants.ASSET_BACKGROUND_WIDTH, 0, Constants.ASSET_BACKGROUND_WIDTH, Constants.WORLD_HEIGHT);*/
         // Scrolling background
         renderBackground(deltaTime);
+
         batch.end();
         camera.update(true);
         orthogonalTiledMapRenderer.render();
@@ -81,11 +88,39 @@ public class LevelLust extends GameScreen {
                 backgroundOffsets[layer] = 0;
             }
             batch.draw(backgrounds[layer], -backgroundOffsets[layer], 0, Constants.ASSET_BACKGROUND_WIDTH, Constants.WORLD_HEIGHT);
-            for (int i = 1; i < 9; i++ ) {
-                batch.draw(backgrounds[layer], -backgroundOffsets[layer] + i * Constants.ASSET_BACKGROUND_WIDTH, 0, Constants.ASSET_BACKGROUND_WIDTH, Constants.WORLD_HEIGHT);
+            batch.draw(backgrounds[layer], -backgroundOffsets[layer] + Constants.ASSET_BACKGROUND_WIDTH, 0, Constants.ASSET_BACKGROUND_WIDTH, Constants.WORLD_HEIGHT);
+            batch.draw(backgrounds[layer], -backgroundOffsets[layer] + 2 * Constants.ASSET_BACKGROUND_WIDTH, 0, Constants.ASSET_BACKGROUND_WIDTH, Constants.WORLD_HEIGHT);
+            batch.draw(backgrounds[layer], -backgroundOffsets[layer] + 3 * Constants.ASSET_BACKGROUND_WIDTH, 0, Constants.ASSET_BACKGROUND_WIDTH, Constants.WORLD_HEIGHT);
+            batch.draw(backgrounds[layer], -backgroundOffsets[layer] + 4 * Constants.ASSET_BACKGROUND_WIDTH, 0, Constants.ASSET_BACKGROUND_WIDTH, Constants.WORLD_HEIGHT);
+            batch.draw(backgrounds[layer], -backgroundOffsets[layer] + 5 * Constants.ASSET_BACKGROUND_WIDTH, 0, Constants.ASSET_BACKGROUND_WIDTH, Constants.WORLD_HEIGHT);
+            batch.draw(backgrounds[layer], -backgroundOffsets[layer] + 6 * Constants.ASSET_BACKGROUND_WIDTH, 0, Constants.ASSET_BACKGROUND_WIDTH, Constants.WORLD_HEIGHT);
+            batch.draw(backgrounds[layer], -backgroundOffsets[layer] + 7 * Constants.ASSET_BACKGROUND_WIDTH, 0, Constants.ASSET_BACKGROUND_WIDTH, Constants.WORLD_HEIGHT);
+            batch.draw(backgrounds[layer], -backgroundOffsets[layer] + 8 * Constants.ASSET_BACKGROUND_WIDTH, 0, Constants.ASSET_BACKGROUND_WIDTH, Constants.WORLD_HEIGHT);
 
-            }
         }
+    }
+    
+    @Override
+    public void resize(int width, int height) {
+    	camera.position.set(width/2f, height/2f, 0);
+        viewport.update(width, height, true);
+        batch.setProjectionMatrix(camera.combined);
+        
+    }
+    
+    @Override
+    public void pause() {
+        
+    }
+    
+    @Override
+    public void resume() {
+        
+    }
+    
+    @Override
+    public void hide() {
+        
     }
     
     public void setPlayer(Player player) {
