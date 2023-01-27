@@ -1,13 +1,7 @@
 package com.mygdx.indulge;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.helpers.Levels;
 import com.mygdx.screens.LevelEnvy;
 import com.mygdx.screens.LevelGluttony;
@@ -18,9 +12,6 @@ import com.mygdx.screens.LevelSloth;
 public class Indulge extends Game {
 
   private static Indulge INSTANCE = null;
-
-  private Camera camera;
-  private Viewport viewport;
 
   public Indulge() {
     INSTANCE = this;
@@ -51,12 +42,12 @@ public class Indulge extends Game {
       case ENVY:
         setScreen(new LevelEnvy());
         break;
-      /*case PRIDE:
+      case PRIDE:
         setScreen(new LevelLust());
         break;
       case WRATH:
         setScreen(new LevelLust());
-        break;*/
+        break;
     }
   }
 

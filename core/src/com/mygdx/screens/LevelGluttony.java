@@ -2,14 +2,9 @@ package com.mygdx.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.helpers.Levels;
 import com.mygdx.helpers.Constants;
 import com.mygdx.indulge.Indulge;
@@ -20,14 +15,13 @@ public class LevelGluttony extends GameScreen {
     private float bgMaxScrollingSpeed;
 
     public LevelGluttony() {
-
+        // Add background assets
         backgrounds = new Texture[3];
         backgrounds[0] = new Texture("backgrounds/gluttony00.png");
         backgrounds[1] = new Texture("backgrounds/gluttony01.png");
         backgrounds[2] = new Texture("backgrounds/gluttony02.png");
-
+        // Set background scrolling speed
         bgMaxScrollingSpeed = (float) (Constants.WORLD_WIDTH) / 4;
-
         batch = new SpriteBatch();
     }
 
@@ -36,6 +30,7 @@ public class LevelGluttony extends GameScreen {
     public void render(float deltaTime) {
         // Clear screen
         ScreenUtils.clear(0, 0, 0, 1);
+        // Change screens with user input
         if (Gdx.input.isKeyPressed(Input.Keys.S)) {
             ((Indulge) Indulge.getInstance()).change_screen(Levels.SLOTH);
         }
