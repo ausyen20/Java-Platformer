@@ -3,9 +3,13 @@ package com.mygdx.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.helpers.Levels;
 import com.mygdx.helpers.TileMapHelper;
@@ -13,11 +17,22 @@ import com.mygdx.helpers.Constants;
 import com.mygdx.indulge.Indulge;
 import com.mygdx.objects.Player;
 
-public class LevelLust extends GameScreen {
+public class LevelLust implements Screen {
+
+    // Screen
+    private OrthographicCamera camera;
+    private Viewport viewport;
+
+    // Graphics
+    private SpriteBatch batch;
+    private Texture[] backgrounds;
+    private World world;
+    float w = Gdx.graphics.getWidth();
+	float h = Gdx.graphics.getHeight();
 
     // Timing
     private float[] backgroundOffsets = {0, 0, 0};
-    private float bgMaxScrollingSpeed;
+    private float layoutScrollingSpeed;
 
     // Objects
     private Player player;
@@ -33,15 +48,13 @@ public class LevelLust extends GameScreen {
         backgrounds[0] = new Texture("backgrounds/lust00.png");
         backgrounds[1] = new Texture("backgrounds/lust01.png");
         backgrounds[2] = new Texture("backgrounds/lust02.png");
-        // Set background scrolling speed
-        bgMaxScrollingSpeed = (float) (Constants.WORLD_WIDTH) / 5;
-        orthogonalTiledMapRenderer = tileMapHelper.setupMap();
-        this.batch = new SpriteBatch();
-        // Set music
-        music=Gdx.audio.newMusic(Gdx.files.internal("Music/spy-jazz-20925.mp3"));
-        music.setLooping(true);
-        music.play();
 
+        layoutScrollingSpeed = (float) (Constants.WORLD_WIDTH) / 5;
+        orthogonalTiledMapRenderer=tileMapHelper.setupMap();
+        this.batch = new SpriteBatch();
+        music = Gdx.audio.newMusic(Gdx.files.internal("Music/spy-jazz-20925.mp3"));
+        music.setLooping(true);
+        music.play();     
     }
     
     @Override
@@ -62,12 +75,7 @@ public class LevelLust extends GameScreen {
         }
         batch.setProjectionMatrix(this.camera.combined);
         batch.begin();
-        /*batch.draw(backgrounds[0], -backgroundOffsets[0], 0, Constants.ASSET_BACKGROUND_WIDTH, Constants.WORLD_HEIGHT);
-        batch.draw(backgrounds[0], -backgroundOffsets[0] + Constants.ASSET_BACKGROUND_WIDTH, 0, Constants.ASSET_BACKGROUND_WIDTH, Constants.WORLD_HEIGHT);
-        batch.draw(backgrounds[1], -backgroundOffsets[1], 0, Constants.ASSET_BACKGROUND_WIDTH, Constants.WORLD_HEIGHT);
-        batch.draw(backgrounds[1], -backgroundOffsets[1] + Constants.ASSET_BACKGROUND_WIDTH, 0, Constants.ASSET_BACKGROUND_WIDTH, Constants.WORLD_HEIGHT);
-        batch.draw(backgrounds[2], -backgroundOffsets[2], 0, Constants.ASSET_BACKGROUND_WIDTH, Constants.WORLD_HEIGHT);
-        batch.draw(backgrounds[2], -backgroundOffsets[2] + Constants.ASSET_BACKGROUND_WIDTH, 0, Constants.ASSET_BACKGROUND_WIDTH, Constants.WORLD_HEIGHT);*/
+       
         // Scrolling background
         renderBackground(deltaTime);
 
@@ -125,5 +133,10 @@ public class LevelLust extends GameScreen {
     
     public void setPlayer(Player player) {
         this.player = player;
-    } 
+    }
+
+	public World getWorld() {
+		return world;
+	}
+    
 }
