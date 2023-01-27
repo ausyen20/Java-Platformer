@@ -14,24 +14,12 @@ import com.mygdx.helpers.Levels;
 import com.mygdx.helpers.Constants;
 import com.mygdx.indulge.Indulge;
 
-public class LevelSloth implements Screen {
-
-    // Screen
-    private Camera camera;
-    private Viewport viewport;
-
-    // Graphics
-    private SpriteBatch batch;
-    private Texture[] backgrounds;
-
+public class LevelSloth extends GameScreen {
     // Timing
     private float[] backgroundOffsets = {0, 0, 0};
     private float bgMaxScrollingSpeed;
 
     public LevelSloth() {
-
-        camera = new OrthographicCamera();
-        viewport = new StretchViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT, camera);
 
         backgrounds = new Texture[3];
         backgrounds[0] = new Texture("backgrounds/sloth00.png");
@@ -39,10 +27,8 @@ public class LevelSloth implements Screen {
         backgrounds[2] = new Texture("backgrounds/sloth02.png");
 
         bgMaxScrollingSpeed = (float) (Constants.WORLD_WIDTH) / 4;
-
         batch = new SpriteBatch();
     }
-
 
     @Override
     public void render(float deltaTime) {
@@ -52,12 +38,9 @@ public class LevelSloth implements Screen {
             ((Indulge) Indulge.getInstance()).change_screen(Levels.GREED);
         }
         batch.begin();
-
         // Scrolling background
         renderBackground(deltaTime);
-
         batch.end();
-        
     }
 
     private void renderBackground(float deltaTime) {
@@ -74,38 +57,4 @@ public class LevelSloth implements Screen {
             batch.draw(backgrounds[layer], -backgroundOffsets[layer] + Constants.ASSET_BACKGROUND_WIDTH, 0, 3300, Constants.WORLD_HEIGHT);
         }
     }
-
-    
-    @Override
-    public void resize(int width, int height) {
-        viewport.update(width, height, true);
-        batch.setProjectionMatrix(camera.combined);
-        
-    }
-    
-    @Override
-    public void pause() {
-        
-    }
-    
-    @Override
-    public void resume() {
-        
-    }
-    
-    @Override
-    public void hide() {
-        
-    }
-    
-    @Override
-    public void show() {
-        
-    }
-
-    @Override
-    public void dispose() {
-        
-    }
-    
 }

@@ -14,24 +14,13 @@ import com.mygdx.helpers.Levels;
 import com.mygdx.helpers.Constants;
 import com.mygdx.indulge.Indulge;
 
-public class LevelEnvy implements Screen {
-
-    // Screen
-    private Camera camera;
-    private Viewport viewport;
-
-    // Graphics
-    private SpriteBatch batch;
-    private Texture[] backgrounds;
+public class LevelEnvy extends GameScreen {
 
     // Timing
     private float[] backgroundOffsets = {0, 0, 0};
     private float layoutScrollingSpeed;
 
     public LevelEnvy() {
-
-        camera = new OrthographicCamera();
-        viewport = new StretchViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT, camera);
 
         backgrounds = new Texture[3];
         backgrounds[0] = new Texture("backgrounds/envy00.png");
@@ -52,12 +41,9 @@ public class LevelEnvy implements Screen {
             ((Indulge) Indulge.getInstance()).change_screen(Levels.LUST);
         }
         batch.begin();
-
         // Scrolling background
         renderBackground(deltaTime);
-
         batch.end();
-        
     }
 
     private void renderBackground(float deltaTime) {
@@ -74,38 +60,4 @@ public class LevelEnvy implements Screen {
             batch.draw(backgrounds[layer], -backgroundOffsets[layer] + Constants.ASSET_BACKGROUND_WIDTH, 0, 3300, Constants.WORLD_HEIGHT);
         }
     }
-
-    
-    @Override
-    public void resize(int width, int height) {
-        viewport.update(width, height, true);
-        batch.setProjectionMatrix(camera.combined);
-        
-    }
-    
-    @Override
-    public void pause() {
-        
-    }
-    
-    @Override
-    public void resume() {
-        
-    }
-    
-    @Override
-    public void hide() {
-        
-    }
-    
-    @Override
-    public void show() {
-        
-    }
-
-    @Override
-    public void dispose() {
-        
-    }
-    
 }
