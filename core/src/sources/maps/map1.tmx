@@ -3,7 +3,7 @@
  <tileset firstgid="1" source="tiles.tsx"/>
  <layer id="1" name="圖塊層 1" width="40" height="30">
   <data encoding="base64" compression="zlib">
-   eJztzjkKACAUxFCX+99ZLAQRt27mQwLpX0pEREREcSpqwKVuq2rEoWFz9M02N99qc/LtbC6+k83Bd7OpfS+b0vdj62fRPzZmjn0DF1IDqA==
+   eJzt1DEOACAIQ1HU+9/ZOLgJshWS/5LuDQpmAAAAfUx1gcDpttQlHLdbJupulbzmVoX3phVE/03ttwtKmT1Vyd6QIUr2vhFC+mYD6AIDwA==
   </data>
  </layer>
 </map>

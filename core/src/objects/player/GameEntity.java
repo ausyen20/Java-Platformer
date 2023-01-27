@@ -3,7 +3,7 @@ package objects.player;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Body;
 
-public class GameEntity {
+public abstract class GameEntity {
 
 	protected float x, y, velX, velY, speed;
 	protected float width, height;

@@ -13,7 +13,7 @@ public class DesktopLauncher {
     
     config.setTitle("Platformer");
     
-    config.setWindowedMode(1600, 900);
+    config.setWindowedMode(800, 800);
     new Lwjgl3Application(new Boot(), config);
   }
 }

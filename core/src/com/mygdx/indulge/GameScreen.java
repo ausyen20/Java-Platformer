@@ -13,6 +13,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import helper.Constants;
 import helper.tileMapHelper;
+import objects.player.Player;
 
 public class GameScreen extends ScreenAdapter{
 	//creating basic step ups for a whole new world
@@ -26,10 +27,15 @@ public class GameScreen extends ScreenAdapter{
 	private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
 	private tileMapHelper tileMapHelper;
 	
+	// game objects
+	private Player player;
+	
+	
 	public GameScreen(OrthographicCamera camera) {
 		this.camera = camera;
 		this.batch = new SpriteBatch();
-		this.world = new World(new Vector2(0,0), false);
+		//gravity may need to be -25 instead of -9.81
+		this.world = new World(new Vector2(0,-25f), false);
 		this.box2DDebugRenderer = new Box2DDebugRenderer();
 		
 		//Creating map (level)
@@ -43,7 +49,8 @@ public class GameScreen extends ScreenAdapter{
 		cameraUpdate();
 		batch.setProjectionMatrix(camera.combined);
 		orthogonalTiledMapRenderer.setView(camera);
-		
+		//
+		player.update();
 		if(Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
 			Gdx.app.exit();
 			
@@ -51,8 +58,13 @@ public class GameScreen extends ScreenAdapter{
 	}
 	
 	private void cameraUpdate() {
+		//Camera center to the player obj
+		Vector3 position = camera.position;
+		position.x = Math.round(player.getBody().getPosition().x * PPM * 10) / 10f;
+		position.y = Math.round(player.getBody().getPosition().y * PPM * 10) / 10f;
+		camera.position.set(position);
 		//Set the camera's position (original pos: 0,0,0)
-		camera.position.set(new Vector3(800, 800, 0));
+	
 		camera.update();
 		
 	}
@@ -75,7 +87,12 @@ public class GameScreen extends ScreenAdapter{
 	}
 	
 	public World getWorld() {
-		return World;
+		return world;
+	}
+	
+	public void setPlayer(Player player) {
+		this.player = player;
+		
 	}
 	
 }

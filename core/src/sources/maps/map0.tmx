@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="100" height="56" tilewidth="16" tileheight="16" infinite="0" nextlayerid="2" nextobjectid="1">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="100" height="56" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="14">
  <tileset firstgid="1" source="tiles.tsx"/>
  <layer id="1" name="圖塊層 1" width="100" height="56">
   <data encoding="base64" compression="zlib">
-   eJzt2VEKAiEUhtEZbP9rjrCoqKZxQu8Nz4F/A37oi8sCAAAAAAAAAHDcqcM45nJ268PKdeuPo92tRekw2vRsoUeb3i302G9ECz32GdVCj+9GttBj2+gWenwW0UKP96Ja6PEqsoUez6Jb6HGXoYUeVZYWetQW0Q30qDLdi9l7ZGwxa4+sLWbskblFWfr8AZuZ9Vj0e2lmZmZmZmZmZmb/szNU9hrz
+   eJzt10EKwjAURdHWdv9rrqWIiLQmYPK/5hx400wuJGSaAAAAAAAAAAD4B7f75gaj3qPF0mDUadlCjzqtW+hRrkcLPcr0aqHHZz1b6HGtdws9zkW02LcW7so3zsgkqoUe7yJb6PEquoX34ylDCz0OWVrokavF6D2ytRi5R8YWo/bI2mLEHplb7Cv9O5iZRS/6vjQzMzMzMzMzM7Pf2QbPsxtj
   </data>
  </layer>
+ <objectgroup id="4" name="objects">
+  <object id="3" x="-0.666667" y="480">
+   <polygon points="0,0 159.333,0 159.333,47.3333 1.33333,46"/>
+  </object>
+  <object id="4" x="271.333" y="480">
+   <polygon points="0,0 0.666667,45.3333 158.667,46.6667 158.667,-0.666667"/>
+  </object>
+  <object id="5" x="1" y="639">
+   <polygon points="0,0 0,254 958,256 958,-1"/>
+  </object>
+  <object id="10" x="958" y="638">
+   <polygon points="0,0 641,0 641,-302 307,-303"/>
+  </object>
+  <object id="12" name="player" x="144" y="592" width="16" height="16"/>
+ </objectgroup>
 </map>
