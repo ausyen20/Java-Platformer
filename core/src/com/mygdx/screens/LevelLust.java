@@ -2,47 +2,31 @@ package com.mygdx.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.helpers.Levels;
 import com.mygdx.helpers.Constants;
 import com.mygdx.indulge.Indulge;
+import com.mygdx.objects.Player;
 
-public class LevelLust implements Screen {
-
-    // Screen
-    private Camera camera;
-    private Viewport viewport;
-
-    // Graphics
-    private SpriteBatch batch;
-    private Texture[] backgrounds;
-    private Texture layout;
+public class LevelLust extends GameScreen {
 
     // Timing
     private float[] backgroundOffsets = {0, 0, 0};
-    private float layoutOffset = 0;
-    private float layoutScrollingSpeed;
+    private float bgMaxScrollingSpeed;
+
+    // Objects
+    private Player player;
 
     public LevelLust() {
-
-        camera = new OrthographicCamera();
-        viewport = new StretchViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT, camera);
-
+        // Add background assets
         backgrounds = new Texture[3];
         backgrounds[0] = new Texture("backgrounds/lust00.png");
         backgrounds[1] = new Texture("backgrounds/lust01.png");
         backgrounds[2] = new Texture("backgrounds/lust02.png");
-        layout = new Texture("layouts/layoutLust.png");
-
-        layoutScrollingSpeed = (float) (Constants.WORLD_WIDTH) / 5;
-
+        // Set background scrolling speed
+        bgMaxScrollingSpeed = (float) (Constants.WORLD_WIDTH) / 5;
         batch = new SpriteBatch();
     }
 
@@ -58,16 +42,14 @@ public class LevelLust implements Screen {
         batch.begin();
         // Scrolling background
         renderBackground(deltaTime);
-        // Scrolling layout
-        renderLayout(deltaTime);
         batch.end();
     }
 
     private void renderBackground(float deltaTime) {
     
-        backgroundOffsets[0] += deltaTime * layoutScrollingSpeed / 6; 
-        backgroundOffsets[1] += deltaTime * layoutScrollingSpeed / 4; 
-        backgroundOffsets[2] += deltaTime * layoutScrollingSpeed / 2;
+        backgroundOffsets[0] += deltaTime * bgMaxScrollingSpeed / 6; 
+        backgroundOffsets[1] += deltaTime * bgMaxScrollingSpeed / 4; 
+        backgroundOffsets[2] += deltaTime * bgMaxScrollingSpeed / 2;
 
         for (int layer = 0; layer < backgroundOffsets.length; layer++) {
             if (backgroundOffsets[layer] > Constants.ASSET_BACKGROUND_WIDTH) {
@@ -78,52 +60,8 @@ public class LevelLust implements Screen {
         }
     }
 
-    private void renderLayout(float deltaTime) {
-        /*
-         * TODO:
-         * the scrolling stops as soon as the layout is completed.
-         * this may cause problems as the character only moves if the background keeps moving.
-         * we might have to add more movement to the character towards the end so it keeps moving when the screen has stopped scrolling.
-         */
-
-        layoutOffset += deltaTime * layoutScrollingSpeed;
-        if (layoutOffset > Constants.ASSET_LAYOUT_WIDTH - Constants.WORLD_WIDTH) {
-            layoutScrollingSpeed = 0;
-        }
-        batch.draw(layout, -layoutOffset, 0, Constants.ASSET_LAYOUT_WIDTH, Constants.WORLD_HEIGHT);
-    }
-
-    
-    @Override
-    public void resize(int width, int height) {
-        viewport.update(width, height, true);
-        batch.setProjectionMatrix(camera.combined);
-        
-    }
-    
-    @Override
-    public void pause() {
-        
-    }
-    
-    @Override
-    public void resume() {
-        
-    }
-    
-    @Override
-    public void hide() {
-        
-    }
-    
-    @Override
-    public void show() {
-        
-    }
-
-    @Override
-    public void dispose() {
-        
+    public void setPlayer(Player player) {
+        this.player = player;
     }
     
 }

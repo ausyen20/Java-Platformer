@@ -1,11 +1,7 @@
 package com.mygdx.indulge;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.helpers.Levels;
 import com.mygdx.screens.LevelEnvy;
 import com.mygdx.screens.LevelGluttony;
@@ -25,12 +21,7 @@ public class Indulge extends Game {
 
   @Override
   public void create() {
-    //gameScreen = new GameScreen();
     gameScreen = new LevelLust();
-    //gameScreen = new LevelGluttony();
-    //gameScreen = new LevelSloth();
-    //gameScreen = new LevelGreed();
-
     setScreen(gameScreen);
   }
 

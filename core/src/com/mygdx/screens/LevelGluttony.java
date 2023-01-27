@@ -1,44 +1,26 @@
 package com.mygdx.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.utils.viewport.StretchViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.helpers.Levels;
 import com.mygdx.helpers.Constants;
 import com.mygdx.indulge.Indulge;
 
-public class LevelGluttony implements Screen {
-
-    // Screen
-    private Camera camera;
-    private Viewport viewport;
-
-    // Graphics
-    private SpriteBatch batch;
-    private Texture[] backgrounds;
-
+public class LevelGluttony extends GameScreen {
     // Timing
     private float[] backgroundOffsets = {0, 0, 0};
     private float bgMaxScrollingSpeed;
 
     public LevelGluttony() {
-
-        camera = new OrthographicCamera();
-        viewport = new StretchViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT, camera);
-
+        // Add background assets
         backgrounds = new Texture[3];
         backgrounds[0] = new Texture("backgrounds/gluttony00.png");
         backgrounds[1] = new Texture("backgrounds/gluttony01.png");
         backgrounds[2] = new Texture("backgrounds/gluttony02.png");
-
+        // Set background scrolling speed
         bgMaxScrollingSpeed = (float) (Constants.WORLD_WIDTH) / 4;
-
         batch = new SpriteBatch();
     }
 
@@ -47,6 +29,7 @@ public class LevelGluttony implements Screen {
     public void render(float deltaTime) {
         // Clear screen
         ScreenUtils.clear(0, 0, 0, 1);
+        // Change screens with user input
         if (Gdx.input.isKeyPressed(Input.Keys.S)) {
             ((Indulge) Indulge.getInstance()).change_screen(Levels.SLOTH);
         }
@@ -54,7 +37,6 @@ public class LevelGluttony implements Screen {
         // Scrolling background
         renderBackground(deltaTime);
         batch.end();
-        
     }
 
     private void renderBackground(float deltaTime) {
@@ -71,38 +53,4 @@ public class LevelGluttony implements Screen {
             batch.draw(backgrounds[layer], -backgroundOffsets[layer] + Constants.ASSET_BACKGROUND_WIDTH, 0, 3300, Constants.WORLD_HEIGHT);
         }
     }
-
-    
-    @Override
-    public void resize(int width, int height) {
-        viewport.update(width, height, true);
-        batch.setProjectionMatrix(camera.combined);
-        
-    }
-    
-    @Override
-    public void pause() {
-        
-    }
-    
-    @Override
-    public void resume() {
-        
-    }
-    
-    @Override
-    public void hide() {
-        
-    }
-    
-    @Override
-    public void show() {
-        
-    }
-
-    @Override
-    public void dispose() {
-        
-    }
-    
 }
