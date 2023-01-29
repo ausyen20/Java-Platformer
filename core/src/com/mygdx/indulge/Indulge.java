@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 
+//This class is not use in the final
+
 public class Indulge extends ApplicationAdapter {
 
   SpriteBatch batch;

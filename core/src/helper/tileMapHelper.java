@@ -5,12 +5,15 @@ import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.mygdx.indulge.GameScreen;
@@ -22,7 +25,13 @@ import static helper.Constants.PPM;
 public class tileMapHelper {
 
 	private TiledMap tiledMap;
+	//TL
+	private TiledMapTileLayer collisionLayer;
+	protected Fixture fixture;
+	
 	private GameScreen gameScreen;
+
+	
 	
 	public tileMapHelper(GameScreen gameScreen) {
 		this.gameScreen = gameScreen;
@@ -33,15 +42,24 @@ public class tileMapHelper {
 		//Load the whole map 
 		tiledMap = new TmxMapLoader().load("sources/maps/map0.tmx");
 		//in Tiled, objects layer
+		
 		parseMapObjects(tiledMap.getLayers().get("objects").getObjects());
 		return new OrthogonalTiledMapRenderer(tiledMap);
 	}
 	
 	private void parseMapObjects(MapObjects mapObjects) {
 		for(MapObject mapObject : mapObjects) {
-			
-			if(mapObject instanceof PolygonMapObject) {
+		
+		if(mapObject instanceof PolygonMapObject) {
+				
+				
 				createStaticBody((PolygonMapObject) mapObject);
+				
+				String poly = mapObject.getName();
+				if(poly.equals("spike")) {
+					
+				}
+				
 			}
 			
 			
@@ -58,7 +76,10 @@ public class tileMapHelper {
 					false, 
 					gameScreen.getWorld()
 					);
-					gameScreen.setPlayer(new Player(rectangle.getWidth(), rectangle.getHeight(), body));
+					
+					gameScreen.setPlayer(new Player(rectangle.getWidth(), rectangle.getHeight(), body, collisionLayer));
+					
+					
 					
 				}	
 			} 
@@ -66,11 +87,18 @@ public class tileMapHelper {
 	}
 	//create polygon objects for character to stand on
 	private void createStaticBody (PolygonMapObject polygonMapObject) {
+		
+		
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyDef.BodyType.StaticBody;
 		Body body = gameScreen.getWorld().createBody(bodyDef);
+		String name = polygonMapObject.getName();
+		
+		
+	
 		Shape shape = createPolygonShape(polygonMapObject);
 		body.createFixture(shape, 1000);
+		body.createFixture(shape, 1000).setUserData(name);
 		shape.dispose();
 	}
 
@@ -81,7 +109,6 @@ public class tileMapHelper {
 		for(int i = 0;  i < vertices.length/2 ; i++) {
 				Vector2 current = new Vector2(vertices[i*2] / PPM, vertices[i*2 + 1] /PPM);
 				worldVertices[i] = current;
-				
 		}
 		
 		PolygonShape shape = new PolygonShape();
@@ -89,5 +116,5 @@ public class tileMapHelper {
 		return shape;
 	}
 	
-	
+
 }

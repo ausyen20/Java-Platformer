@@ -3,26 +3,38 @@ package objects.player;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+
+import helper.tileMapHelper;
+
 import static helper.Constants.PPM;
 
 public class Player extends GameEntity{
 	
 	private int jumpCounter;
+	private String blockedKey = "blocked";
+	private TiledMapTileLayer collisionLayer;
+	private tileMapHelper TMH;
 	
-
-	public Player(float width, float height, Body body) {
+	
+	public Player(float width, float height, Body body, TiledMapTileLayer collisionLayer) {
 		super(width, height, body);
 		this.speed = 10f;
 		this.jumpCounter = 0;
+		this.collisionLayer = collisionLayer;
+		
 	}
 	
 	@Override
 	public void update() {
 		x = body.getPosition().x * PPM;
 		y = body.getPosition().y * PPM;
-		checkUserInput();
+		checkUserInput();	
+		
 	}
 
 	@Override
@@ -33,6 +45,9 @@ public class Player extends GameEntity{
 	//Basic Player Movement *note: vertical movement is fixed in project
 	//This is just a testing 
 	private void checkUserInput() {
+		float oldX = x, oldY = y;
+		boolean collisionX = false, collisionY = false;
+		
 		velX = 0;
 		if(Gdx.input.isKeyPressed(Input.Keys.D)) {
 			velX = 1;
@@ -55,4 +70,56 @@ public class Player extends GameEntity{
 		
 	}
 	
+
+	
+	
+	
+	//If the cell is blocked, then return true
+	private boolean isCellBlocked(float x, float y) {
+		Cell cell = collisionLayer.getCell((int) (x/collisionLayer.getTileWidth()), (int)(y/collisionLayer.getTileHeight()));
+		return cell != null && cell.getTile() != null && cell.getTile().getProperties().containsKey(blockedKey);
+		
+	}
+	
+	//Collision Detection for different sides
+	public boolean collidesRight() {
+		boolean collides = false;
+
+		for(float step = 0; step < getHeight(); step += collisionLayer.getTileHeight() / 2)
+			if(collides = isCellBlocked(getX() + getWidth(), getY() + step))
+				break;
+
+		return collides;
+	}
+	
+
+	public boolean collidesLeft() {
+		boolean collides = false;
+
+		for(float step = 0; step < getHeight(); step += collisionLayer.getTileHeight() / 2)
+			if(collides = isCellBlocked(getX(), getY() + step))
+				break;
+
+		return collides;
+	}
+
+	public boolean collidesTop() {
+		boolean collides = false;
+
+		for(float step = 0; step < getWidth(); step += collisionLayer.getTileWidth() / 2)
+			if(collides = isCellBlocked(getX() + step, getY() + getHeight()))
+				break;
+
+		return collides;
+	}
+
+	public boolean collidesBottom() {
+		boolean collides = false;
+
+		for(float step = 0; step < getWidth(); step += collisionLayer.getTileWidth() / 2)
+			if(collides = isCellBlocked(getX() + step, getY()))
+				break;
+
+		return collides;
+	}
 }

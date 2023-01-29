@@ -12,6 +12,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import helper.Constants;
+import helper.WorldContactListener;
 import helper.tileMapHelper;
 import objects.player.Player;
 
@@ -41,6 +42,7 @@ public class GameScreen extends ScreenAdapter{
 		//Creating map (level)
 		this.tileMapHelper = new tileMapHelper(this);
 		this.orthogonalTiledMapRenderer = tileMapHelper.setupMap();
+		world.setContactListener(new WorldContactListener());
 		
 	}
 	
@@ -63,7 +65,6 @@ public class GameScreen extends ScreenAdapter{
 		position.x = Math.round(player.getBody().getPosition().x * PPM * 10) / 10f;
 		position.y = Math.round(player.getBody().getPosition().y * PPM * 10) / 10f;
 		camera.position.set(position);
-		//Set the camera's position (original pos: 0,0,0)
 	
 		camera.update();
 		

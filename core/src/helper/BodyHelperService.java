@@ -22,8 +22,9 @@ public class BodyHelperService {
 		fixtureDef.shape = shape;
 		//fixtureDef.friction = 0;
 		body.createFixture(fixtureDef);
-		shape.dispose();
+		body.createFixture(fixtureDef).setUserData("player");
 		
+		shape.dispose();
 		return body;
 	}
 }
