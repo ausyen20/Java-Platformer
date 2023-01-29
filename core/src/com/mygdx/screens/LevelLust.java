@@ -2,7 +2,6 @@ package com.mygdx.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -11,21 +10,16 @@ import com.mygdx.helpers.Levels;
 import com.mygdx.helpers.TileMapHelper;
 import com.mygdx.helpers.Constants;
 import com.mygdx.indulge.Indulge;
-import com.mygdx.objects.Player;
 
 public class LevelLust extends GameScreen {
 
     // Timing
     private float[] backgroundOffsets = {0, 0, 0};
     private float bgMaxScrollingSpeed;
-
-    // Objects
-    private Player player;
-    private Music music;
     
     //Tiled Map
     private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
-    private TileMapHelper tileMapHelper=new TileMapHelper(this);
+    private TileMapHelper tileMapHelper = new TileMapHelper(this);
 
     public LevelLust() {
         // Set background texture
@@ -61,10 +55,10 @@ public class LevelLust extends GameScreen {
         }
         batch.setProjectionMatrix(this.camera.combined);
         batch.begin();
-       
+        
         // Scrolling background
         renderBackground(deltaTime);
-
+        
         batch.end();
         camera.update(true);
         orthogonalTiledMapRenderer.render();
@@ -88,8 +82,4 @@ public class LevelLust extends GameScreen {
             }
         }
     }
-    
-    public void setPlayer(Player player) {
-        this.player = player;
-    }    
 }

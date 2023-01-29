@@ -1,7 +1,9 @@
 package com.mygdx.screens;
 
+import com.badlogic.gdx.Audio;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -12,6 +14,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.helpers.Constants;
+import com.mygdx.objects.Player;
 
 public abstract class GameScreen implements Screen {
 
@@ -25,6 +28,10 @@ public abstract class GameScreen implements Screen {
     protected World world;
     protected float w = Gdx.graphics.getWidth();
 	protected float h = Gdx.graphics.getHeight();
+
+    // Objects
+    protected Player player;
+    protected Music music;
 
     public GameScreen() {
         camera = new OrthographicCamera(16, 9);
@@ -88,5 +95,10 @@ public abstract class GameScreen implements Screen {
 		// TODO Auto-generated method stub
 		return world;
 	}
+
+        
+    public void setPlayer(Player player) {
+        this.player = player;
+    }    
     
 }
