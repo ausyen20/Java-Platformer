@@ -1,34 +1,75 @@
 package com.mygdx.indulge;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Screen;
+import com.mygdx.helpers.Levels;
+import com.mygdx.screens.LevelEnvy;
+import com.mygdx.screens.LevelGluttony;
+import com.mygdx.screens.LevelGreed;
+import com.mygdx.screens.LevelLust;
+import com.mygdx.screens.LevelSloth;
 
-//This class is not use in the final
+public class Indulge extends Game {
+  private static Indulge INSTANCE = null;
 
-public class Indulge extends ApplicationAdapter {
+  public Indulge() {
+    INSTANCE = this;
+  }
 
-  SpriteBatch batch;
-  Texture img;
+  Screen gameScreen;
 
   @Override
   public void create() {
-    batch = new SpriteBatch();
-    img = new Texture("badlogic.jpg");
+    gameScreen = new LevelLust();
+    setScreen(gameScreen);
   }
 
-  @Override
-  public void render() {
-    ScreenUtils.clear(1, 0, 0, 1);
-    batch.begin();
-    batch.draw(img, 0, 0);
-    batch.end();
+  public void change_screen(Levels new_screen) {
+    switch(new_screen) {
+      case LUST:
+        setScreen(new LevelLust());
+        break;
+      case GLUTTONY:
+        setScreen(new LevelGluttony());
+        break;
+      case SLOTH:
+        setScreen(new LevelSloth());
+        break;
+      case GREED:
+        setScreen(new LevelGreed());
+        break;
+      case ENVY:
+        setScreen(new LevelEnvy());
+        break;
+      case PRIDE:
+        setScreen(new LevelLust());
+        break;
+      case WRATH:
+        setScreen(new LevelLust());
+        break;
+    }
   }
 
   @Override
   public void dispose() {
-    batch.dispose();
-    img.dispose();
+    gameScreen.dispose();
   }
+
+  @Override
+  public void render() {
+    super.render();
+  }
+
+  @Override
+  public void resize(int width, int height) {
+    gameScreen.resize(width, height);
+  }
+
+  public static Object getInstance() {
+    if(INSTANCE == null)
+    INSTANCE = new Indulge();
+
+    return INSTANCE;
+  }
+  
 }
