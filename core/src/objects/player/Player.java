@@ -33,8 +33,10 @@ public class Player extends GameEntity{
 	public void update() {
 		x = body.getPosition().x * PPM;
 		y = body.getPosition().y * PPM;
-		checkUserInput();	
 		
+		System.out.println("X: " + body.getPosition().x + ", Y: " + body.getPosition().y );
+		checkUserInput();	
+		OutofBound();
 	}
 
 	@Override
@@ -121,5 +123,13 @@ public class Player extends GameEntity{
 				break;
 
 		return collides;
+	}
+	
+	
+	public void OutofBound() {
+		if(body.getPosition().y < 0) {
+			System.out.println("out");
+		}
+		
 	}
 }
