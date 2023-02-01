@@ -10,7 +10,6 @@ import com.mygdx.screens.LevelLust;
 import com.mygdx.screens.LevelSloth;
 
 public class Indulge extends Game {
-
   private static Indulge INSTANCE = null;
 
   public Indulge() {
