@@ -51,15 +51,9 @@ public class Player extends GameEntity{
 		boolean collisionX = false, collisionY = false;
 		
 		velX = (float) 0.15;
-		/*if(Gdx.input.isKeyPressed(Input.Keys.D)) {
-			velX = (float) 0.2;
-		}*/
-		/*if(Gdx.input.isKeyPressed(Input.Keys.A)) {
-			velX = (float) -0.2;
-		}*/
 		
 		if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && jumpCounter < 2) {
-			float force = body.getMass() * 9;
+			float force = body.getMass() * 10;
 			body.setLinearVelocity(body.getLinearVelocity().x, 0);
 			body.applyLinearImpulse(new Vector2(0, force),  body.getPosition(), true);
 			jumpCounter++;
