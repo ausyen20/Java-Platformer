@@ -1,4 +1,4 @@
-package objects.player;
+package com.mygdx.objects.player;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -8,17 +8,18 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.mygdx.helpers.TileMapHelper;
 
-import helper.tileMapHelper;
+//import helper.tileMapHelper;
 
-import static helper.Constants.PPM;
+import com.mygdx.helpers.Constants;
 
 public class Player extends GameEntity{
 	
 	private int jumpCounter;
 	private String blockedKey = "blocked";
 	private TiledMapTileLayer collisionLayer;
-	private tileMapHelper TMH;
+	private TileMapHelper TMH;
 	
 	
 	public Player(float width, float height, Body body, TiledMapTileLayer collisionLayer) {
@@ -26,13 +27,12 @@ public class Player extends GameEntity{
 		this.speed = 10f;
 		this.jumpCounter = 0;
 		this.collisionLayer = collisionLayer;
-		
 	}
 	
 	@Override
 	public void update() {
-		x = body.getPosition().x * PPM;
-		y = body.getPosition().y * PPM;
+		x = body.getPosition().x * Constants.PPM;
+		y = body.getPosition().y * Constants.PPM;
 		
 		System.out.println("X: " + body.getPosition().x + ", Y: " + body.getPosition().y );
 		checkUserInput();	
@@ -50,16 +50,16 @@ public class Player extends GameEntity{
 		float oldX = x, oldY = y;
 		boolean collisionX = false, collisionY = false;
 		
-		velX = 0;
-		if(Gdx.input.isKeyPressed(Input.Keys.D)) {
-			velX = 1;
-		}
-		if(Gdx.input.isKeyPressed(Input.Keys.A)) {
-			velX = -1;
-		}
+		velX = (float) 0.15;
+		/*if(Gdx.input.isKeyPressed(Input.Keys.D)) {
+			velX = (float) 0.2;
+		}*/
+		/*if(Gdx.input.isKeyPressed(Input.Keys.A)) {
+			velX = (float) -0.2;
+		}*/
 		
 		if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && jumpCounter < 2) {
-			float force = body.getMass() * 12;
+			float force = body.getMass() * 9;
 			body.setLinearVelocity(body.getLinearVelocity().x, 0);
 			body.applyLinearImpulse(new Vector2(0, force),  body.getPosition(), true);
 			jumpCounter++;
@@ -71,10 +71,6 @@ public class Player extends GameEntity{
 		body.setLinearVelocity(velX * speed, body.getLinearVelocity().y< 25 ? body.getLinearVelocity().y :25);
 		
 	}
-	
-
-	
-	
 	
 	//If the cell is blocked, then return true
 	private boolean isCellBlocked(float x, float y) {
