@@ -2,6 +2,8 @@ package com.mygdx.indulge;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.mygdx.helpers.Constants;
 import com.mygdx.helpers.Levels;
 import com.mygdx.screens.LevelEnvy;
 import com.mygdx.screens.LevelGluttony;

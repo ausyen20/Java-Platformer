@@ -20,7 +20,12 @@ public class BodyHelper {
 
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
+        fixtureDef.friction = 0;
         body.createFixture(fixtureDef);
+         //Should add a line find the player triangle
+        body.createFixture(fixtureDef).setUserData("player");
+         
+        
         shape.dispose();
         return body;
     }
