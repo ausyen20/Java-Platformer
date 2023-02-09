@@ -331,7 +331,7 @@
   <object id="70" x="4912" y="144">
    <polygon points="0,0 80,0 80.5,12 -0.25,12"/>
   </object>
-  <object id="95" name="player" x="40.5" y="162" width="12" height="12"/>
+  <object id="95" name="player" x="40.5" y="150" width="14" height="20"/>
  </objectgroup>
  <objectgroup id="8" name="Items">
   <object id="91" name="heart_of_flames" x="1072" y="79.7273">

@@ -13,9 +13,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.utils.Timer;
 import com.mygdx.helpers.TileMapHelper;
-
-//import helper.tileMapHelper;
-
 import com.mygdx.helpers.Constants;
 
 public class Player extends GameEntity{
@@ -40,38 +37,38 @@ public class Player extends GameEntity{
 		this.speed = 10f;
 		this.jumpCounter = 0;
 		this.collisionLayer = collisionLayer;
-		// player animation
-		playerImage = new Texture("character/creatureWalk.png");
-		TextureRegion[][] tmpFrames = TextureRegion.split(playerImage, 20, 20);
-		walkFrames = new TextureRegion[13];
-		int index = 0;
-		for (int i = 0; i < 13; i++) {
-			walkFrames[index++] = tmpFrames[0][i];
-		} 
-		walkAnimation = new Animation<TextureRegion>(1f/13f, walkFrames);
+		walkAnimation();
 	}
 
 	public float getLinearVelocity() {
 		return body.getLinearVelocity().x;
 	}
+
+	public void walkAnimation() {
+		// player animation
+		playerImage = new Texture("character/creatureWalk.png");
+		TextureRegion[][] tmpFrames = TextureRegion.split(playerImage, Constants.PLAYER_SPRITE_WIDTH, Constants.PLAYER_SPRITE_HEIGHT);
+		walkFrames = new TextureRegion[5];
+		for (int i = 0; i < 5; i++) {
+			walkFrames[i] = tmpFrames[0][i];
+		} 
+		walkAnimation = new Animation<TextureRegion>(1f/13f, walkFrames);
+	}
 	
 	@Override
 	public void update() {
-		elapsedtime += Gdx.graphics.getDeltaTime();
 
 		x = body.getPosition().x * Constants.PPM;
 		y = body.getPosition().y * Constants.PPM;
 		
 		jump();	
 		OutofBound();
-
-		
 	}
 	
 	@Override
 	public void render(SpriteBatch batch) {
-		batch.draw(walkAnimation.getKeyFrame(elapsedtime, true), x - width/2, y - height/2, 20, 20);
-		
+		elapsedtime += Gdx.graphics.getDeltaTime();
+		batch.draw(walkAnimation.getKeyFrame(elapsedtime, true), x - width/2, y - height/2, Constants.PLAYER_SPRITE_WIDTH, Constants.PLAYER_SPRITE_HEIGHT);
 	}
 	
 	//Basic Player Movement

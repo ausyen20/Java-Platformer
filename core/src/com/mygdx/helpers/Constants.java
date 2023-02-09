@@ -13,4 +13,11 @@ public class Constants {
     public static final int ASSET_LAYOUT_WIDTH = 5120;
     public static final int ASSET_LAYOUT_HEIGHT = 192;
 
+    // Player
+    public static final int PLAYER_SPRITE_WIDTH = 20;
+    public static final int PLAYER_SPRITE_HEIGHT = 20;
+    public static final int PLAYER_HITBOX_WIDTH = 14;
+    public static final int PLAYER_HITBOX_HEIGHT = 20;
+
+
 }
