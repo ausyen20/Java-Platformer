@@ -46,12 +46,11 @@ public class LevelLust extends GameScreen {
 
     public LevelLust() {
         this.batch = new SpriteBatch();
-        this.world = new World(new Vector2(0,-18f),false);
+        this.world = new World(new Vector2(0,-20f),false);
         this.box2DDebugRenderer = new Box2DDebugRenderer();
         this.tileMapHelper = new TileMapHelper(this);
         this.orthogonalTiledMapRenderer = tileMapHelper.setupMap();
         world.setContactListener(new WorldContactListener());
-        //cameraUpdate();
         // Set background texture
         backgrounds = new Texture[3];
         backgrounds[0] = new Texture("backgrounds/lust00.png");
@@ -73,7 +72,6 @@ public class LevelLust extends GameScreen {
         System.out.println("X pos: " + player.getX());        
         System.out.println("Y pos: " + player.getY());
 
-
     	world.step(1/60f,6, 2);
     	
     	camera.update();
@@ -89,7 +87,6 @@ public class LevelLust extends GameScreen {
         batch.begin();
         // Scrolling background
         renderBackground(deltaTime);
-        //player.render(batch);
         batch.end();
         orthogonalTiledMapRenderer.render();
         camera.update(true);
@@ -106,9 +103,12 @@ public class LevelLust extends GameScreen {
             if (backgroundOffsets[layer] > Constants.ASSET_BACKGROUND_WIDTH) {
                 backgroundOffsets[layer] = 0;
             }
-            batch.draw(backgrounds[layer], -backgroundOffsets[layer], 0, Constants.ASSET_BACKGROUND_WIDTH, Constants.WORLD_HEIGHT);
-            for (int i = 1; i < 9; i++) {
-                batch.draw(backgrounds[layer], -backgroundOffsets[layer] + i * Constants.ASSET_BACKGROUND_WIDTH, 0, Constants.ASSET_BACKGROUND_WIDTH, Constants.WORLD_HEIGHT);
+            for (int i = 0; i < 2; i++) {
+                batch.draw(backgrounds[layer],
+                        -1 * backgroundOffsets[layer] + camera.position.x - camera.viewportWidth / 2 + (i * Constants.ASSET_BACKGROUND_WIDTH), 
+                        0,
+                        Constants.ASSET_BACKGROUND_WIDTH,
+                        Constants.WORLD_HEIGHT);
             }
         }
     }
@@ -127,9 +127,10 @@ public class LevelLust extends GameScreen {
 		Vector3 position = camera.position;
 		position.x = Math.round((player.getBody().getPosition().x  * Constants.PPM * 10) / 10f) + Constants.WORLD_WIDTH / 3;
         position.y = Constants.WORLD_HEIGHT / 2;
-		camera.position.set(position);
+		camera.position.set(position);   
         if (position.x >= Constants.ASSET_LAYOUT_WIDTH - Constants.WORLD_WIDTH / 2) {
             position.x = Constants.ASSET_LAYOUT_WIDTH - Constants.WORLD_WIDTH / 2;
+            bgMaxScrollingSpeed = 0;
         }
         else camera.update();
 	}
