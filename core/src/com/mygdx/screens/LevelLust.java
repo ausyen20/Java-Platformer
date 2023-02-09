@@ -42,7 +42,7 @@ public class LevelLust extends GameScreen {
 
     public LevelLust() {
         this.batch = new SpriteBatch();
-        this.world = new World(new Vector2(0,-20f),false);
+        this.world = new World(new Vector2(0,-7f),false);
         this.box2DDebugRenderer = new Box2DDebugRenderer();
         this.tileMapHelper = new TileMapHelper(this);
         this.orthogonalTiledMapRenderer = tileMapHelper.setupMap();

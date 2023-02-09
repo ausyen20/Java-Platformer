@@ -18,13 +18,15 @@ import com.mygdx.helpers.Constants;
 public class Player extends GameEntity{
 	
 	// player states
-	private enum State {JUMPING, FALLING, RUNNING, IDLE}
+	private enum State {JUMPING, FALLING, WALKING, IDLE}
 	private State currState;
-	private State previousState;
 	// player animations
 	private Texture playerImage; 
 	private TextureRegion[] walkFrames;
-	private Animation<TextureRegion> walkAnimation;
+	private TextureRegion[] fallFrames;
+	private TextureRegion[] upFrames;
+	private Animation<TextureRegion> animation;
+	private TextureRegion[][] splitFrames;
 	private float elapsedtime;
 
 	private int jumpCounter;
@@ -37,22 +39,54 @@ public class Player extends GameEntity{
 		this.speed = 10f;
 		this.jumpCounter = 0;
 		this.collisionLayer = collisionLayer;
-		walkAnimation();
+		playerImage = new Texture("character/creatureSheet.png");
+		splitFrames = TextureRegion.split(playerImage, Constants.PLAYER_SPRITE_WIDTH, Constants.PLAYER_SPRITE_HEIGHT);
+		changeState(State.WALKING);
 	}
 
 	public float getLinearVelocity() {
 		return body.getLinearVelocity().x;
 	}
 
+	public void changeState(State state) {
+		switch(state) {
+			case JUMPING:
+				upAnimation();
+				currState = State.JUMPING;
+				break;
+			case FALLING:
+				fallAnimation();
+				currState = State.FALLING;
+				break;
+			case WALKING:
+				walkAnimation();
+				currState = State.WALKING;
+				break;
+		}
+	}
+
 	public void walkAnimation() {
-		// player animation
-		playerImage = new Texture("character/creatureWalk.png");
-		TextureRegion[][] tmpFrames = TextureRegion.split(playerImage, Constants.PLAYER_SPRITE_WIDTH, Constants.PLAYER_SPRITE_HEIGHT);
 		walkFrames = new TextureRegion[5];
 		for (int i = 0; i < 5; i++) {
-			walkFrames[i] = tmpFrames[0][i];
+			walkFrames[i] = splitFrames[0][i];
 		} 
-		walkAnimation = new Animation<TextureRegion>(1f/13f, walkFrames);
+		animation = new Animation<TextureRegion>(1f/5f, walkFrames);
+	}
+
+	public void fallAnimation() {
+		fallFrames = new TextureRegion[7];
+		for (int i = 0; i < 7; i++) {
+			fallFrames[i] = splitFrames[1][i];
+		} 
+		animation = new Animation<TextureRegion>(1f/7f, fallFrames);
+	}
+
+	public void upAnimation() {
+		upFrames = new TextureRegion[6];
+		for (int i = 0; i < 6; i++) {
+			upFrames[i] = splitFrames[2][i];
+		} 
+		animation = new Animation<TextureRegion>(1f/6f, upFrames);
 	}
 	
 	@Override
@@ -68,7 +102,7 @@ public class Player extends GameEntity{
 	@Override
 	public void render(SpriteBatch batch) {
 		elapsedtime += Gdx.graphics.getDeltaTime();
-		batch.draw(walkAnimation.getKeyFrame(elapsedtime, true), x - width/2, y - height/2, Constants.PLAYER_SPRITE_WIDTH, Constants.PLAYER_SPRITE_HEIGHT);
+		batch.draw(animation.getKeyFrame(elapsedtime, true), x - width/2, y - height/2, Constants.PLAYER_SPRITE_WIDTH, Constants.PLAYER_SPRITE_HEIGHT);
 	}
 	
 	//Basic Player Movement
@@ -78,13 +112,18 @@ public class Player extends GameEntity{
 		
 		velX = (float) 0.15;
 		if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && jumpCounter < 2) {
-			float force = body.getMass() * 9;
+			changeState(State.JUMPING);
+			float force = body.getMass() * 4;
 			body.setLinearVelocity(body.getLinearVelocity().x, 0);
 			body.applyLinearImpulse(new Vector2(0, force),  body.getPosition(), true);
 			jumpCounter++;
 		}
+		if(body.getLinearVelocity().y < 0 && currState == State.JUMPING) {
+			changeState(State.FALLING);
+		}
 		// reset Jump Counter
 		if(body.getLinearVelocity().y == 0) {
+			changeState(State.WALKING);
 			jumpCounter = 0;
 		}
 		body.setLinearVelocity(velX * speed, body.getLinearVelocity().y< 25 ? body.getLinearVelocity().y :25);
