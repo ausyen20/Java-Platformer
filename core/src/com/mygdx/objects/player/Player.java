@@ -2,7 +2,10 @@ package com.mygdx.objects.player;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
@@ -17,6 +20,16 @@ import com.mygdx.helpers.Constants;
 
 public class Player extends GameEntity{
 	
+	// player states
+	private enum State {JUMPING, FALLING, RUNNING, IDLE}
+	private State currState;
+	private State previousState;
+	// player animations
+	private Texture playerImage; 
+	private TextureRegion[] walkFrames;
+	private Animation<TextureRegion> walkAnimation;
+	private float elapsedtime;
+
 	private int jumpCounter;
 	private String blockedKey = "blocked";
 	private TiledMapTileLayer collisionLayer;
@@ -27,6 +40,15 @@ public class Player extends GameEntity{
 		this.speed = 10f;
 		this.jumpCounter = 0;
 		this.collisionLayer = collisionLayer;
+		// player animation
+		playerImage = new Texture("character/creatureWalk.png");
+		TextureRegion[][] tmpFrames = TextureRegion.split(playerImage, 20, 20);
+		walkFrames = new TextureRegion[13];
+		int index = 0;
+		for (int i = 0; i < 13; i++) {
+			walkFrames[index++] = tmpFrames[0][i];
+		} 
+		walkAnimation = new Animation<TextureRegion>(1f/13f, walkFrames);
 	}
 
 	public float getLinearVelocity() {
@@ -35,15 +57,20 @@ public class Player extends GameEntity{
 	
 	@Override
 	public void update() {
+		elapsedtime += Gdx.graphics.getDeltaTime();
+
 		x = body.getPosition().x * Constants.PPM;
 		y = body.getPosition().y * Constants.PPM;
 		
 		jump();	
 		OutofBound();
-	}
 
+		
+	}
+	
 	@Override
 	public void render(SpriteBatch batch) {
+		batch.draw(walkAnimation.getKeyFrame(elapsedtime, true), x - width/2, y - height/2, 20, 20);
 		
 	}
 	

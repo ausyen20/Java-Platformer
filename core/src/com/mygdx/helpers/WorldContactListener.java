@@ -19,13 +19,13 @@ public class WorldContactListener implements ContactListener {
 		if(fa.getUserData() == null || fb.getUserData() == null) return;
 	
 		
-		System.out.println("A: " + fa.getUserData() + ", B: " + fb.getUserData());
+		//System.out.println("A: " + fa.getUserData() + ", B: " + fb.getUserData());
 	}
 
 	@Override
 	public void endContact(Contact contact) {
 		// TODO Auto-generated method stub
-		Gdx.app.log("End", "");
+		//Gdx.app.log("End", "");
 	}
 
 	@Override

@@ -82,6 +82,7 @@ public class LevelLust extends GameScreen {
         batch.begin();
         // Scrolling background
         renderBackground(deltaTime);
+        player.render(batch);
         batch.end();
         orthogonalTiledMapRenderer.render();
         camera.update(true);
