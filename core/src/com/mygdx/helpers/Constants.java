@@ -13,5 +13,4 @@ public class Constants {
     public static final int ASSET_LAYOUT_WIDTH = 5120;
     public static final int ASSET_LAYOUT_HEIGHT = 192;
 
-
 }

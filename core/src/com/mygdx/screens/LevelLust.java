@@ -23,17 +23,13 @@ import com.mygdx.objects.player.Player;
 
 public class LevelLust extends GameScreen {
 
-    // Screen
-    //protected OrthographicCamera camera;
-    //protected Viewport viewport;
-
-    protected Texture[] backgrounds;
-    protected float w = Gdx.graphics.getWidth();
-	protected float h = Gdx.graphics.getHeight();
+    private Texture[] backgrounds;
+    private float w = Gdx.graphics.getWidth();
+	private float h = Gdx.graphics.getHeight();
 
     // Timing
     private float[] backgroundOffsets = {0, 0, 0};
-    private float bgMaxScrollingSpeed;
+    //private float bgMaxScrollingSpeed;
     
     //Tiled Map
     private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
@@ -57,7 +53,8 @@ public class LevelLust extends GameScreen {
         backgrounds[1] = new Texture("backgrounds/lust01.png");
         backgrounds[2] = new Texture("backgrounds/lust02.png");
         // Set scrolling speed
-        bgMaxScrollingSpeed = (float) (Constants.WORLD_WIDTH) / 5;
+        //bgMaxScrollingSpeed = (float) (Constants.WORLD_WIDTH) / 5;
+
         // Set music
         music = Gdx.audio.newMusic(Gdx.files.internal("Music/spy-jazz-20925.mp3"));
         music.setLooping(true);
@@ -69,8 +66,6 @@ public class LevelLust extends GameScreen {
         this.update();
         // Clear screen
         ScreenUtils.clear(0, 0, 0, 1);
-        System.out.println("X pos: " + player.getX());        
-        System.out.println("Y pos: " + player.getY());
 
     	world.step(1/60f,6, 2);
     	
@@ -95,9 +90,9 @@ public class LevelLust extends GameScreen {
 
     private void renderBackground(float deltaTime) {
     
-        backgroundOffsets[0] += deltaTime * bgMaxScrollingSpeed / 6; 
-        backgroundOffsets[1] += deltaTime * bgMaxScrollingSpeed / 4; 
-        backgroundOffsets[2] += deltaTime * bgMaxScrollingSpeed / 2;
+        backgroundOffsets[0] += deltaTime * getScrollingSpeed() / 6; 
+        backgroundOffsets[1] += deltaTime * getScrollingSpeed() / 4; 
+        backgroundOffsets[2] += deltaTime * getScrollingSpeed() / 2;
 
         for (int layer = 0; layer < backgroundOffsets.length; layer++) {
             if (backgroundOffsets[layer] > Constants.ASSET_BACKGROUND_WIDTH) {
@@ -117,8 +112,7 @@ public class LevelLust extends GameScreen {
 		world.step(1/60f,6, 2);
 		cameraUpdate();
 		batch.setProjectionMatrix(camera.combined);
-		orthogonalTiledMapRenderer.setView(camera);
-	
+		orthogonalTiledMapRenderer.setView(camera);	
 		player.update();
 	}
 
@@ -128,9 +122,10 @@ public class LevelLust extends GameScreen {
 		position.x = Math.round((player.getBody().getPosition().x  * Constants.PPM * 10) / 10f) + Constants.WORLD_WIDTH / 3;
         position.y = Constants.WORLD_HEIGHT / 2;
 		camera.position.set(position);   
+        setScrollingSpeed(player.getLinearVelocity() * 100);
         if (position.x >= Constants.ASSET_LAYOUT_WIDTH - Constants.WORLD_WIDTH / 2) {
             position.x = Constants.ASSET_LAYOUT_WIDTH - Constants.WORLD_WIDTH / 2;
-            bgMaxScrollingSpeed = 0;
+            setScrollingSpeed(0);
         }
         else camera.update();
 	}

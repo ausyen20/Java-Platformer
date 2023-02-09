@@ -8,6 +8,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.utils.Timer;
 import com.mygdx.helpers.TileMapHelper;
 
 //import helper.tileMapHelper;
@@ -21,12 +22,15 @@ public class Player extends GameEntity{
 	private TiledMapTileLayer collisionLayer;
 	private TileMapHelper TMH;
 	
-	
 	public Player(float width, float height, Body body, TiledMapTileLayer collisionLayer) {
 		super(width, height, body);
 		this.speed = 10f;
 		this.jumpCounter = 0;
 		this.collisionLayer = collisionLayer;
+	}
+
+	public float getLinearVelocity() {
+		return body.getLinearVelocity().x;
 	}
 	
 	@Override
@@ -34,8 +38,7 @@ public class Player extends GameEntity{
 		x = body.getPosition().x * Constants.PPM;
 		y = body.getPosition().y * Constants.PPM;
 		
-		System.out.println("X: " + body.getPosition().x + ", Y: " + body.getPosition().y );
-		checkUserInput();	
+		jump();	
 		OutofBound();
 	}
 
@@ -44,33 +47,29 @@ public class Player extends GameEntity{
 		
 	}
 	
-	//Basic Player Movement *note: vertical movement is fixed in project
-	//This is just a testing 
-	private void checkUserInput() {
+	//Basic Player Movement
+	private void jump() {
 		float oldX = x, oldY = y;
 		boolean collisionX = false, collisionY = false;
 		
 		velX = (float) 0.15;
-		
 		if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && jumpCounter < 2) {
-			float force = body.getMass() * 10;
+			float force = body.getMass() * 9;
 			body.setLinearVelocity(body.getLinearVelocity().x, 0);
 			body.applyLinearImpulse(new Vector2(0, force),  body.getPosition(), true);
 			jumpCounter++;
 		}
-		//reset Jump Counter
+		// reset Jump Counter
 		if(body.getLinearVelocity().y == 0) {
 			jumpCounter = 0;
 		}
 		body.setLinearVelocity(velX * speed, body.getLinearVelocity().y< 25 ? body.getLinearVelocity().y :25);
-		
 	}
 	
 	//If the cell is blocked, then return true
 	private boolean isCellBlocked(float x, float y) {
 		Cell cell = collisionLayer.getCell((int) (x/collisionLayer.getTileWidth()), (int)(y/collisionLayer.getTileHeight()));
 		return cell != null && cell.getTile() != null && cell.getTile().getProperties().containsKey(blockedKey);
-		
 	}
 	
 	//Collision Detection for different sides
@@ -120,6 +119,5 @@ public class Player extends GameEntity{
 		if(body.getPosition().y < 0) {
 			System.out.println("out");
 		}
-		
 	}
 }

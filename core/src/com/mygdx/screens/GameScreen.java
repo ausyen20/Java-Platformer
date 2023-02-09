@@ -26,6 +26,9 @@ public abstract class GameScreen implements Screen {
     protected OrthographicCamera camera;
     protected Viewport viewport;
 
+    // Background
+    private float bgMaxScrollingSpeed;
+
     // Graphics
     //protected World world;
     protected SpriteBatch batch;
@@ -39,10 +42,8 @@ public abstract class GameScreen implements Screen {
 
     public GameScreen() {
         camera = new OrthographicCamera(16, 9);
-        //cameraupdate();
         viewport = new StretchViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT, camera);
-        //world = new World(new Vector2(0,-25f),false);
-
+        //bgMaxScrollingSpeed = (float) (Constants.WORLD_WIDTH) / 5;
     }
 
     @Override
@@ -85,4 +86,12 @@ public abstract class GameScreen implements Screen {
         // TODO Auto-generated method stub
         
     }    
+
+    public void setScrollingSpeed(float newSpeed) {
+        bgMaxScrollingSpeed = newSpeed;
+    }
+
+    public float getScrollingSpeed() {
+        return bgMaxScrollingSpeed;
+    }
 }
