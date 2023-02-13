@@ -42,6 +42,8 @@ public class LevelLust extends GameScreen {
 
     public LevelLust() {
         this.batch = new SpriteBatch();
+        this.front_batch = new SpriteBatch();
+
         this.world = new World(new Vector2(0,-7f),false);
         this.box2DDebugRenderer = new Box2DDebugRenderer();
         this.tileMapHelper = new TileMapHelper(this);
@@ -70,7 +72,7 @@ public class LevelLust extends GameScreen {
     	world.step(1/60f,6, 2);
     	
     	camera.update();
-    	batch.setProjectionMatrix(camera.combined);
+    	//batch.setProjectionMatrix(camera.combined);
     	orthogonalTiledMapRenderer.setView(camera);
         
         // Change screens with user input
@@ -79,12 +81,18 @@ public class LevelLust extends GameScreen {
         }
 
         batch.setProjectionMatrix(this.camera.combined);
+        front_batch.setProjectionMatrix(this.camera.combined);
+        // batch for the background
         batch.begin();
-        // Scrolling background
         renderBackground(deltaTime);
-        player.render(batch);
         batch.end();
         orthogonalTiledMapRenderer.render();
+
+        // batch for foreground (player, etc)
+        front_batch.begin();
+        player.render(front_batch);
+        front_batch.end();
+
         camera.update(true);
         box2DDebugRenderer.render(world, camera.combined.scl(Constants.PPM));
     }

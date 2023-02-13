@@ -32,6 +32,7 @@ public abstract class GameScreen implements Screen {
     // Graphics
     //protected World world;
     protected SpriteBatch batch;
+    protected SpriteBatch front_batch;
     protected Texture[] backgrounds;
     protected float w = Gdx.graphics.getWidth();
 	protected float h = Gdx.graphics.getHeight();
