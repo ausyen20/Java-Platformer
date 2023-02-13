@@ -1,37 +1,37 @@
-package com.mygdx.screens;
-
+package com.mygdx.screens.LevelScreens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.mygdx.helpers.Levels;
+import com.mygdx.helpers.LevelScreenTypes;
 import com.mygdx.helpers.Constants;
 import com.mygdx.indulge.Indulge;
 
-public class LevelSloth extends GameScreen {
+public class LevelGluttony extends GameScreen {
     // Timing
     private float[] backgroundOffsets = {0, 0, 0};
     private float bgMaxScrollingSpeed;
 
-    public LevelSloth() {
+    public LevelGluttony() {
         // Add background assets
         backgrounds = new Texture[3];
-        backgrounds[0] = new Texture("backgrounds/sloth00.png");
-        backgrounds[1] = new Texture("backgrounds/sloth01.png");
-        backgrounds[2] = new Texture("backgrounds/sloth02.png");
+        backgrounds[0] = new Texture("backgrounds/gluttony00.png");
+        backgrounds[1] = new Texture("backgrounds/gluttony01.png");
+        backgrounds[2] = new Texture("backgrounds/gluttony02.png");
         // Set background scrolling speed
         bgMaxScrollingSpeed = (float) (Constants.WORLD_WIDTH) / 4;
         batch = new SpriteBatch();
     }
 
+
     @Override
     public void render(float deltaTime) {
         // Clear screen
-        ScreenUtils.clear(0,0,0,1);
-        // Change screen with user input
-        if (Gdx.input.isKeyPressed(Input.Keys.D)) {
-            ((Indulge) Indulge.getInstance()).change_screen(Levels.GREED);
+        ScreenUtils.clear(0, 0, 0, 1);
+        // Change screens with user input
+        if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+            ((Indulge) Indulge.getInstance()).change_levels(LevelScreenTypes.SLOTH);
         }
         batch.begin();
         // Scrolling background

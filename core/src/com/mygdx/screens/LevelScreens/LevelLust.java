@@ -1,4 +1,4 @@
-package com.mygdx.screens;
+package com.mygdx.screens.LevelScreens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -13,12 +13,13 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.mygdx.helpers.Levels;
+import com.mygdx.helpers.LevelScreenTypes;
 import com.mygdx.helpers.TileMapHelper;
 import com.mygdx.helpers.WorldContactListener;
 import com.mygdx.helpers.Constants;
 import com.mygdx.indulge.Indulge;
 import com.mygdx.objects.player.Player;
+import com.mygdx.helpers.AudioManager;
 
 
 public class LevelLust extends GameScreen {
@@ -29,7 +30,6 @@ public class LevelLust extends GameScreen {
 
     // Timing
     private float[] backgroundOffsets = {0, 0, 0};
-    //private float bgMaxScrollingSpeed;
     
     //Tiled Map
     private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
@@ -54,13 +54,13 @@ public class LevelLust extends GameScreen {
         backgrounds[0] = new Texture("backgrounds/lust00.png");
         backgrounds[1] = new Texture("backgrounds/lust01.png");
         backgrounds[2] = new Texture("backgrounds/lust02.png");
-        // Set scrolling speed
-        //bgMaxScrollingSpeed = (float) (Constants.WORLD_WIDTH) / 5;
 
         // Set music
-        music = Gdx.audio.newMusic(Gdx.files.internal("Music/spy-jazz-20925.mp3"));
+        ((AudioManager) AudioManager.getInstance()).setMusic("Music/spy-jazz-20925.mp3");
+        ((AudioManager) AudioManager.getInstance()).playMusic();
+        /*music = Gdx.audio.newMusic(Gdx.files.internal("Music/spy-jazz-20925.mp3"));
         music.setLooping(true);
-        music.play();     
+        music.play();     */
     }
     
     @Override
@@ -77,7 +77,7 @@ public class LevelLust extends GameScreen {
         
         // Change screens with user input
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
-            ((Indulge) Indulge.getInstance()).change_screen(Levels.GLUTTONY);
+            ((Indulge) Indulge.getInstance()).change_levels(LevelScreenTypes.GLUTTONY);
         }
 
         batch.setProjectionMatrix(this.camera.combined);

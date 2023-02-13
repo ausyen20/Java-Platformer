@@ -16,7 +16,8 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.mygdx.objects.player.Player;
-import com.mygdx.screens.LevelLust;
+import com.mygdx.screens.LevelScreens.LevelLust;
+
 import static com.mygdx.helpers.Constants.PPM;
 
 public class TileMapHelper {

@@ -8,6 +8,10 @@ public class Constants {
     public static final int WORLD_WIDTH = 320;
     public static final int WORLD_HEIGHT = 180;
 
+    // Window size
+    public static final int WINDOW_WIDTH = 1600;
+    public static final int WINDOW_HEIGHT = 900;
+
     // Assets
     public static final int ASSET_BACKGROUND_WIDTH = 660;
     public static final int ASSET_LAYOUT_WIDTH = 5120;

@@ -4,12 +4,17 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.mygdx.helpers.Constants;
-import com.mygdx.helpers.Levels;
-import com.mygdx.screens.LevelEnvy;
-import com.mygdx.screens.LevelGluttony;
-import com.mygdx.screens.LevelGreed;
-import com.mygdx.screens.LevelLust;
-import com.mygdx.screens.LevelSloth;
+import com.mygdx.helpers.DemoScreenTypes;
+import com.mygdx.helpers.LevelScreenTypes;
+import com.mygdx.helpers.MenuScreenTypes;
+import com.mygdx.screens.DemoScreens.DemoLust;
+import com.mygdx.screens.LevelScreens.LevelEnvy;
+import com.mygdx.screens.LevelScreens.LevelGluttony;
+import com.mygdx.screens.LevelScreens.LevelGreed;
+import com.mygdx.screens.LevelScreens.LevelLust;
+import com.mygdx.screens.LevelScreens.LevelSloth;
+import com.mygdx.screens.MenuScreens.Options;
+import com.mygdx.screens.MenuScreens.TitleScreen;
 
 public class Indulge extends Game {
   private static Indulge INSTANCE = null;
@@ -22,12 +27,29 @@ public class Indulge extends Game {
 
   @Override
   public void create() {
-    gameScreen = new LevelLust();
+    gameScreen = new TitleScreen();
     setScreen(gameScreen);
   }
 
-  public void change_screen(Levels new_screen) {
-    switch(new_screen) {
+  public void change_menu(MenuScreenTypes new_menu) {
+    switch(new_menu) {
+      case TITLE:
+        setScreen(new TitleScreen(true));
+        //setScreen(titleScreen);
+        break;
+      case OPTIONS:
+        setScreen(new Options());
+        //setScreen(optionScreen);
+        break;
+      case END:
+        break;
+      default:
+        break;
+    }
+  }
+
+  public void change_levels(LevelScreenTypes new_level) {
+    switch(new_level) {
       case LUST:
         setScreen(new LevelLust());
         break;
@@ -48,6 +70,28 @@ public class Indulge extends Game {
         break;
       case WRATH:
         setScreen(new LevelLust());
+        break;
+    }
+  }
+
+  public void change_demo(DemoScreenTypes new_demo) {
+    switch(new_demo) {
+      case DEMO_LUST:
+        setScreen(new DemoLust());
+        break;
+      case DEMO_ENVY:
+        break;
+      case DEMO_GLUTTONY:
+        break;
+      case DEMO_GREED:
+        break;
+      case DEMO_PRIDE:
+        break;
+      case DEMO_SLOTH:
+        break;
+      case DEMO_WRATH:
+        break;
+      default:
         break;
     }
   }
@@ -73,5 +117,4 @@ public class Indulge extends Game {
 
     return INSTANCE;
   }
-  
 }

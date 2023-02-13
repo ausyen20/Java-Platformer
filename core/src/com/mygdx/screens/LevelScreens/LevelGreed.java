@@ -1,10 +1,10 @@
-package com.mygdx.screens;
+package com.mygdx.screens.LevelScreens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.mygdx.helpers.Levels;
+import com.mygdx.helpers.LevelScreenTypes;
 import com.mygdx.helpers.Constants;
 import com.mygdx.indulge.Indulge;
 
@@ -32,7 +32,7 @@ public class LevelGreed extends GameScreen {
         ScreenUtils.clear(0,0,0,1);
         // Change screens with user input
         if (Gdx.input.isKeyPressed(Input.Keys.F)) {
-            ((Indulge) Indulge.getInstance()).change_screen(Levels.ENVY);
+            ((Indulge) Indulge.getInstance()).change_levels(LevelScreenTypes.ENVY);
         }
         batch.begin();
         // Scrolling background

@@ -1,4 +1,4 @@
-package com.mygdx.screens;
+package com.mygdx.screens.LevelScreens;
 
 import com.badlogic.gdx.Audio;
 import com.badlogic.gdx.Gdx;
@@ -39,7 +39,7 @@ public abstract class GameScreen implements Screen {
 
     // Objects
     //protected Player player;
-    protected Music music;
+    //protected Music music;
 
     public GameScreen() {
         camera = new OrthographicCamera(16, 9);

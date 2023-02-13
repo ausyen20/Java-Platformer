@@ -1,6 +1,6 @@
 package com.mygdx.helpers;
 
-public enum Levels {
+public enum LevelScreenTypes {
     LUST,
     GLUTTONY,
     SLOTH,
