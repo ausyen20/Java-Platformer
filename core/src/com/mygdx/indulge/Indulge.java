@@ -32,6 +32,7 @@ public class Indulge extends Game {
   }
 
   public void change_menu(MenuScreenTypes new_menu) {
+    getScreen().dispose();
     switch(new_menu) {
       case TITLE:
         setScreen(new TitleScreen(true));
@@ -49,6 +50,7 @@ public class Indulge extends Game {
   }
 
   public void change_levels(LevelScreenTypes new_level) {
+    getScreen().dispose();
     switch(new_level) {
       case LUST:
         setScreen(new LevelLust());
@@ -75,6 +77,7 @@ public class Indulge extends Game {
   }
 
   public void change_demo(DemoScreenTypes new_demo) {
+    getScreen().dispose();
     switch(new_demo) {
       case DEMO_LUST:
         setScreen(new DemoLust());

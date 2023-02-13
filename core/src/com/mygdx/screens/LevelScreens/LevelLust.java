@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.helpers.LevelScreenTypes;
+import com.mygdx.helpers.MenuScreenTypes;
 import com.mygdx.helpers.TileMapHelper;
 import com.mygdx.helpers.WorldContactListener;
 import com.mygdx.helpers.Constants;
@@ -78,6 +79,9 @@ public class LevelLust extends GameScreen {
         // Change screens with user input
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
             ((Indulge) Indulge.getInstance()).change_levels(LevelScreenTypes.GLUTTONY);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.M)) {
+            ((Indulge) Indulge.getInstance()).change_menu(MenuScreenTypes.TITLE);
         }
 
         batch.setProjectionMatrix(this.camera.combined);

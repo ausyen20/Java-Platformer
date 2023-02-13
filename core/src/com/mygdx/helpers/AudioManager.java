@@ -2,13 +2,14 @@ package com.mygdx.helpers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.utils.Null;
 
 public class AudioManager {
 
     Music music;
     private static AudioManager INSTANCE = null;
 
-    public AudioManager() {
+    private AudioManager() {
         INSTANCE = this;
     }
 
@@ -24,6 +25,7 @@ public class AudioManager {
     }
 
     public void setMusic(String musicFile) {
+        if(music != null) music.dispose();
         music = Gdx.audio.newMusic(Gdx.files.internal(musicFile));
         music.setLooping(true);        
     }
