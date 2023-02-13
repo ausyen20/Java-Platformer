@@ -47,14 +47,14 @@ public class TitleScreen extends Menu{
      * Second constructor to make sure the audio doesn't loop over itself 
      * when we switch to title screen from options.
      */
-    public TitleScreen(boolean SCREEN_EXISTS) {
+    /*public TitleScreen(boolean SCREEN_EXISTS) {
         background = new Texture("titleScreen/titleBackground.png");
         indulgeTitle = new Texture("titleScreen/indulgeTitle.png");
 
         batch = new SpriteBatch();
         textbatch = new SpriteBatch();
 
-    }
+    }*/
 
     public void userInput() {
         playButton.addListener(new ClickListener()

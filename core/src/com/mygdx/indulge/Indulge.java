@@ -35,7 +35,7 @@ public class Indulge extends Game {
     getScreen().dispose();
     switch(new_menu) {
       case TITLE:
-        setScreen(new TitleScreen(true));
+        setScreen(new TitleScreen());
         //setScreen(titleScreen);
         break;
       case OPTIONS:

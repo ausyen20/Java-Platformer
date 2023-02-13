@@ -27,7 +27,6 @@ public class AudioManager {
     public void setMusic(String musicFile) {
         if(music != null) music.dispose();
         music = Gdx.audio.newMusic(Gdx.files.internal(musicFile));
-        music.setLooping(true);        
+        music.setLooping(true);  
     }
-    
 }
