@@ -49,8 +49,13 @@ public class LevelSloth extends GameScreen {
             if (backgroundOffsets[layer] > Constants.ASSET_BACKGROUND_WIDTH) {
                 backgroundOffsets[layer] = 0;
             }
-            batch.draw(backgrounds[layer], -backgroundOffsets[layer], 0, Constants.ASSET_BACKGROUND_WIDTH, Constants.WORLD_HEIGHT);
-            batch.draw(backgrounds[layer], -backgroundOffsets[layer] + Constants.ASSET_BACKGROUND_WIDTH, 0, 3300, Constants.WORLD_HEIGHT);
+            for (int i = 0; i < 2; i++) {
+                batch.draw(backgrounds[layer],
+                        -1 * backgroundOffsets[layer] + camera.position.x - camera.viewportWidth / 2 + (i * Constants.ASSET_BACKGROUND_WIDTH), 
+                        0,
+                        Constants.ASSET_BACKGROUND_WIDTH,
+                        Constants.WORLD_HEIGHT);
+            }
         }
     }
 }
