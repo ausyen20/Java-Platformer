@@ -1,7 +1,5 @@
 package com.mygdx.indulge;
 
-import javax.swing.event.SwingPropertyChangeSupport;
-
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
 import com.mygdx.helpers.DemoScreenTypes;
@@ -15,7 +13,7 @@ import com.mygdx.screens.LevelScreens.LevelLust;
 import com.mygdx.screens.LevelScreens.LevelSloth;
 import com.mygdx.screens.MenuScreens.Options;
 import com.mygdx.screens.MenuScreens.TitleScreen;
-
+ 
 public class Indulge extends Game {
   private static Indulge INSTANCE = null;
 
