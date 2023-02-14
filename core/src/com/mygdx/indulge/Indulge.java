@@ -1,9 +1,9 @@
 package com.mygdx.indulge;
 
+import javax.swing.event.SwingPropertyChangeSupport;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.mygdx.helpers.Constants;
 import com.mygdx.helpers.DemoScreenTypes;
 import com.mygdx.helpers.LevelScreenTypes;
 import com.mygdx.helpers.MenuScreenTypes;
@@ -36,11 +36,9 @@ public class Indulge extends Game {
     switch(new_menu) {
       case TITLE:
         setScreen(new TitleScreen());
-        //setScreen(titleScreen);
         break;
       case OPTIONS:
         setScreen(new Options());
-        //setScreen(optionScreen);
         break;
       case END:
         break;
@@ -101,7 +99,7 @@ public class Indulge extends Game {
 
   @Override
   public void dispose() {
-    gameScreen.dispose();
+    //gameScreen.dispose();
   }
 
   @Override

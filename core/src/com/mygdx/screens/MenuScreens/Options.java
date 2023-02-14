@@ -12,6 +12,7 @@ import com.mygdx.helpers.MenuScreenTypes;
 import com.mygdx.indulge.Indulge;
 
 public class Options extends Menu {
+
     private SpriteBatch batch;
     private SpriteBatch textbatch;
 

@@ -2,9 +2,7 @@ package com.mygdx.screens.MenuScreens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -35,26 +33,14 @@ public class TitleScreen extends Menu{
         background = new Texture("titleScreen/titleBackground.png");
         indulgeTitle = new Texture("titleScreen/indulgeTitle.png");
 
-        ((AudioManager) AudioManager.getInstance()).setMusic("Music/deviation-130965.mp3");
-        ((AudioManager) AudioManager.getInstance()).playMusic();
+        if(!((AudioManager) AudioManager.getInstance()).isAlreadyPlaying("Music/deviation-130965.mp3")) {
+            ((AudioManager) AudioManager.getInstance()).setMusic("Music/deviation-130965.mp3");
+            ((AudioManager) AudioManager.getInstance()).playMusic();
+        }
 
         batch = new SpriteBatch();
         textbatch = new SpriteBatch();
-
     }
-
-    /*
-     * Second constructor to make sure the audio doesn't loop over itself 
-     * when we switch to title screen from options.
-     */
-    /*public TitleScreen(boolean SCREEN_EXISTS) {
-        background = new Texture("titleScreen/titleBackground.png");
-        indulgeTitle = new Texture("titleScreen/indulgeTitle.png");
-
-        batch = new SpriteBatch();
-        textbatch = new SpriteBatch();
-
-    }*/
 
     public void userInput() {
         playButton.addListener(new ClickListener()

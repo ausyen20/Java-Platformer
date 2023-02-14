@@ -2,11 +2,11 @@ package com.mygdx.helpers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.utils.Null;
 
 public class AudioManager {
 
     Music music;
+    String file;
     private static AudioManager INSTANCE = null;
 
     private AudioManager() {
@@ -24,9 +24,13 @@ public class AudioManager {
         music.play();
     }
 
+    public boolean isAlreadyPlaying(String musicFile) {
+        return file == musicFile;
+    }
     public void setMusic(String musicFile) {
         if(music != null) music.dispose();
         music = Gdx.audio.newMusic(Gdx.files.internal(musicFile));
         music.setLooping(true);  
+        file = musicFile;
     }
 }
