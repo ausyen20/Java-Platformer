@@ -29,7 +29,7 @@ public class LevelLust extends GameScreen {
     // Timing
     private float[] backgroundOffsets = {0, 0, 0};
     private float timeSeconds = 0f;
-    private float period = 3f;
+    private float period = 2.8f;
     
     //Tiled Map
     private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
