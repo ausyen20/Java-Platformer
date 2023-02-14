@@ -40,6 +40,7 @@ public class LevelLust extends GameScreen {
     private Player player;
     private World world;
     private boolean PAUSED;
+    private boolean FIRSTPAUSED;
 
     public LevelLust() {
         this.batch = new SpriteBatch();
@@ -62,7 +63,8 @@ public class LevelLust extends GameScreen {
         ((AudioManager) AudioManager.getInstance()).setMusic("Music/spy-jazz-20925.mp3");
         ((AudioManager) AudioManager.getInstance()).playMusic();
 
-        PAUSED = true;
+        PAUSED = false;
+        FIRSTPAUSED = false;
     }
     
     @Override
@@ -71,13 +73,13 @@ public class LevelLust extends GameScreen {
         ScreenUtils.clear(0, 0, 0, 1);
 
         timeSeconds += Gdx.graphics.getDeltaTime();
-        if(timeSeconds > period){
-            timeSeconds-=period;
-            PAUSED = false;
-        }
+        if(timeSeconds < period){
+            FIRSTPAUSED = true;
+        } else FIRSTPAUSED = false;
+
 
     	world.step(1/60f,6, 2);
-        if (PAUSED) deltaTime = 0;
+        if (PAUSED || FIRSTPAUSED) deltaTime = 0;
         camera.update(true);
         this.update();
         
@@ -133,7 +135,7 @@ public class LevelLust extends GameScreen {
 		world.step(1/60f,6, 2);
 		batch.setProjectionMatrix(camera.combined);
 		orthogonalTiledMapRenderer.setView(camera);	
-        if (!PAUSED) {
+        if (!PAUSED && !FIRSTPAUSED) {
             cameraUpdate();
             player.update();
             world.setGravity(new Vector2(0, -7f));
