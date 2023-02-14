@@ -13,6 +13,7 @@ import com.mygdx.screens.LevelScreens.LevelLust;
 import com.mygdx.screens.LevelScreens.LevelSloth;
 import com.mygdx.screens.MenuScreens.Options;
 import com.mygdx.screens.MenuScreens.TitleScreen;
+import com.mygdx.helpers.AudioManager;
  
 public class Indulge extends Game {
   private static Indulge INSTANCE = null;
@@ -74,6 +75,7 @@ public class Indulge extends Game {
 
   public void change_demo(DemoScreenTypes new_demo) {
     getScreen().dispose();
+    ((AudioManager) AudioManager.getInstance()).disposeMusic();
     switch(new_demo) {
       case DEMO_LUST:
         setScreen(new DemoLust());

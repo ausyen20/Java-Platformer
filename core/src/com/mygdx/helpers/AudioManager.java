@@ -24,6 +24,10 @@ public class AudioManager {
         music.play();
     }
 
+    public void disposeMusic() {
+        music.dispose();
+    }
+
     public boolean isAlreadyPlaying(String musicFile) {
         return file == musicFile;
     }

@@ -28,6 +28,8 @@ public class LevelLust extends GameScreen {
 
     // Timing
     private float[] backgroundOffsets = {0, 0, 0};
+    private float timeSeconds = 0f;
+    private float period = 3f;
     
     //Tiled Map
     private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
@@ -60,19 +62,24 @@ public class LevelLust extends GameScreen {
         ((AudioManager) AudioManager.getInstance()).setMusic("Music/spy-jazz-20925.mp3");
         ((AudioManager) AudioManager.getInstance()).playMusic();
 
-        PAUSED = false;
-
+        PAUSED = true;
     }
     
     @Override
     public void render(float deltaTime) {
         // Clear screen
         ScreenUtils.clear(0, 0, 0, 1);
+
+        timeSeconds += Gdx.graphics.getDeltaTime();
+        if(timeSeconds > period){
+            timeSeconds-=period;
+            PAUSED = false;
+        }
+
     	world.step(1/60f,6, 2);
         if (PAUSED) deltaTime = 0;
         camera.update(true);
         this.update();
-        
         
         orthogonalTiledMapRenderer.setView(camera);
         // Change screens with user input
