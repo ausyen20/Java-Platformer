@@ -48,6 +48,10 @@ public class Player extends GameEntity{
 		return body.getLinearVelocity().x;
 	}
 
+	public void setSpeed(float speed) {
+		this.speed = speed;
+	}
+
 	public void changeState(State state) {
 		switch(state) {
 			case JUMPING:
@@ -87,6 +91,11 @@ public class Player extends GameEntity{
 			upFrames[i] = splitFrames[2][i];
 		} 
 		animation = new Animation<TextureRegion>(1f/6f, upFrames);
+	}
+
+	public void initPos() {
+		x = body.getPosition().x * Constants.PPM;
+		y = body.getPosition().y * Constants.PPM;
 	}
 	
 	@Override

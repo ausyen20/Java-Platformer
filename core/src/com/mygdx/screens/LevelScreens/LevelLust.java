@@ -37,6 +37,7 @@ public class LevelLust extends GameScreen {
 
     private Player player;
     private World world;
+    private boolean PAUSED;
 
     public LevelLust() {
         this.batch = new SpriteBatch();
@@ -47,6 +48,8 @@ public class LevelLust extends GameScreen {
         this.tileMapHelper = new TileMapHelper(this);
         this.orthogonalTiledMapRenderer = tileMapHelper.setupMap();
         world.setContactListener(new WorldContactListener());
+        player.initPos();
+
         // Set background texture
         backgrounds = new Texture[3];
         backgrounds[0] = new Texture("backgrounds/lust00.png");
@@ -56,29 +59,31 @@ public class LevelLust extends GameScreen {
         // Set music
         ((AudioManager) AudioManager.getInstance()).setMusic("Music/spy-jazz-20925.mp3");
         ((AudioManager) AudioManager.getInstance()).playMusic();
-        /*music = Gdx.audio.newMusic(Gdx.files.internal("Music/spy-jazz-20925.mp3"));
-        music.setLooping(true);
-        music.play();     */
+
+        PAUSED = false;
+
     }
     
     @Override
     public void render(float deltaTime) {
-        this.update();
         // Clear screen
         ScreenUtils.clear(0, 0, 0, 1);
-
     	world.step(1/60f,6, 2);
-    	
-    	camera.update();
-    	//batch.setProjectionMatrix(camera.combined);
-    	orthogonalTiledMapRenderer.setView(camera);
+        if (PAUSED) deltaTime = 0;
+        camera.update(true);
+        this.update();
         
+        
+        orthogonalTiledMapRenderer.setView(camera);
         // Change screens with user input
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
             ((Indulge) Indulge.getInstance()).change_levels(LevelScreenTypes.GLUTTONY);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.M)) {
             ((Indulge) Indulge.getInstance()).change_menu(MenuScreenTypes.TITLE);
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            PAUSED = !PAUSED;
         }
 
         batch.setProjectionMatrix(this.camera.combined);
@@ -94,7 +99,6 @@ public class LevelLust extends GameScreen {
         player.render(front_batch);
         front_batch.end();
 
-        camera.update(true);
         box2DDebugRenderer.render(world, camera.combined.scl(Constants.PPM));
     }
 
@@ -120,10 +124,16 @@ public class LevelLust extends GameScreen {
 
     private void update() {
 		world.step(1/60f,6, 2);
-		cameraUpdate();
 		batch.setProjectionMatrix(camera.combined);
 		orthogonalTiledMapRenderer.setView(camera);	
-		player.update();
+        if (!PAUSED) {
+            cameraUpdate();
+            player.update();
+            world.setGravity(new Vector2(0, -7f));
+        } else {
+            player.getBody().setLinearVelocity(0, 0);
+            world.setGravity(new Vector2(0, 0));
+        }
 	}
 
     private void cameraUpdate() {
