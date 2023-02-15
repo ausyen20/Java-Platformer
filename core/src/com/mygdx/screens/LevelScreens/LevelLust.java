@@ -169,7 +169,7 @@ public class LevelLust extends GameScreen {
 		position.x += cameraScrollingSpeed;
         position.y = Constants.WORLD_HEIGHT / 2;
 		camera.position.set(position);   
-        setScrollingSpeed(player.getLinearVelocity() * 100); // scrolling speed of the background matches the player
+        setScrollingSpeed(cameraScrollingSpeed * 100); // scrolling speed of the background matches the camera
         // If player is at the end of level, stop camera movement
         if (position.x >= Constants.ASSET_LAYOUT_WIDTH - Constants.WORLD_WIDTH / 2) {
             position.x = Constants.ASSET_LAYOUT_WIDTH - Constants.WORLD_WIDTH / 2;

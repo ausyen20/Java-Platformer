@@ -9,13 +9,13 @@ public class Constants {
     public static final float WORLD_HEIGHT = 180.0f;
 
     // Window size
-    public static final int WINDOW_WIDTH = 1600;
-    public static final int WINDOW_HEIGHT = 900;
+    public static final float WINDOW_WIDTH = 1600.0f;
+    public static final float WINDOW_HEIGHT = 900.0f;
 
     // Assets
-    public static final int ASSET_BACKGROUND_WIDTH = 660;
+    public static final float ASSET_BACKGROUND_WIDTH = 660.0f;
     public static final float ASSET_LAYOUT_WIDTH = 5120.0f;
-    public static final int ASSET_LAYOUT_HEIGHT = 192;
+    public static final float ASSET_LAYOUT_HEIGHT = 192.0f;
 
     // Player
     public static final int PLAYER_SPRITE_WIDTH = 20;
