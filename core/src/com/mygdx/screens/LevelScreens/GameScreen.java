@@ -50,9 +50,7 @@ public abstract class GameScreen implements Screen {
     public GameScreen() {
         camera = new OrthographicCamera(16, 9);
         viewport = new StretchViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT, camera);
-        //bgMaxScrollingSpeed = (float) (Constants.WORLD_WIDTH) / 5;
         stage = new Stage(new ScreenViewport());
-        Gdx.input.setInputProcessor(stage);
     }
 
     @Override
@@ -96,7 +94,7 @@ public abstract class GameScreen implements Screen {
         buttTextureRegionDrawable = new TextureRegionDrawable(buttTextureRegion);
 
         menuButton = new ImageButton(buttTextureRegionDrawable);
-        menuButton.setPosition((Constants.WINDOW_WIDTH - menuButton.getWidth()) / 2, Constants.WINDOW_HEIGHT / 6);
+        menuButton.setPosition((Constants.WINDOW_WIDTH - menuButton.getWidth()) / 2, Constants.WINDOW_HEIGHT / 4);
         menuButton.addListener(new ClickListener()
         {
             @Override
@@ -106,7 +104,6 @@ public abstract class GameScreen implements Screen {
         });
 
         stage.addActor(menuButton);
-        Gdx.input.setInputProcessor(stage);
     }    
 
     public void setScrollingSpeed(float newSpeed) {

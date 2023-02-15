@@ -29,6 +29,7 @@ public class LevelLust extends GameScreen {
     // Timing
     private float timeSeconds = 0f;
     private float period = 2.8f;
+    private float cameraScrollingSpeed;
     
     // Tiled Map
     private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
@@ -53,6 +54,7 @@ public class LevelLust extends GameScreen {
         this.orthogonalTiledMapRenderer = tileMapHelper.setupMap();
         world.setContactListener(new WorldContactListener());
         player.initPos();
+        cameraScrollingSpeed = player.getSpeed() / (100 * (Constants.WORLD_WIDTH / Constants.ASSET_LAYOUT_WIDTH));
 
         // Set background texture
         backgrounds = new Texture[3];
@@ -93,9 +95,6 @@ public class LevelLust extends GameScreen {
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
             ((Indulge) Indulge.getInstance()).change_levels(LevelScreenTypes.GLUTTONY);
         }
-        if (Gdx.input.isKeyPressed(Input.Keys.M)) {
-            ((Indulge) Indulge.getInstance()).change_menu(MenuScreenTypes.TITLE);
-        }
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) && !FIRSTPAUSED) {
             PAUSED = !PAUSED;
         }
@@ -108,6 +107,7 @@ public class LevelLust extends GameScreen {
         batch.end();
         orthogonalTiledMapRenderer.render();
 
+        // Show back to menu button if game paused
         if (PAUSED) {
             Gdx.input.setInputProcessor(stage);
             stage.act(Gdx.graphics.getDeltaTime());
@@ -165,7 +165,8 @@ public class LevelLust extends GameScreen {
     private void cameraUpdate() {
 		// Camera center to the player obj
 		Vector3 position = camera.position;
-		position.x = Math.round((player.getBody().getPosition().x  * Constants.PPM * 10) / 10f) + Constants.WORLD_WIDTH / 3;
+		//position.x = Math.round((player.getBody().getPosition().x  * Constants.PPM * 10) / 10f) + Constants.WORLD_WIDTH / 3;
+		position.x += cameraScrollingSpeed;
         position.y = Constants.WORLD_HEIGHT / 2;
 		camera.position.set(position);   
         setScrollingSpeed(player.getLinearVelocity() * 100); // scrolling speed of the background matches the player

@@ -53,6 +53,10 @@ public class Player extends GameEntity{
 		this.speed = speed;
 	}
 
+	public float getSpeed() {
+		return this.speed;
+	}
+
 	/*
 	 * Call animation renders depending on state
 	 */

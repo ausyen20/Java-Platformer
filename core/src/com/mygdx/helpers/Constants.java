@@ -5,8 +5,8 @@ public class Constants {
     public static final float PPM = 32.0f;
     
     // World parameters
-    public static final int WORLD_WIDTH = 320;
-    public static final int WORLD_HEIGHT = 180;
+    public static final float WORLD_WIDTH = 320.0f;
+    public static final float WORLD_HEIGHT = 180.0f;
 
     // Window size
     public static final int WINDOW_WIDTH = 1600;
@@ -14,7 +14,7 @@ public class Constants {
 
     // Assets
     public static final int ASSET_BACKGROUND_WIDTH = 660;
-    public static final int ASSET_LAYOUT_WIDTH = 5120;
+    public static final float ASSET_LAYOUT_WIDTH = 5120.0f;
     public static final int ASSET_LAYOUT_HEIGHT = 192;
 
     // Player
