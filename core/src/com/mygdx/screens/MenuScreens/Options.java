@@ -56,7 +56,7 @@ public class Options extends Menu {
         
         // Batch for text on buttons
         textbatch.begin();
-        textbatch.draw(returnText, (Constants.WINDOW_WIDTH - returnButton.getWidth()) / 2, Constants.WINDOW_HEIGHT / 6);
+        textbatch.draw(returnText, (Constants.WINDOW_WIDTH - returnButton.getWidth()) / 2, Constants.WINDOW_HEIGHT / 7);
         textbatch.end();
     }
 
@@ -64,7 +64,7 @@ public class Options extends Menu {
         super.show();
 
         returnButton = new ImageButton(buttTextureRegionDrawable);
-        returnButton.setPosition((Constants.WINDOW_WIDTH - returnButton.getWidth()) / 2, Constants.WINDOW_HEIGHT / 6);
+        returnButton.setPosition((Constants.WINDOW_WIDTH - returnButton.getWidth()) / 2, Constants.WINDOW_HEIGHT / 7);
         returnButton.addListener(new ClickListener()
         {
             @Override
@@ -74,14 +74,20 @@ public class Options extends Menu {
         });
         returnText = new Texture("titleScreen/return.png");
 
-        /*buttonGroup = new ButtonGroup<ImageButton>(normalButton, assistButton);
+        normalButton = new ImageButton(buttTextureRegionDrawable);
+        normalButton.setPosition(Constants.WINDOW_WIDTH / 10, Constants.WINDOW_HEIGHT / 1.5f);
+        
+        assistButton = new ImageButton(buttTextureRegionDrawable);
+        assistButton.setPosition(Constants.WINDOW_WIDTH / 10, Constants.WINDOW_HEIGHT / 2.5f);
+
+        buttonGroup = new ButtonGroup<ImageButton>(normalButton, assistButton);
         buttonGroup.setMaxCheckCount(1);
         buttonGroup.setMinCheckCount(0);
-        buttonGroup.setUncheckLast(true);*/
+        buttonGroup.setUncheckLast(true);
 
         stage.addActor(returnButton);
-        /*stage.addActor(normalButton);
-        stage.addActor(assistButton);*/
+        stage.addActor(normalButton);
+        stage.addActor(assistButton);
     }
 
     @Override

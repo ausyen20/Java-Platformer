@@ -56,8 +56,6 @@ public abstract class GameScreen implements Screen {
 
     // Objects
     //protected Player player;
-    //protected Music music;
-
     public GameScreen() {
         camera = new OrthographicCamera(16, 9);
         viewport = new StretchViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT, camera);
@@ -132,7 +130,6 @@ public abstract class GameScreen implements Screen {
         restartButton = new ImageButton(buttTextureRegionDrawable);
         restartButton.setPosition((Constants.WINDOW_WIDTH - restartButton.getWidth()) / 2, Constants.WINDOW_HEIGHT / 3);
         restartText = new Texture("titleScreen/restart.png");
-
 
         stage.addActor(menuButton);
         stage.addActor(resumeButton);
