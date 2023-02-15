@@ -81,8 +81,10 @@ public class LevelLust extends GameScreen {
 
     	world.step(1/60f,6, 2);
         // if paused, set deltatime to 0 to stop background scrolling
-        if (PAUSED || FIRSTPAUSED) deltaTime = 0;
-
+        if (PAUSED || FIRSTPAUSED) {
+            deltaTime = 0;
+        } 
+        
         camera.update(true);
         this.update();
         orthogonalTiledMapRenderer.setView(camera);
@@ -105,6 +107,14 @@ public class LevelLust extends GameScreen {
         renderBackground(deltaTime);
         batch.end();
         orthogonalTiledMapRenderer.render();
+
+        if (PAUSED) {
+            Gdx.input.setInputProcessor(stage);
+            stage.act(Gdx.graphics.getDeltaTime());
+            stage.draw();
+        } else {
+            Gdx.input.setInputProcessor(null);
+        }
 
         // batch for foreground (player, etc)
         front_batch.begin();
@@ -166,6 +176,11 @@ public class LevelLust extends GameScreen {
         }
         else camera.update();
 	}
+
+    @Override
+    public void show() {
+        super.show();
+    }
 
     public World getWorld() {
 		return world;

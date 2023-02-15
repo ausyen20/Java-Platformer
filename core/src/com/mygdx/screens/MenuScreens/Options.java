@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -31,6 +32,7 @@ public class Options extends Menu {
     private Texture normalText;
     private ImageButton assistButton;    
     private Texture assistText;
+    private ButtonGroup<ImageButton> buttonGroup;
 
     public Options() {
         background = new Texture("titleScreen/titleBackground.png");
@@ -72,7 +74,14 @@ public class Options extends Menu {
         });
         returnText = new Texture("titleScreen/return.png");
 
+        buttonGroup = new ButtonGroup<ImageButton>(normalButton, assistButton);
+        buttonGroup.setMaxCheckCount(1);
+        buttonGroup.setMinCheckCount(0);
+        buttonGroup.setUncheckLast(true);
+
         stage.addActor(returnButton);
+        stage.addActor(normalButton);
+        stage.addActor(assistButton);
         Gdx.input.setInputProcessor(stage);
     }
 
