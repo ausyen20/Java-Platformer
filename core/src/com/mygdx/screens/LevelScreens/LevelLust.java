@@ -40,13 +40,10 @@ public class LevelLust extends GameScreen {
     private Player player;
     private World world;
 
-    // Pause Screen booleans
-    private boolean PAUSED;
-    private boolean FIRSTPAUSED;
-
     public LevelLust() {
         this.batch = new SpriteBatch();
         this.front_batch = new SpriteBatch();
+        this.textbatch = new SpriteBatch();
 
         this.world = new World(new Vector2(0,-7f),false);
         this.box2DDebugRenderer = new Box2DDebugRenderer();
@@ -65,9 +62,6 @@ public class LevelLust extends GameScreen {
         // Set music
         ((AudioManager) AudioManager.getInstance()).setMusic("Music/spy-jazz-20925.mp3");
         ((AudioManager) AudioManager.getInstance()).playMusic();
-
-        PAUSED = false;
-        FIRSTPAUSED = false;
     }
     
     @Override
@@ -107,19 +101,21 @@ public class LevelLust extends GameScreen {
         batch.end();
         orthogonalTiledMapRenderer.render();
 
+        // batch for foreground (player, etc)
+        front_batch.begin();
+        player.render(front_batch);
+        front_batch.end();
+        
         // Show back to menu button if game paused
         if (PAUSED) {
             Gdx.input.setInputProcessor(stage);
             stage.act(Gdx.graphics.getDeltaTime());
             stage.draw();
-        } else {
-            Gdx.input.setInputProcessor(null);
-        }
-
-        // batch for foreground (player, etc)
-        front_batch.begin();
-        player.render(front_batch);
-        front_batch.end();
+            textbatch.begin();
+            textbatch.draw(menuText, (Constants.WINDOW_WIDTH - menuButton.getWidth()) / 2, Constants.WINDOW_HEIGHT / 3.5f);
+            textbatch.draw(resumeText, (Constants.WINDOW_WIDTH - resumeButton.getWidth()) / 2, Constants.WINDOW_HEIGHT / 2);
+            textbatch.end();
+        } else Gdx.input.setInputProcessor(null);
 
         box2DDebugRenderer.render(world, camera.combined.scl(Constants.PPM));
     }
@@ -163,8 +159,8 @@ public class LevelLust extends GameScreen {
 	}
 
     private void cameraUpdate() {
+        Vector3 position = camera.position;
 		// Camera center to the player obj
-		Vector3 position = camera.position;
 		//position.x = Math.round((player.getBody().getPosition().x  * Constants.PPM * 10) / 10f) + Constants.WORLD_WIDTH / 3;
 		position.x += cameraScrollingSpeed;
         position.y = Constants.WORLD_HEIGHT / 2;

@@ -74,15 +74,14 @@ public class Options extends Menu {
         });
         returnText = new Texture("titleScreen/return.png");
 
-        buttonGroup = new ButtonGroup<ImageButton>(normalButton, assistButton);
+        /*buttonGroup = new ButtonGroup<ImageButton>(normalButton, assistButton);
         buttonGroup.setMaxCheckCount(1);
         buttonGroup.setMinCheckCount(0);
-        buttonGroup.setUncheckLast(true);
+        buttonGroup.setUncheckLast(true);*/
 
         stage.addActor(returnButton);
-        stage.addActor(normalButton);
-        stage.addActor(assistButton);
-        Gdx.input.setInputProcessor(stage);
+        /*stage.addActor(normalButton);
+        stage.addActor(assistButton);*/
     }
 
     @Override

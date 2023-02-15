@@ -32,6 +32,7 @@ public abstract class GameScreen implements Screen {
     //protected World world;
     protected SpriteBatch batch;
     protected SpriteBatch front_batch;
+    protected SpriteBatch textbatch;
     protected Texture[] backgrounds;
     protected float w = Gdx.graphics.getWidth();
 	protected float h = Gdx.graphics.getHeight();
@@ -42,6 +43,11 @@ public abstract class GameScreen implements Screen {
     protected TextureRegionDrawable buttTextureRegionDrawable;
     protected ImageButton menuButton;
     protected Texture menuText;
+    protected ImageButton resumeButton;
+    protected Texture resumeText;
+
+    protected boolean PAUSED;
+    protected boolean FIRSTPAUSED;
 
     // Objects
     //protected Player player;
@@ -51,6 +57,8 @@ public abstract class GameScreen implements Screen {
         camera = new OrthographicCamera(16, 9);
         viewport = new StretchViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT, camera);
         stage = new Stage(new ScreenViewport());
+        PAUSED = false;
+        FIRSTPAUSED = false;
     }
 
     @Override
@@ -94,7 +102,7 @@ public abstract class GameScreen implements Screen {
         buttTextureRegionDrawable = new TextureRegionDrawable(buttTextureRegion);
 
         menuButton = new ImageButton(buttTextureRegionDrawable);
-        menuButton.setPosition((Constants.WINDOW_WIDTH - menuButton.getWidth()) / 2, Constants.WINDOW_HEIGHT / 4);
+        menuButton.setPosition((Constants.WINDOW_WIDTH - menuButton.getWidth()) / 2, Constants.WINDOW_HEIGHT / 3.5f);
         menuButton.addListener(new ClickListener()
         {
             @Override
@@ -102,8 +110,22 @@ public abstract class GameScreen implements Screen {
                 ((Indulge) Indulge.getInstance()).change_menu(MenuScreenTypes.TITLE);
             }
         });
+        menuText = new Texture("titleScreen/menu.png");
+
+
+        resumeButton = new ImageButton(buttTextureRegionDrawable);
+        resumeButton.setPosition((Constants.WINDOW_WIDTH - resumeButton.getWidth()) / 2, Constants.WINDOW_HEIGHT / 2);
+        resumeButton.addListener(new ClickListener()
+        {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                PAUSED = false;
+            }
+        });
+        resumeText = new Texture("titleScreen/resume.png");
 
         stage.addActor(menuButton);
+        stage.addActor(resumeButton);
     }    
 
     public void setScrollingSpeed(float newSpeed) {
