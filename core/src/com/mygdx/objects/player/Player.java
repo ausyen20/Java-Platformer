@@ -49,12 +49,16 @@ public class Player extends GameEntity{
 		return body.getLinearVelocity().x;
 	}
 
-	public void setSpeed(float speed) {
-		this.speed = speed;
+	public void setLinearVelocity(float velx) {
+		body.getLinearVelocity().x = velx;
 	}
 
 	public float getSpeed() {
 		return this.speed;
+	}
+
+	public void setSpeed(float newspeed) {
+		this.speed = newspeed;
 	}
 
 	/*

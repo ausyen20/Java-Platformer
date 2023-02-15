@@ -48,6 +48,8 @@ public abstract class GameScreen implements Screen {
 
     protected boolean PAUSED;
     protected boolean FIRSTPAUSED;
+    private float timeSeconds = 0f;
+    private float period = 2.8f;
 
     // Objects
     //protected Player player;
@@ -127,6 +129,24 @@ public abstract class GameScreen implements Screen {
         stage.addActor(menuButton);
         stage.addActor(resumeButton);
     }    
+
+    public void drawButtons() {
+        Gdx.input.setInputProcessor(stage);
+        stage.act(Gdx.graphics.getDeltaTime());
+        stage.draw();
+        textbatch.begin();
+        textbatch.draw(menuText, (Constants.WINDOW_WIDTH - menuButton.getWidth()) / 2, Constants.WINDOW_HEIGHT / 3.5f);
+        textbatch.draw(resumeText, (Constants.WINDOW_WIDTH - resumeButton.getWidth()) / 2, Constants.WINDOW_HEIGHT / 2);
+        textbatch.end();
+    }
+
+    public void pauseScreen() {
+        // Pause screen for the first few seconds
+        timeSeconds += Gdx.graphics.getDeltaTime();
+        if(timeSeconds < period){
+            FIRSTPAUSED = true;
+        } else FIRSTPAUSED = false;
+    }
 
     public void setScrollingSpeed(float newSpeed) {
         bgMaxScrollingSpeed = newSpeed;

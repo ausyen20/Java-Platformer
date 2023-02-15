@@ -11,7 +11,6 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.helpers.LevelScreenTypes;
-import com.mygdx.helpers.MenuScreenTypes;
 import com.mygdx.helpers.TileMapHelper;
 import com.mygdx.helpers.WorldContactListener;
 import com.mygdx.helpers.Constants;
@@ -27,9 +26,9 @@ public class LevelLust extends GameScreen {
     private float[] backgroundOffsets = {0, 0, 0};
 
     // Timing
-    private float timeSeconds = 0f;
-    private float period = 2.8f;
     private float cameraScrollingSpeed;
+    private float playerOffsetX;
+    private float playerSpeed;
     
     // Tiled Map
     private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
@@ -52,6 +51,9 @@ public class LevelLust extends GameScreen {
         world.setContactListener(new WorldContactListener());
         player.initPos();
         cameraScrollingSpeed = player.getSpeed() / (100 * (Constants.WORLD_WIDTH / Constants.ASSET_LAYOUT_WIDTH));
+        cameraUpdate();
+        playerOffsetX = (camera.position.x * 100) - player.getX();
+        playerSpeed = player.getSpeed();
 
         // Set background texture
         backgrounds = new Texture[3];
@@ -69,11 +71,7 @@ public class LevelLust extends GameScreen {
         // Clear screen
         ScreenUtils.clear(0, 0, 0, 1);
 
-        // Pause screen for the first few seconds
-        timeSeconds += Gdx.graphics.getDeltaTime();
-        if(timeSeconds < period){
-            FIRSTPAUSED = true;
-        } else FIRSTPAUSED = false;
+        super.pauseScreen();
 
     	world.step(1/60f,6, 2);
         // if paused, set deltatime to 0 to stop background scrolling
@@ -108,13 +106,7 @@ public class LevelLust extends GameScreen {
         
         // Show back to menu button if game paused
         if (PAUSED) {
-            Gdx.input.setInputProcessor(stage);
-            stage.act(Gdx.graphics.getDeltaTime());
-            stage.draw();
-            textbatch.begin();
-            textbatch.draw(menuText, (Constants.WINDOW_WIDTH - menuButton.getWidth()) / 2, Constants.WINDOW_HEIGHT / 3.5f);
-            textbatch.draw(resumeText, (Constants.WINDOW_WIDTH - resumeButton.getWidth()) / 2, Constants.WINDOW_HEIGHT / 2);
-            textbatch.end();
+            super.drawButtons();
         } else Gdx.input.setInputProcessor(null);
 
         box2DDebugRenderer.render(world, camera.combined.scl(Constants.PPM));
@@ -151,12 +143,20 @@ public class LevelLust extends GameScreen {
         if (!PAUSED && !FIRSTPAUSED) {
             cameraUpdate();
             player.update();
+            acceleratePlayer();
             world.setGravity(new Vector2(0, -7f));
         } else {
             player.getBody().setLinearVelocity(0, 0);
             world.setGravity(new Vector2(0, 0));
         }
 	}
+
+    private void acceleratePlayer() {
+        if ((camera.position.x - player.getX()) > playerOffsetX) {
+            player.setSpeed(playerSpeed + 2);
+        }
+        else player.setSpeed(playerSpeed);
+    }
 
     private void cameraUpdate() {
         Vector3 position = camera.position;
@@ -169,9 +169,8 @@ public class LevelLust extends GameScreen {
         // If player is at the end of level, stop camera movement
         if (position.x >= Constants.ASSET_LAYOUT_WIDTH - Constants.WORLD_WIDTH / 2) {
             position.x = Constants.ASSET_LAYOUT_WIDTH - Constants.WORLD_WIDTH / 2;
-            setScrollingSpeed(0);
+            cameraScrollingSpeed = 0;
         }
-        else camera.update();
 	}
 
     @Override
