@@ -22,23 +22,24 @@ import com.mygdx.helpers.AudioManager;
 
 public class LevelLust extends GameScreen {
 
+    // Background 
     private Texture[] backgrounds;
-    private float w = Gdx.graphics.getWidth();
-	private float h = Gdx.graphics.getHeight();
+    private float[] backgroundOffsets = {0, 0, 0};
 
     // Timing
-    private float[] backgroundOffsets = {0, 0, 0};
     private float timeSeconds = 0f;
     private float period = 2.8f;
     
-    //Tiled Map
+    // Tiled Map
     private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
     private TileMapHelper tileMapHelper;
-
     protected Box2DDebugRenderer box2DDebugRenderer;
 
+    // Objects
     private Player player;
     private World world;
+
+    // Pause Screen booleans
     private boolean PAUSED;
     private boolean FIRSTPAUSED;
 
@@ -72,26 +73,28 @@ public class LevelLust extends GameScreen {
         // Clear screen
         ScreenUtils.clear(0, 0, 0, 1);
 
+        // Pause screen for the first few seconds
         timeSeconds += Gdx.graphics.getDeltaTime();
         if(timeSeconds < period){
             FIRSTPAUSED = true;
         } else FIRSTPAUSED = false;
 
-
     	world.step(1/60f,6, 2);
+        // if paused, set deltatime to 0 to stop background scrolling
         if (PAUSED || FIRSTPAUSED) deltaTime = 0;
+
         camera.update(true);
         this.update();
-        
         orthogonalTiledMapRenderer.setView(camera);
-        // Change screens with user input
+
+        // User input to change screens / pause
         if (Gdx.input.isKeyPressed(Input.Keys.A)) {
             ((Indulge) Indulge.getInstance()).change_levels(LevelScreenTypes.GLUTTONY);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.M)) {
             ((Indulge) Indulge.getInstance()).change_menu(MenuScreenTypes.TITLE);
         }
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) && !FIRSTPAUSED) {
             PAUSED = !PAUSED;
         }
 
@@ -111,6 +114,9 @@ public class LevelLust extends GameScreen {
         box2DDebugRenderer.render(world, camera.combined.scl(Constants.PPM));
     }
 
+    /*
+     * Parallex effect for the background layers
+     */
     private void renderBackground(float deltaTime) {
     
         backgroundOffsets[0] += deltaTime * getScrollingSpeed() / 6; 
@@ -135,6 +141,7 @@ public class LevelLust extends GameScreen {
 		world.step(1/60f,6, 2);
 		batch.setProjectionMatrix(camera.combined);
 		orthogonalTiledMapRenderer.setView(camera);	
+        // If game is not paused, update camera and player
         if (!PAUSED && !FIRSTPAUSED) {
             cameraUpdate();
             player.update();
@@ -146,12 +153,13 @@ public class LevelLust extends GameScreen {
 	}
 
     private void cameraUpdate() {
-		//Camera center to the player obj
+		// Camera center to the player obj
 		Vector3 position = camera.position;
 		position.x = Math.round((player.getBody().getPosition().x  * Constants.PPM * 10) / 10f) + Constants.WORLD_WIDTH / 3;
         position.y = Constants.WORLD_HEIGHT / 2;
 		camera.position.set(position);   
-        setScrollingSpeed(player.getLinearVelocity() * 100);
+        setScrollingSpeed(player.getLinearVelocity() * 100); // scrolling speed of the background matches the player
+        // If player is at the end of level, stop camera movement
         if (position.x >= Constants.ASSET_LAYOUT_WIDTH - Constants.WORLD_WIDTH / 2) {
             position.x = Constants.ASSET_LAYOUT_WIDTH - Constants.WORLD_WIDTH / 2;
             setScrollingSpeed(0);

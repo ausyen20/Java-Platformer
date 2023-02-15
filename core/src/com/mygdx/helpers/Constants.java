@@ -23,5 +23,22 @@ public class Constants {
     public static final int PLAYER_HITBOX_WIDTH = 14;
     public static final int PLAYER_HITBOX_HEIGHT = 20;
 
+    // Assist mode
+    private boolean assist = false;
+
+    /*
+     * If assist mode is chosen, will get set to true
+     */
+    public void setAssist(boolean state) {
+        this.assist = state;
+    }
+
+    /*
+     * Check if true or false for adjusting user input
+     */
+    public boolean getAssist() {
+        return this.assist;
+    }
+
 
 }

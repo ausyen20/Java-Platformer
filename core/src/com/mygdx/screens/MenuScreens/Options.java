@@ -13,12 +13,24 @@ import com.mygdx.indulge.Indulge;
 
 public class Options extends Menu {
 
+    // Batches
     private SpriteBatch batch;
     private SpriteBatch textbatch;
 
+    // Background texture
     private Texture background;
-    private ImageButton menuButton;
+
+    // Button
+    private ImageButton returnButton;
     private Texture returnText;
+    /*
+     * Normal mode = can't skip through levels without completing the other
+     * Assist mode = can change to any screen with shortcuts
+     */
+    private ImageButton normalButton;
+    private Texture normalText;
+    private ImageButton assistButton;    
+    private Texture assistText;
 
     public Options() {
         background = new Texture("titleScreen/titleBackground.png");
@@ -31,24 +43,27 @@ public class Options extends Menu {
         // Clear screen
         ScreenUtils.clear(0, 0, 0, 1); 
         
+        // Batch for background
         batch.begin();
         batch.draw(background, 0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
         batch.end();
         
+        // Draw stage (buttons)
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
         
+        // Batch for text on buttons
         textbatch.begin();
-        textbatch.draw(returnText, (Constants.WINDOW_WIDTH - menuButton.getWidth()) / 2, Constants.WINDOW_HEIGHT / 6);
+        textbatch.draw(returnText, (Constants.WINDOW_WIDTH - returnButton.getWidth()) / 2, Constants.WINDOW_HEIGHT / 6);
         textbatch.end();
     }
 
     public void show() {
         super.show();
 
-        menuButton = new ImageButton(buttTextureRegionDrawable);
-        menuButton.setPosition((Constants.WINDOW_WIDTH - menuButton.getWidth()) / 2, Constants.WINDOW_HEIGHT / 6);
-        menuButton.addListener(new ClickListener()
+        returnButton = new ImageButton(buttTextureRegionDrawable);
+        returnButton.setPosition((Constants.WINDOW_WIDTH - returnButton.getWidth()) / 2, Constants.WINDOW_HEIGHT / 6);
+        returnButton.addListener(new ClickListener()
         {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -57,7 +72,7 @@ public class Options extends Menu {
         });
         returnText = new Texture("titleScreen/return.png");
 
-        stage.addActor(menuButton);
+        stage.addActor(returnButton);
         Gdx.input.setInputProcessor(stage);
     }
 

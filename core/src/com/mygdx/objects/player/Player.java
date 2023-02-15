@@ -17,10 +17,10 @@ import com.mygdx.helpers.Constants;
 
 public class Player extends GameEntity{
 	
-	// player states
+	// Player states
 	private enum State {JUMPING, FALLING, WALKING, IDLE}
 	private State currState;
-	// player animations
+	// Player animations
 	private Texture playerImage; 
 	private TextureRegion[] walkFrames;
 	private TextureRegion[] fallFrames;
@@ -39,6 +39,7 @@ public class Player extends GameEntity{
 		this.speed = 10f;
 		this.jumpCounter = 0;
 		this.collisionLayer = collisionLayer;
+		// Player animation
 		playerImage = new Texture("character/creatureSheet.png");
 		splitFrames = TextureRegion.split(playerImage, Constants.PLAYER_SPRITE_WIDTH, Constants.PLAYER_SPRITE_HEIGHT);
 		changeState(State.WALKING);
@@ -52,6 +53,9 @@ public class Player extends GameEntity{
 		this.speed = speed;
 	}
 
+	/*
+	 * Call animation renders depending on state
+	 */
 	public void changeState(State state) {
 		switch(state) {
 			case JUMPING:
@@ -93,6 +97,11 @@ public class Player extends GameEntity{
 		animation = new Animation<TextureRegion>(1f/6f, upFrames);
 	}
 
+	/*
+	 * Position the player will start at
+	 * Same as the update() method, but it won't be called during rendering, only when initialising
+	 * Necessary for the "pause screen at the first 3 seconds" functionality
+	 */
 	public void initPos() {
 		x = body.getPosition().x * Constants.PPM;
 		y = body.getPosition().y * Constants.PPM;
@@ -114,7 +123,7 @@ public class Player extends GameEntity{
 		batch.draw(animation.getKeyFrame(elapsedtime, true), x - width/2, y - height/2, Constants.PLAYER_SPRITE_WIDTH, Constants.PLAYER_SPRITE_HEIGHT);
 	}
 	
-	//Basic Player Movement
+	// Basic Player Movement
 	private void jump() {
 		float oldX = x, oldY = y;
 		boolean collisionX = false, collisionY = false;

@@ -15,9 +15,11 @@ import com.mygdx.helpers.AudioManager;
 
 public class TitleScreen extends Menu{
 
+    // Batches
     private SpriteBatch batch;
     private SpriteBatch textbatch;
     
+    // Background textures
     private Texture background;
     private Texture indulgeTitle;
     
@@ -33,6 +35,7 @@ public class TitleScreen extends Menu{
         background = new Texture("titleScreen/titleBackground.png");
         indulgeTitle = new Texture("titleScreen/indulgeTitle.png");
 
+        // If the same music isn't already playing, set and play music.
         if(!((AudioManager) AudioManager.getInstance()).isAlreadyPlaying("Music/deviation-130965.mp3")) {
             ((AudioManager) AudioManager.getInstance()).setMusic("Music/deviation-130965.mp3");
             ((AudioManager) AudioManager.getInstance()).playMusic();
@@ -71,14 +74,17 @@ public class TitleScreen extends Menu{
         // Clear screen
         ScreenUtils.clear(0, 0, 0, 1);   
         
+        // Batch for background
         batch.begin();
         batch.draw(background, 0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
         batch.draw(indulgeTitle, 0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
         batch.end();
 
+        // Draw stage (buttons)
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
 
+        // Batch for text on the buttons
         textbatch.begin();
         textbatch.draw(playText, Constants.WINDOW_WIDTH / 15, Constants.WINDOW_HEIGHT / 2 );
         textbatch.draw(optionsText, Constants.WINDOW_WIDTH / 15, Constants.WINDOW_HEIGHT / 3 );
