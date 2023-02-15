@@ -15,6 +15,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.helpers.Constants;
+import com.mygdx.helpers.LevelScreenTypes;
 import com.mygdx.helpers.MenuScreenTypes;
 import com.mygdx.indulge.Indulge;
 
@@ -41,10 +42,12 @@ public abstract class GameScreen implements Screen {
     protected Stage stage;
     protected TextureRegion buttTextureRegion;
     protected TextureRegionDrawable buttTextureRegionDrawable;
-    protected ImageButton menuButton;
-    protected Texture menuText;
+    protected ImageButton restartButton;
+    protected Texture restartText;
     protected ImageButton resumeButton;
     protected Texture resumeText;
+    protected ImageButton menuButton;
+    protected Texture menuText;
 
     protected boolean PAUSED;
     protected boolean FIRSTPAUSED;
@@ -104,7 +107,7 @@ public abstract class GameScreen implements Screen {
         buttTextureRegionDrawable = new TextureRegionDrawable(buttTextureRegion);
 
         menuButton = new ImageButton(buttTextureRegionDrawable);
-        menuButton.setPosition((Constants.WINDOW_WIDTH - menuButton.getWidth()) / 2, Constants.WINDOW_HEIGHT / 3.5f);
+        menuButton.setPosition((Constants.WINDOW_WIDTH - menuButton.getWidth()) / 2, Constants.WINDOW_HEIGHT / 6);
         menuButton.addListener(new ClickListener()
         {
             @Override
@@ -126,8 +129,14 @@ public abstract class GameScreen implements Screen {
         });
         resumeText = new Texture("titleScreen/resume.png");
 
+        restartButton = new ImageButton(buttTextureRegionDrawable);
+        restartButton.setPosition((Constants.WINDOW_WIDTH - restartButton.getWidth()) / 2, Constants.WINDOW_HEIGHT / 3);
+        restartText = new Texture("titleScreen/restart.png");
+
+
         stage.addActor(menuButton);
         stage.addActor(resumeButton);
+        stage.addActor(restartButton);
     }    
 
     public void drawButtons() {
@@ -135,8 +144,9 @@ public abstract class GameScreen implements Screen {
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
         textbatch.begin();
-        textbatch.draw(menuText, (Constants.WINDOW_WIDTH - menuButton.getWidth()) / 2, Constants.WINDOW_HEIGHT / 3.5f);
+        textbatch.draw(menuText, (Constants.WINDOW_WIDTH - menuButton.getWidth()) / 2, Constants.WINDOW_HEIGHT / 6);
         textbatch.draw(resumeText, (Constants.WINDOW_WIDTH - resumeButton.getWidth()) / 2, Constants.WINDOW_HEIGHT / 2);
+        textbatch.draw(restartText, (Constants.WINDOW_WIDTH - resumeButton.getWidth()) / 2, Constants.WINDOW_HEIGHT / 3);
         textbatch.end();
     }
 

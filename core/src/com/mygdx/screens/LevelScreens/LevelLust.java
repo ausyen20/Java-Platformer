@@ -9,6 +9,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.helpers.LevelScreenTypes;
 import com.mygdx.helpers.TileMapHelper;
@@ -176,6 +178,14 @@ public class LevelLust extends GameScreen {
     @Override
     public void show() {
         super.show();
+        restartButton.addListener(new ClickListener()
+        {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                ((Indulge) Indulge.getInstance()).change_levels(LevelScreenTypes.LUST);
+
+            }
+        });
     }
 
     public World getWorld() {
