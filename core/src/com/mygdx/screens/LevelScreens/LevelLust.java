@@ -29,6 +29,7 @@ public class LevelLust extends GameScreen {
 
     // Timing
     private float cameraScrollingSpeed;
+    private float constantScrollingSpeed;
     private float playerOffsetX;
     private float playerSpeed;
     
@@ -52,7 +53,8 @@ public class LevelLust extends GameScreen {
         this.orthogonalTiledMapRenderer = tileMapHelper.setupMap();
         world.setContactListener(new WorldContactListener());
         player.initPos();
-        cameraScrollingSpeed = player.getSpeed() / (100 * (Constants.WORLD_WIDTH / Constants.ASSET_LAYOUT_WIDTH));
+        constantScrollingSpeed = player.getSpeed() / (100 * (Constants.WORLD_WIDTH / Constants.ASSET_LAYOUT_WIDTH));
+        cameraScrollingSpeed = constantScrollingSpeed;
         cameraUpdate();
         playerOffsetX = (camera.position.x * 100) - player.getX();
         playerSpeed = player.getSpeed();
@@ -191,7 +193,7 @@ public class LevelLust extends GameScreen {
             position.x = Constants.ASSET_LAYOUT_WIDTH - Constants.WORLD_WIDTH / 2;
             cameraScrollingSpeed = 0;
         } 
-        //else cameraScrollingSpeed = player.getSpeed() / (100 * (Constants.WORLD_WIDTH / Constants.ASSET_LAYOUT_WIDTH));
+        else cameraScrollingSpeed = constantScrollingSpeed;
 	}
 
     @Override
