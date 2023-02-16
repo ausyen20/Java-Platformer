@@ -168,7 +168,7 @@ public class LevelLust extends GameScreen {
     }
 
     public void outOfScreen() {
-        if ((camera.position.x - player.getX()) > playerOffsetX + playerOffsetX/2) {
+        if ((camera.position.x - player.getX()) > playerOffsetX + playerOffsetX/2 + player.getWidth()) {
             player.setDead(true);
         }
     }
