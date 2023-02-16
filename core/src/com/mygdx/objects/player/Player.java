@@ -33,6 +33,8 @@ public class Player extends GameEntity{
 	private String blockedKey = "blocked";
 	private TiledMapTileLayer collisionLayer;
 	private TileMapHelper TMH;
+
+	public boolean DEAD;
 	
 	public Player(float width, float height, Body body, TiledMapTileLayer collisionLayer) {
 		super(width, height, body);
@@ -43,6 +45,7 @@ public class Player extends GameEntity{
 		playerImage = new Texture("character/creatureSheet.png");
 		splitFrames = TextureRegion.split(playerImage, Constants.PLAYER_SPRITE_WIDTH, Constants.PLAYER_SPRITE_HEIGHT);
 		changeState(State.WALKING);
+		DEAD = false;
 	}
 
 	public float getLinearVelocity() {
@@ -208,26 +211,38 @@ public class Player extends GameEntity{
 		//Set a range, therefore as long the player is still in range. Then set spawn point to regarding flag
 		//Lust Layout
 			if(body.getPosition().x > 0 && body.getPosition().x < 51f) {
-				if(body.getPosition().y < 0) {
-				//Reset to player to the start position
-				body.setTransform(0.26f, 0.8f, 0);
+				if(body.getPosition().y < 0 || DEAD) {
+					//Reset to player to the start position
+					body.setTransform(0.26f, 0.8f, 0);
+					setDead(true);
 				}
 			}else if (body.getPosition().x > 52f && body.getPosition().x < 106.7f) {
-				if(body.getPosition().y < 0) {
+				if(body.getPosition().y < 0 || DEAD) {
 					//Checkpoint 1
 					body.setTransform(52f, 0.8f, 0);
+					setDead(true);
 				}	
 			}else if(body.getPosition().x > 106.7f && body.getPosition().x < 150f) {
-				if(body.getPosition().y < 0) {
+				if(body.getPosition().y < 0 || DEAD) {
 					//Checkpoint 2
 					body.setTransform(52f, 0.8f, 0);
+					setDead(true);
 				}
-			}else if (body.getPosition().x > 135.24f && body.getPosition().x < 158f ) {
-				if (body.getPosition().y < 0) {
+			}else if (body.getPosition().x > 135.24f && body.getPosition().x < 158f) {
+				if (body.getPosition().y < 0 || DEAD) {
 					//Checkpoint 3
 					body.setTransform(135.24f, 0.8f, 0);
+					setDead(true);
 				}
 				
 			}	
+	}
+
+	public boolean getDead() {
+		return DEAD;
+	}
+
+	public void setDead(boolean state) {
+		DEAD = state;
 	}
 }

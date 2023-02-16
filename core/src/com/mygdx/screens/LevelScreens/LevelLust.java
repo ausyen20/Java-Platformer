@@ -147,8 +147,10 @@ public class LevelLust extends GameScreen {
         if (!PAUSED && !FIRSTPAUSED) {
             cameraUpdate();
             player.update();
-            player.setSpawnPoint();
             acceleratePlayer();
+            outOfScreen();
+            player.setSpawnPoint();
+            relocateCamera();
             world.setGravity(new Vector2(0, -7f));
         } else {
             player.getBody().setLinearVelocity(0, 0);
@@ -157,10 +159,23 @@ public class LevelLust extends GameScreen {
 	}
 
     private void acceleratePlayer() {
-        if ((camera.position.x - player.getX()) > playerOffsetX) {
+        if ((camera.position.x - player.getX()) > playerOffsetX + 2) {
             player.setSpeed(playerSpeed + 2);
         }
         else player.setSpeed(playerSpeed);
+    }
+
+    public void outOfScreen() {
+        if ((camera.position.x - player.getX()) > playerOffsetX + playerOffsetX/2) {
+            player.setDead(true);
+        }
+    }
+
+    private void relocateCamera() {
+        if (player.getDead()) {
+            camera.position.x = player.getX() + playerOffsetX;
+            player.setDead(false);
+        }
     }
 
     private void cameraUpdate() {
@@ -175,7 +190,8 @@ public class LevelLust extends GameScreen {
         if (position.x >= Constants.ASSET_LAYOUT_WIDTH - Constants.WORLD_WIDTH / 2) {
             position.x = Constants.ASSET_LAYOUT_WIDTH - Constants.WORLD_WIDTH / 2;
             cameraScrollingSpeed = 0;
-        }
+        } 
+        //else cameraScrollingSpeed = player.getSpeed() / (100 * (Constants.WORLD_WIDTH / Constants.ASSET_LAYOUT_WIDTH));
 	}
 
     @Override
