@@ -122,7 +122,7 @@ public class Player extends GameEntity{
 		y = body.getPosition().y * Constants.PPM;
 		
 		jump();	
-		OutofBound();
+		
 	}
 	
 	@Override
@@ -204,9 +204,30 @@ public class Player extends GameEntity{
 	}
 	
 	
-	public void OutofBound() {
-		if(body.getPosition().y < 0) {
-			System.out.println("out");
-		}
+	public void setSpawnPoint() {
+		//Set a range, therefore as long the player is still in range. Then set spawn point to regarding flag
+		//Lust Layout
+			if(body.getPosition().x > 0 && body.getPosition().x < 51f) {
+				if(body.getPosition().y < 0) {
+				//Reset to player to the start position
+				body.setTransform(0.26f, 0.8f, 0);
+				}
+			}else if (body.getPosition().x > 52f && body.getPosition().x < 106.7f) {
+				if(body.getPosition().y < 0) {
+					//Checkpoint 1
+					body.setTransform(52f, 0.8f, 0);
+				}	
+			}else if(body.getPosition().x > 106.7f && body.getPosition().x < 150f) {
+				if(body.getPosition().y < 0) {
+					//Checkpoint 2
+					body.setTransform(52f, 0.8f, 0);
+				}
+			}else if (body.getPosition().x > 135.24f && body.getPosition().x < 158f ) {
+				if (body.getPosition().y < 0) {
+					//Checkpoint 3
+					body.setTransform(135.24f, 0.8f, 0);
+				}
+				
+			}	
 	}
 }

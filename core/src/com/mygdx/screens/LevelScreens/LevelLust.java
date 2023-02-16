@@ -145,6 +145,7 @@ public class LevelLust extends GameScreen {
         if (!PAUSED && !FIRSTPAUSED) {
             cameraUpdate();
             player.update();
+            player.setSpawnPoint();
             acceleratePlayer();
             world.setGravity(new Vector2(0, -7f));
         } else {

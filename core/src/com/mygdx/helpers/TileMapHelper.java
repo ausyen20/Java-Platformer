@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.mygdx.objects.player.Player;
@@ -34,6 +35,8 @@ public class TileMapHelper {
 	public OrthogonalTiledMapRenderer setupMap() {
 		tiledMap = new TmxMapLoader().load("layouts/LustLayout.tmx");
 		parseMapObjects(tiledMap.getLayers().get("Object Layer 1").getObjects());
+		parseObjs(tiledMap.getLayers().get("Items").getObjects());
+		parseObjs(tiledMap.getLayers().get("Obstacles Object").getObjects());
 		return new OrthogonalTiledMapRenderer(tiledMap);
 	}
 
@@ -94,5 +97,37 @@ public class TileMapHelper {
 		PolygonShape shape= new PolygonShape();
 		shape.set(worldvertices);
 		return shape;
+	}
+
+	private void parseObjs(MapObjects mapObjects) {
+		for(MapObject mapObject : mapObjects) {
+			if(mapObject instanceof PolygonMapObject) {
+				createSensorObj((PolygonMapObject) mapObject);
+			}
+		}
+	}
+	
+	private void createSensorObj(PolygonMapObject polygonMapObject) {
+		BodyDef bodyDef2 = new BodyDef();
+		bodyDef2.type = BodyDef.BodyType.StaticBody;
+		Body body2 = gameScreen.getWorld().createBody(bodyDef2);
+		FixtureDef fixtureDef2 = new FixtureDef();
+		//Duplicate of createPolygonshape
+		float[]vertices= polygonMapObject.getPolygon().getTransformedVertices();
+		Vector2[] worldvertices = new Vector2[vertices.length/2];
+
+		for(int i = 0; i < vertices.length/2; i++) {
+			Vector2 current = new Vector2(vertices[i*2]/PPM, vertices[i*2+1]/PPM);
+			worldvertices[i] = current;
+		}
+		PolygonShape shape2 = new PolygonShape();
+		shape2.set(worldvertices);
+		//
+		fixtureDef2.shape = shape2;
+		fixtureDef2.isSensor = true;
+		body2.createFixture(fixtureDef2);
+		body2.createFixture(fixtureDef2).setUserData(polygonMapObject.getName());
+		shape2.dispose();
+		
 	}
 }
