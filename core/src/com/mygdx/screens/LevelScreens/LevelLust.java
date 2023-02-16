@@ -104,6 +104,8 @@ public class LevelLust extends GameScreen {
         // batch for foreground (player, etc)
         front_batch.begin();
         player.render(front_batch);
+        front_batch.draw(health_bar3, camera.position.x-160, 50);
+        front_batch.draw(item_bar0,camera.position.x-160 , 50);
         front_batch.end();
         
         // Show back to menu button if game paused

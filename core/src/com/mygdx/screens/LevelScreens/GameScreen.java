@@ -49,6 +49,17 @@ public abstract class GameScreen implements Screen {
     protected ImageButton menuButton;
     protected Texture menuText;
 
+    //HUD- Health Bar and Collectables
+    Texture health_bar1;
+    Texture health_bar2;
+    Texture health_bar3;
+    Texture health_bar4;
+    Texture health_bar5;
+    Texture item_bar0;
+    Texture item_bar1;
+    Texture item_bar2;
+    Texture item_bar3;
+
     protected boolean PAUSED;
     protected boolean FIRSTPAUSED;
     private float timeSeconds = 0f;
@@ -62,6 +73,16 @@ public abstract class GameScreen implements Screen {
         stage = new Stage(new ScreenViewport());
         PAUSED = false;
         FIRSTPAUSED = false;
+
+        health_bar1=new Texture("HUD/greenbar (3).png");
+        health_bar2=new Texture("HUD/greenbar (2).png");
+        health_bar3=new Texture("HUD/greenbar (1).png");
+        health_bar4=new Texture("HUD/greenbar (4).png");
+        health_bar5=new Texture("HUD/greenbar (5).png");
+        item_bar0=new Texture("HUD/Itembar(0).png");
+        item_bar1= new Texture("HUD/Itembar(1).png");
+        item_bar2= new Texture("HUD/Itembar(2).png");
+        item_bar3= new Texture("HUD/Itembar(3).png");
     }
 
     @Override
