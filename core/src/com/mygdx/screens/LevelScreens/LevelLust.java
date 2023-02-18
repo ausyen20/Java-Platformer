@@ -20,9 +20,7 @@ import com.mygdx.indulge.Indulge;
 import com.mygdx.objects.player.Player;
 import com.mygdx.helpers.AudioManager;
 
-
 public class LevelLust extends GameScreen {
-
     // Background 
     private Texture[] backgrounds;
     private float[] backgroundOffsets = {0, 0, 0};
@@ -215,5 +213,8 @@ public class LevelLust extends GameScreen {
         
     public void setPlayer(Player player) {
         this.player = player;
-    }    
+    } 
+    public Player getPlayer() {
+    	return player;
+    }
 }

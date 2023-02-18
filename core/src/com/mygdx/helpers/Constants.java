@@ -1,8 +1,12 @@
 package com.mygdx.helpers;
-
 public class Constants {
 
     public static final float PPM = 32.0f;
+    
+    //Filters
+    public static final short BIT_PLAYER = 1;
+    public static final short BIT_FLOOR = 2;
+    public static final short BIT_OBS = 4;
     
     // World parameters
     public static final float WORLD_WIDTH = 320.0f;

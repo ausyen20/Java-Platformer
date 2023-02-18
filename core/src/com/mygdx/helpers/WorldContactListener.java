@@ -9,12 +9,10 @@ import com.mygdx.objects.Obstacles.Spike;
 import com.mygdx.objects.player.Player;
 
 public class WorldContactListener implements ContactListener {
-
 	@Override
 	public void beginContact(Contact contact) {
 		Fixture fa = contact.getFixtureA();
 		Fixture fb = contact.getFixtureB();
-		
 		
 		if(fa == null || fb == null) return;
 		if(fa.getUserData() == null || fb.getUserData() == null) return;
@@ -25,7 +23,7 @@ public class WorldContactListener implements ContactListener {
 			if(fa.getUserData() instanceof Spike || fb.getUserData() instanceof Spike) { 
 				Player ffa = (Player) fa.getUserData();
 				//Print I am a player, to indicate there is contact
-				//ffa.yell();
+				ffa.yell();
 			}
 		}
 	}

@@ -24,7 +24,7 @@ public abstract class GameEntity {
 	public abstract void update();
 	
 	public abstract void render(SpriteBatch batch);
-
+	
 	//Body Getter
 	public Body getBody() {
 		return body;

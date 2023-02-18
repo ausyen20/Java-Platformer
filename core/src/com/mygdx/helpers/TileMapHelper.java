@@ -27,10 +27,10 @@ import static com.mygdx.helpers.Constants.PPM;
 public class TileMapHelper {
 	private TiledMap tiledMap;
 	private LevelLust gameScreen;
-
-	private TiledMapTileLayer collisionLayer;
 	protected Fixture fixture;
 	private Player player;
+	
+	
 	public TileMapHelper(LevelLust lust) {
 		this.gameScreen = lust;
 	}
@@ -42,6 +42,7 @@ public class TileMapHelper {
 		parseObstacles(tiledMap.getLayers().get("Obstacles Object").getObjects());
 		return new OrthogonalTiledMapRenderer(tiledMap);
 	}
+	
 
 	private void parseMapObjects(MapObjects mapObjects) {
 		for(MapObject mapObject:mapObjects) {
@@ -64,7 +65,7 @@ public class TileMapHelper {
 					rectangle.getHeight(), 
 					gameScreen.getWorld()
 					); 
-	
+					
 					gameScreen.setPlayer(new Player(rectangle.getWidth(), rectangle.getHeight(), body));					
 				}
 			}

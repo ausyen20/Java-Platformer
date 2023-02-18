@@ -9,8 +9,13 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Timer;
 import com.mygdx.helpers.TileMapHelper;
 import com.mygdx.helpers.Constants;
@@ -32,22 +37,23 @@ public class Player extends GameEntity{
 	private int jumpCounter;
 	private String blockedKey = "blocked";
 	private TiledMapTileLayer collisionLayer;
-	private TileMapHelper TMH;
+	
 
 	public boolean DEAD;
 	
-	public Player(float width, float height, Body body, TiledMapTileLayer collisionLayer) {
+	//Austin: Remove collisionLayer from constructor, it unnecessary code
+	public Player(float width, float height, Body body) {
 		super(width, height, body);
 		this.speed = 10f;
 		this.jumpCounter = 0;
-		this.collisionLayer = collisionLayer;
+		
 		// Player animation
 		playerImage = new Texture("character/creatureSheet.png");
 		splitFrames = TextureRegion.split(playerImage, Constants.PLAYER_SPRITE_WIDTH, Constants.PLAYER_SPRITE_HEIGHT);
 		changeState(State.WALKING);
 		DEAD = false;
 	}
-
+		
 	public float getLinearVelocity() {
 		return body.getLinearVelocity().x;
 	}
@@ -63,7 +69,11 @@ public class Player extends GameEntity{
 	public void setSpeed(float newspeed) {
 		this.speed = newspeed;
 	}
-
+	//Testing function, when a player hits a spike
+	public void yell() {
+		System.out.println("I am a player");
+	}
+	
 	/*
 	 * Call animation renders depending on state
 	 */
@@ -157,6 +167,7 @@ public class Player extends GameEntity{
 		}
 		body.setLinearVelocity(velX * speed, body.getLinearVelocity().y< 25 ? body.getLinearVelocity().y :25);
 	}
+	/*
 	
 	//If the cell is blocked, then return true
 	private boolean isCellBlocked(float x, float y) {
@@ -206,7 +217,7 @@ public class Player extends GameEntity{
 		return collides;
 	}
 	
-	
+	*/
 	public void setSpawnPoint() {
 		//Set a range, therefore as long the player is still in range. Then set spawn point to regarding flag
 		//Lust Layout
@@ -245,4 +256,7 @@ public class Player extends GameEntity{
 	public void setDead(boolean state) {
 		DEAD = state;
 	}
+	
+	
+	
 }
