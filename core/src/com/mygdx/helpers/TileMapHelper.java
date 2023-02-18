@@ -9,6 +9,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -16,7 +17,9 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
+import com.mygdx.objects.Obstacles.Spike;
 import com.mygdx.objects.player.Player;
+
 import com.mygdx.screens.LevelScreens.LevelLust;
 
 import static com.mygdx.helpers.Constants.PPM;
@@ -27,7 +30,7 @@ public class TileMapHelper {
 
 	private TiledMapTileLayer collisionLayer;
 	protected Fixture fixture;
-
+	private Player player;
 	public TileMapHelper(LevelLust lust) {
 		this.gameScreen = lust;
 	}
@@ -36,18 +39,16 @@ public class TileMapHelper {
 		tiledMap = new TmxMapLoader().load("layouts/LustLayout.tmx");
 		parseMapObjects(tiledMap.getLayers().get("Object Layer 1").getObjects());
 		parseObjs(tiledMap.getLayers().get("Items").getObjects());
-		parseObjs(tiledMap.getLayers().get("Obstacles Object").getObjects());
+		parseObstacles(tiledMap.getLayers().get("Obstacles Object").getObjects());
 		return new OrthogonalTiledMapRenderer(tiledMap);
 	}
 
 	private void parseMapObjects(MapObjects mapObjects) {
 		for(MapObject mapObject:mapObjects) {
 			if(mapObject instanceof PolygonMapObject) {
+				
+				
 				createStaticBody((PolygonMapObject) mapObject);
-				// testing to find the object through their name
-				/*String poly = mapObject.getName();
-				if(poly.equals("spike")) {
-				}*/
 			}
 
 			if(mapObject instanceof RectangleMapObject ){
@@ -55,15 +56,16 @@ public class TileMapHelper {
 				String rectangleName = mapObject.getName();
 
 				if(rectangleName.equals("player")) {
-					Body body = BodyHelper.createBody(
+					//Austin: changed from createbody to (new) createplayer method
+					Body body = BodyHelper.createPlayer(
 					rectangle.getX() + rectangle.getWidth() / 2, 
 					rectangle.getY() + rectangle.getHeight() / 2,
 					rectangle.getWidth(),
 					rectangle.getHeight(), 
-					false, 
 					gameScreen.getWorld()
-					);
-					gameScreen.setPlayer(new Player(rectangle.getWidth(), rectangle.getHeight(), body, collisionLayer));
+					); 
+	
+					gameScreen.setPlayer(new Player(rectangle.getWidth(), rectangle.getHeight(), body));					
 				}
 			}
 		}
@@ -93,14 +95,17 @@ public class TileMapHelper {
 		for(int i = 0; i < vertices.length/2; i++) {
 			Vector2 current = new Vector2(vertices[i*2]/PPM, vertices[i*2+1]/PPM);
 			worldvertices[i] = current;
+			
 		}
 		PolygonShape shape= new PolygonShape();
+		
 		shape.set(worldvertices);
 		return shape;
 	}
 
 	private void parseObjs(MapObjects mapObjects) {
 		for(MapObject mapObject : mapObjects) {
+			
 			if(mapObject instanceof PolygonMapObject) {
 				createSensorObj((PolygonMapObject) mapObject);
 			}
@@ -119,7 +124,9 @@ public class TileMapHelper {
 		for(int i = 0; i < vertices.length/2; i++) {
 			Vector2 current = new Vector2(vertices[i*2]/PPM, vertices[i*2+1]/PPM);
 			worldvertices[i] = current;
+			
 		}
+		
 		PolygonShape shape2 = new PolygonShape();
 		shape2.set(worldvertices);
 		//
@@ -127,7 +134,25 @@ public class TileMapHelper {
 		fixtureDef2.isSensor = true;
 		body2.createFixture(fixtureDef2);
 		body2.createFixture(fixtureDef2).setUserData(polygonMapObject.getName());
+	
 		shape2.dispose();
 		
 	}
+	
+	//Creating only spikes, from Spike class
+	private void parseObstacles(MapObjects mapObjects) {
+		for (MapObject mapObject : mapObjects) {
+			if (mapObject instanceof PolygonMapObject) {
+				
+				String polyName = mapObject.getName();
+				
+				if(polyName.equals("spike")) {
+					new Spike(((PolygonMapObject) mapObject), gameScreen.getWorld());
+					
+				}
+			}
+		}
+	}
+
+	
 }
