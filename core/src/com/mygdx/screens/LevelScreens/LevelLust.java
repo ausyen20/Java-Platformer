@@ -1,5 +1,7 @@
 package com.mygdx.screens.LevelScreens;
 
+import java.util.concurrent.TimeUnit;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
@@ -37,7 +39,7 @@ public class LevelLust extends GameScreen {
     protected Box2DDebugRenderer box2DDebugRenderer;
 
     // Objects
-    private Player player;
+   
     private World world;
 
     public LevelLust() {
@@ -74,7 +76,10 @@ public class LevelLust extends GameScreen {
         ScreenUtils.clear(0, 0, 0, 1);
 
         super.pauseScreen();
-
+        
+        if (player.health<=0) {
+        	((Indulge) Indulge.getInstance()).change_levels(LevelScreenTypes.GLUTTONY);
+        }
     	world.step(1/60f,6, 2);
         // if paused, set deltatime to 0 to stop background scrolling
         if (PAUSED || FIRSTPAUSED) {
@@ -103,8 +108,35 @@ public class LevelLust extends GameScreen {
 
         // batch for foreground (player, etc)
         front_batch.begin();
+        front_batch.setColor(1,1,1,1f);
+        if (player.recovery==true) {
+        	front_batch.setColor(1,0,0,1f);
+        	recoverycooldown++;
+        	if (recoverycooldown>60) {
+        		player.setRecovery(false);
+        		recoverycooldown=0;
+        	}
+        	
+        	
+        }
         player.render(front_batch);
-        front_batch.draw(health_bar3, camera.position.x-160, 50);
+        switch(player.health) {
+        case 1:
+        	front_batch.draw(health_bar1, camera.position.x-160, 50);
+        	break;
+        case 2:
+        	front_batch.draw(health_bar2, camera.position.x-160, 50);
+        	break;
+        case 3:
+        	front_batch.draw(health_bar3, camera.position.x-160, 50);
+        	break;
+        case 4:
+        	front_batch.draw(health_bar4, camera.position.x-160, 50);
+        	break;
+        case 5:
+        	front_batch.draw(health_bar5, camera.position.x-160, 50);
+        	break;
+        }
         front_batch.draw(item_bar0,camera.position.x-160 , 50);
         front_batch.end();
         
@@ -173,8 +205,13 @@ public class LevelLust extends GameScreen {
 
     private void relocateCamera() {
         if (player.getDead()) {
+        	if (player.recovery==false){
+             	player.health--;
+             	System.out.println(player.health);
+             }
             camera.position.x = player.getX() + playerOffsetX;
             player.setDead(false);
+            player.setRecovery(true);
         }
     }
 
@@ -217,4 +254,5 @@ public class LevelLust extends GameScreen {
     public Player getPlayer() {
     	return player;
     }
+    
 }
