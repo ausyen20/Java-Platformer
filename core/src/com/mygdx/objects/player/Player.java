@@ -19,6 +19,8 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Timer;
 import com.mygdx.helpers.TileMapHelper;
 import com.mygdx.helpers.Constants;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.actions.*;
 
 public class Player extends GameEntity{
 	
@@ -33,25 +35,30 @@ public class Player extends GameEntity{
 	private Animation<TextureRegion> animation;
 	private TextureRegion[][] splitFrames;
 	private float elapsedtime;
-
+	private Actor actor;
 	private int jumpCounter;
 	private String blockedKey = "blocked";
 	private TiledMapTileLayer collisionLayer;
 	
 
 	public boolean DEAD;
+	public int health;
+	public boolean recovery=false;
+	FixtureDef fixDef = new FixtureDef();
 	
 	//Austin: Remove collisionLayer from constructor, it unnecessary code
 	public Player(float width, float height, Body body) {
 		super(width, height, body);
 		this.speed = 10f;
 		this.jumpCounter = 0;
+		this.health=3;
 		
 		// Player animation
 		playerImage = new Texture("character/creatureSheet.png");
 		splitFrames = TextureRegion.split(playerImage, Constants.PLAYER_SPRITE_WIDTH, Constants.PLAYER_SPRITE_HEIGHT);
 		changeState(State.WALKING);
 		DEAD = false;
+		fixDef.isSensor = true;
 	}
 		
 	public float getLinearVelocity() {
@@ -70,8 +77,11 @@ public class Player extends GameEntity{
 		this.speed = newspeed;
 	}
 	//Testing function, when a player hits a spike
-	public void yell() {
-		System.out.println("I am a player");
+	public void damage() {
+		if (recovery==false) {
+		health--;
+		setRecovery(true);
+		System.out.println("Player: " + health);}
 	}
 	
 	/*
@@ -167,6 +177,7 @@ public class Player extends GameEntity{
 		}
 		body.setLinearVelocity(velX * speed, body.getLinearVelocity().y< 25 ? body.getLinearVelocity().y :25);
 	}
+	
 	/*
 	
 	//If the cell is blocked, then return true
@@ -232,6 +243,7 @@ public class Player extends GameEntity{
 					//Checkpoint 1
 					body.setTransform(52f, 0.8f, 0);
 					setDead(true);
+					
 				}	
 			}else if(body.getPosition().x > 106.7f && body.getPosition().x < 150f) {
 				if(body.getPosition().y < 0 || DEAD) {
@@ -255,6 +267,9 @@ public class Player extends GameEntity{
 
 	public void setDead(boolean state) {
 		DEAD = state;
+	}
+	public void setRecovery(boolean state) {
+		recovery=state;
 	}
 	
 	
