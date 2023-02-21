@@ -18,6 +18,7 @@ import com.mygdx.helpers.Constants;
 import com.mygdx.helpers.LevelScreenTypes;
 import com.mygdx.helpers.MenuScreenTypes;
 import com.mygdx.indulge.Indulge;
+import com.mygdx.objects.player.Player;
 
 
 public abstract class GameScreen implements Screen {
@@ -64,9 +65,11 @@ public abstract class GameScreen implements Screen {
     protected boolean FIRSTPAUSED;
     private float timeSeconds = 0f;
     private float period = 2.8f;
+    int recoverycooldown=0;
 
     // Objects
     //protected Player player;
+    public static Player player;
     public GameScreen() {
         camera = new OrthographicCamera(16, 9);
         viewport = new StretchViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT, camera);
