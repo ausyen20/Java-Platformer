@@ -1,7 +1,5 @@
 package com.mygdx.screens.LevelScreens;
 
-import java.util.concurrent.TimeUnit;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
