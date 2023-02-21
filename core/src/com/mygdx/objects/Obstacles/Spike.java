@@ -21,7 +21,8 @@ public class Spike extends InteractiveObstacles {
 
 	@Override
 	public void onHit(Player player) {
-		// TODO Auto-generated method stub
+		player.health--;
+		player.setRecovery(true);
 		
 	}
 	//Create Spike body
