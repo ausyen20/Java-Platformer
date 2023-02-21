@@ -42,6 +42,7 @@ public class BodyHelper {
     	
     	FixtureDef fixDef = new FixtureDef();
     	fixDef.shape = shape;
+    	fixDef.friction=0;
     	Body body = world.createBody(bodyDef);
     	body.createFixture(fixDef);
     	//Setting Player body to Player class
