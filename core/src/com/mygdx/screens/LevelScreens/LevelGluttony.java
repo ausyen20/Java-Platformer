@@ -22,7 +22,7 @@ public class LevelGluttony extends GameScreen {
 	
     // Timing
     private float[] backgroundOffsets = {0, 0, 0};
-    private float bgMaxScrollingSpeed;
+    //private float bgMaxScrollingSpeed;
     private Texture[] backgrounds;
 
     // Timing
@@ -42,6 +42,7 @@ public class LevelGluttony extends GameScreen {
     	this.batch = new SpriteBatch();
         this.front_batch = new SpriteBatch();
         this.textbatch = new SpriteBatch();
+
         this.world = new World(new Vector2(0,-7f),false);
         this.box2DDebugRenderer = new Box2DDebugRenderer();
         this.tileMapHelper = new TileMapHelper(this);
@@ -51,12 +52,14 @@ public class LevelGluttony extends GameScreen {
         constantScrollingSpeed = player.getSpeed() / (100 * (Constants.WORLD_WIDTH / Constants.ASSET_LAYOUT_WIDTH));
         cameraScrollingSpeed = constantScrollingSpeed;
         cameraUpdate();
+        playerOffsetX = (camera.position.x * 100) - player.getX();
+        playerSpeed = player.getSpeed();
+
         backgrounds = new Texture[3];
         backgrounds[0] = new Texture("backgrounds/gluttony00.png");
         backgrounds[1] = new Texture("backgrounds/gluttony01.png");
         backgrounds[2] = new Texture("backgrounds/gluttony02.png");
         // Set background scrolling speed
-        bgMaxScrollingSpeed = (float) (Constants.WORLD_WIDTH) / 4;
         batch = new SpriteBatch();
     }
 
@@ -137,9 +140,9 @@ public class LevelGluttony extends GameScreen {
 
     private void renderBackground(float deltaTime) {
     
-        backgroundOffsets[0] += deltaTime * bgMaxScrollingSpeed / 4; 
-        backgroundOffsets[1] += deltaTime * bgMaxScrollingSpeed / 2; 
-        backgroundOffsets[2] += deltaTime * bgMaxScrollingSpeed; 
+        backgroundOffsets[0] += deltaTime * getScrollingSpeed() / 6;
+        backgroundOffsets[1] += deltaTime * getScrollingSpeed() / 4; 
+        backgroundOffsets[2] += deltaTime * getScrollingSpeed() / 2; 
 
         for (int layer = 0; layer < backgroundOffsets.length; layer++) {
             if (backgroundOffsets[layer] > Constants.ASSET_BACKGROUND_WIDTH) {
