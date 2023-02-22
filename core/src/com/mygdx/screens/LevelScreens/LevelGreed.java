@@ -9,7 +9,7 @@ import com.mygdx.helpers.Constants;
 import com.mygdx.indulge.Indulge;
 
 public class LevelGreed extends GameScreen {
-
+	
     // Timing
     private float[] backgroundOffsets = {0, 0, 0};
     private float bgMaxScrollingSpeed;

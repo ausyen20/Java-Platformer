@@ -21,6 +21,7 @@ import com.mygdx.objects.player.Player;
 import com.mygdx.helpers.AudioManager;
 
 public class LevelLust extends GameScreen {
+	
     // Background 
     private Texture[] backgrounds;
     private float[] backgroundOffsets = {0, 0, 0};
@@ -38,7 +39,7 @@ public class LevelLust extends GameScreen {
 
     // Objects
    
-    private World world;
+    
 
     public LevelLust() {
         this.batch = new SpriteBatch();
@@ -242,13 +243,9 @@ public class LevelLust extends GameScreen {
         });
     }
 
-    public World getWorld() {
-		return world;
-	}
+   
         
-    public void setPlayer(Player player) {
-        this.player = player;
-    } 
+    
     public Player getPlayer() {
     	return player;
     }

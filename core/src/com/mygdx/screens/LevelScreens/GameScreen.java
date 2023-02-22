@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -66,6 +67,7 @@ public abstract class GameScreen implements Screen {
     private float timeSeconds = 0f;
     private float period = 2.8f;
     int recoverycooldown=0;
+    World world;
 
     // Objects
     //protected Player player;
@@ -186,4 +188,11 @@ public abstract class GameScreen implements Screen {
     public float getScrollingSpeed() {
         return bgMaxScrollingSpeed;
     }
+    public World getWorld() {
+		return world;
+	}
+    
+    public void setPlayer(Player player) {
+        this.player = player;
+    } 
 }
