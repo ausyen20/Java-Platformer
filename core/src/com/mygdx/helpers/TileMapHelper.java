@@ -19,24 +19,31 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.mygdx.objects.Obstacles.Spike;
 import com.mygdx.objects.player.Player;
-
+import com.mygdx.screens.LevelScreens.GameScreen;
+import com.mygdx.screens.LevelScreens.LevelGluttony;
 import com.mygdx.screens.LevelScreens.LevelLust;
 
 import static com.mygdx.helpers.Constants.PPM;
 
+import java.lang.System.Logger.Level;
+
 public class TileMapHelper {
 	private TiledMap tiledMap;
-	private LevelLust gameScreen;
+	private GameScreen gameScreen;
 	protected Fixture fixture;
 	private Player player;
 	
 	
-	public TileMapHelper(LevelLust lust) {
-		this.gameScreen = lust;
+	public TileMapHelper(GameScreen level) {
+		this.gameScreen = level;
 	}
 
 	public OrthogonalTiledMapRenderer setupMap() {
-		tiledMap = new TmxMapLoader().load("layouts/LustLayout.tmx");
+		if (gameScreen.getClass()==LevelLust.class) {
+			tiledMap = new TmxMapLoader().load("layouts/LustLayout.tmx");}
+		if (gameScreen.getClass()==LevelGluttony.class) {
+			tiledMap = new TmxMapLoader().load("layouts/GluttonyLayout.tmx");
+		}
 		parseMapObjects(tiledMap.getLayers().get("Object Layer 1").getObjects());
 		parseObjs(tiledMap.getLayers().get("Items").getObjects());
 		parseObstacles(tiledMap.getLayers().get("Obstacles Object").getObjects());
