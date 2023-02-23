@@ -122,24 +122,48 @@ public class TileMapHelper {
 			if(mapObject instanceof RectangleMapObject) {
 				Rectangle rectangle = ((RectangleMapObject)mapObject).getRectangle();
 				String rectangleName = mapObject.getName();
-				
-				if(rectangleName.equals("item0")) {
+				if(gameScreen.getClass()==LevelLust.class){
+					if(rectangleName.equals("item0")) {
 					
-					gameScreen.setItem0(new Item( "Items/LustItems/item0.png", gameScreen, rectangle.getX() + rectangle.getWidth() / 2, rectangle.getY() + rectangle.getHeight(),
-					rectangle.getWidth(), rectangle.getHeight()));
-				
+						gameScreen.setItem0(new Item( "Items/LustItems/item0.png", gameScreen, rectangle.getX() + rectangle.getWidth() / 2, rectangle.getY() + rectangle.getHeight(),
+						rectangle.getWidth(), rectangle.getHeight()));
+					
+					}
+					if(rectangleName.equals("item1")) {
+						
+						gameScreen.setItem1(new Item( "Items/LustItems/item1.png", gameScreen, rectangle.getX() + rectangle.getWidth() / 2, rectangle.getY() + rectangle.getHeight(),
+						rectangle.getWidth(), rectangle.getHeight()));
+					
+					}
+					if(rectangleName.equals("item2")) {
+						
+						gameScreen.setItem2(new Item( "Items/LustItems/item2.png", gameScreen, rectangle.getX() + rectangle.getWidth() / 2, rectangle.getY() + rectangle.getHeight(),
+						rectangle.getWidth(), rectangle.getHeight()));
+					
+					}
 				}
-				if(rectangleName.equals("item1")) {
-					
-					gameScreen.setItem1(new Item( "Items/LustItems/item1.png", gameScreen, rectangle.getX() + rectangle.getWidth() / 2, rectangle.getY() + rectangle.getHeight(),
-					rectangle.getWidth(), rectangle.getHeight()));
 				
-				}
-				if(rectangleName.equals("item2")) {
-					
-					gameScreen.setItem2(new Item( "Items/LustItems/item2.png", gameScreen, rectangle.getX() + rectangle.getWidth() / 2, rectangle.getY() + rectangle.getHeight(),
-					rectangle.getWidth(), rectangle.getHeight()));
 				
+					
+				if (gameScreen.getClass()==LevelGluttony.class) {
+					if(rectangleName.equals("item0")) {
+					
+						gameScreen.setItem0(new Item( "Items/GluttonyItems/item0.png", gameScreen, rectangle.getX() + rectangle.getWidth() / 2, rectangle.getY() + rectangle.getHeight(),
+						rectangle.getWidth(), rectangle.getHeight()));
+					
+					}
+					if(rectangleName.equals("item1")) {
+						
+						gameScreen.setItem1(new Item( "Items/GluttonyItems/item1.png", gameScreen, rectangle.getX() + rectangle.getWidth() / 2, rectangle.getY() + rectangle.getHeight(),
+						rectangle.getWidth(), rectangle.getHeight()));
+					
+					}
+					if(rectangleName.equals("item2")) {
+						
+						gameScreen.setItem2(new Item( "Items/GluttonyItems/item2.png", gameScreen, rectangle.getX() + rectangle.getWidth() / 2, rectangle.getY() + rectangle.getHeight(),
+						rectangle.getWidth(), rectangle.getHeight()));
+					
+					}
 				}
 				
 			
