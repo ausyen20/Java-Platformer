@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="320" height="12" tilewidth="16" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="99">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="320" height="12" tilewidth="16" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="102">
  <tileset firstgid="1" source="LustGluttonytiles.tsx"/>
  <tileset firstgid="101" source="Hearts1.tsx"/>
  <tileset firstgid="102" source="Hearts2.tsx"/>
@@ -325,14 +325,8 @@
   <object id="95" name="player" x="50" y="156" width="14" height="20"/>
  </objectgroup>
  <objectgroup id="8" name="Items">
-  <object id="91" name="heart_of_flames" x="1072" y="79.7273">
-   <polygon points="0,0 16.5455,0 16.5455,16.5455 0,16.5455"/>
-  </object>
-  <object id="92" name="heart_of_steel" x="2480" y="32">
-   <polygon points="0,0 16,0 16,16 0,16"/>
-  </object>
-  <object id="94" name="heart_of_smoke" x="4720" y="64">
-   <polygon points="0,0 16,0 16,16 0,16"/>
-  </object>
+  <object id="99" name="item0" x="1072.67" y="79.6667" width="16" height="16"/>
+  <object id="100" name="item1" x="2480" y="32.6667" width="16" height="16"/>
+  <object id="101" name="item2" x="4720" y="64" width="16" height="16"/>
  </objectgroup>
 </map>

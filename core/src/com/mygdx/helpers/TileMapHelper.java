@@ -17,6 +17,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
+import com.mygdx.objects.Items.Item;
 import com.mygdx.objects.Obstacles.Spike;
 import com.mygdx.objects.player.Player;
 import com.mygdx.screens.LevelScreens.GameScreen;
@@ -115,7 +116,16 @@ public class TileMapHelper {
 		for(MapObject mapObject : mapObjects) {
 			
 			if(mapObject instanceof PolygonMapObject) {
-				createSensorObj((PolygonMapObject) mapObject);
+				//createSensorObj((PolygonMapObject) mapObject);
+			}
+			
+			if(mapObject instanceof RectangleMapObject) {
+				Rectangle rectangle = ((RectangleMapObject)mapObject).getRectangle();
+				String rectangleName = mapObject.getName();
+				
+					new Item(gameScreen, rectangle.getX() + rectangle.getWidth() / 2, rectangle.getY() + rectangle.getHeight(),
+							rectangle.getWidth(), rectangle.getHeight());
+				
 			}
 		}
 	}

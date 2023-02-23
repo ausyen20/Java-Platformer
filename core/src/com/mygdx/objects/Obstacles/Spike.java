@@ -48,8 +48,6 @@ public class Spike extends InteractiveObstacles {
 		body.createFixture(fixDef).setUserData(this);
 		
 		shape.dispose();
-		
-		
 	}
 
 }
