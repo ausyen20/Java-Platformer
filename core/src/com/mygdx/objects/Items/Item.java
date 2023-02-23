@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.mygdx.helpers.Constants;
+import com.mygdx.objects.player.Player;
 import com.mygdx.screens.LevelScreens.GameScreen;
 
 public class Item extends Collectibles {
@@ -61,9 +62,10 @@ public class Item extends Collectibles {
 		return body;
 	}
 	
-	public void onHit() {
+	public void onHit(Player player) {
 		isCollected = true;
 		itemTexture.dispose();
+		
 			
 	}
 
