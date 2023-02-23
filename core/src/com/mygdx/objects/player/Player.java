@@ -39,7 +39,7 @@ public class Player extends GameEntity{
 	private int jumpCounter;
 	private String blockedKey = "blocked";
 	private TiledMapTileLayer collisionLayer;
-	
+	private int itemsCollected;
 
 	public boolean DEAD;
 	public int health;
@@ -52,6 +52,7 @@ public class Player extends GameEntity{
 		this.speed = 10f;
 		this.jumpCounter = 0;
 		this.health=3;
+		this.itemsCollected = 0; 
 		
 		// Player animation
 		playerImage = new Texture("character/creatureSheet.png");
@@ -270,6 +271,12 @@ public class Player extends GameEntity{
 	}
 	public void setRecovery(boolean state) {
 		recovery=state;
+	}
+	public void incItemsCollected(){
+		this.itemsCollected += 1;
+	}
+	public int getItemsCollected(){
+		return itemsCollected;
 	}
 	
 	
