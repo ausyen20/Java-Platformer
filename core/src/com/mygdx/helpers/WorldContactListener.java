@@ -37,7 +37,9 @@ public class WorldContactListener implements ContactListener {
 				//Actualplayer.damage();
 				//Print I am a player, to indicate there is 
 				Item ffb = (Item) fb.getUserData();
-				ffb.onHit();
+				ffb.onHit(ffa);
+				System.out.println(ffa.getItemsCollected());
+		
 			
 			}
 		}

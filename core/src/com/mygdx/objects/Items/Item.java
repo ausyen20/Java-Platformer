@@ -16,6 +16,7 @@ import com.mygdx.screens.LevelScreens.GameScreen;
 public class Item extends Collectibles {
 	private Texture itemTexture;
 	private Boolean isCollected;
+	private Boolean toBeCollected;
 	private float width;
 	private float height;
 	private float x;
@@ -27,6 +28,7 @@ public class Item extends Collectibles {
 		this.x = x;
 		this.y = y;
 		this.isCollected = false;
+		this.toBeCollected = true;
 		this.itemTexture = new Texture(assetPath);
 		createItem();
 	}
@@ -65,7 +67,12 @@ public class Item extends Collectibles {
 	public void onHit(Player player) {
 		isCollected = true;
 		itemTexture.dispose();
-		
+		if(toBeCollected){
+			player.incItemsCollected();
+			toBeCollected = false;
+
+		}
+
 			
 	}
 
