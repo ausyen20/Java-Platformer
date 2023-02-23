@@ -226,7 +226,7 @@ public class LevelGluttony extends GameScreen {
         {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                ((Indulge) Indulge.getInstance()).change_levels(LevelScreenTypes.LUST);
+                ((Indulge) Indulge.getInstance()).change_levels(LevelScreenTypes.GLUTTONY);
 
             }
         });
