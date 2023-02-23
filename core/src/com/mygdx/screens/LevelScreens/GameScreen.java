@@ -209,4 +209,13 @@ public abstract class GameScreen implements Screen {
     public void setItem2(Item item){
         this.item2 = item;
     }
+    public Item getItem0(){
+        return this.item0;
+    }
+    public Item getItem1(){
+        return this.item1;
+    }
+    public Item getItem2(){
+        return this.item2;
+    }
 }

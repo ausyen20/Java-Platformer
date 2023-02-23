@@ -131,13 +131,13 @@ public class TileMapHelper {
 				}
 				if(rectangleName.equals("item1")) {
 					
-					gameScreen.setItem0(new Item( "Items/LustItems/item1.png", gameScreen, rectangle.getX() + rectangle.getWidth() / 2, rectangle.getY() + rectangle.getHeight(),
+					gameScreen.setItem1(new Item( "Items/LustItems/item1.png", gameScreen, rectangle.getX() + rectangle.getWidth() / 2, rectangle.getY() + rectangle.getHeight(),
 					rectangle.getWidth(), rectangle.getHeight()));
 				
 				}
 				if(rectangleName.equals("item2")) {
 					
-					gameScreen.setItem0(new Item( "Items/LustItems/item2.png", gameScreen, rectangle.getX() + rectangle.getWidth() / 2, rectangle.getY() + rectangle.getHeight(),
+					gameScreen.setItem2(new Item( "Items/LustItems/item2.png", gameScreen, rectangle.getX() + rectangle.getWidth() / 2, rectangle.getY() + rectangle.getHeight(),
 					rectangle.getWidth(), rectangle.getHeight()));
 				
 				}

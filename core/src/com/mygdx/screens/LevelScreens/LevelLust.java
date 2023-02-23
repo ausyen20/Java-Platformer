@@ -121,6 +121,10 @@ public class LevelLust extends GameScreen {
         	
         	
         }
+        getItem0().render(front_batch);
+        getItem1().render(front_batch);
+        getItem2().render(front_batch);
+        
         player.render(front_batch);
         switch(player.health) {
         case 1:
