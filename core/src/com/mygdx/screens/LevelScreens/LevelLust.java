@@ -17,6 +17,7 @@ import com.mygdx.helpers.TileMapHelper;
 import com.mygdx.helpers.WorldContactListener;
 import com.mygdx.helpers.Constants;
 import com.mygdx.indulge.Indulge;
+import com.mygdx.objects.Items.Item;
 import com.mygdx.objects.player.Player;
 import com.mygdx.helpers.AudioManager;
 
@@ -31,6 +32,8 @@ public class LevelLust extends GameScreen {
     private float constantScrollingSpeed;
     private float playerOffsetX;
     private float playerSpeed;
+
+    
     
     // Tiled Map
     private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
@@ -243,7 +246,7 @@ public class LevelLust extends GameScreen {
         });
     }
 
-   
+    
         
     
     public Player getPlayer() {

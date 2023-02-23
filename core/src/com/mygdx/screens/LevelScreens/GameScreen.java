@@ -19,6 +19,7 @@ import com.mygdx.helpers.Constants;
 import com.mygdx.helpers.LevelScreenTypes;
 import com.mygdx.helpers.MenuScreenTypes;
 import com.mygdx.indulge.Indulge;
+import com.mygdx.objects.Items.Item;
 import com.mygdx.objects.player.Player;
 
 
@@ -39,6 +40,7 @@ public abstract class GameScreen implements Screen {
     protected Texture[] backgrounds;
     protected float w = Gdx.graphics.getWidth();
 	protected float h = Gdx.graphics.getHeight();
+
 
     // Buttons
     protected Stage stage;
@@ -69,6 +71,9 @@ public abstract class GameScreen implements Screen {
     int recoverycooldown=0;
     World world;
 
+    protected Item item0;
+    protected Item item1;
+    protected Item item2;
     // Objects
     //protected Player player;
     public static Player player;
@@ -195,4 +200,13 @@ public abstract class GameScreen implements Screen {
     public void setPlayer(Player player) {
         this.player = player;
     } 
+    public void setItem0(Item item){
+        this.item0 = item;
+    }
+    public void setItem1(Item item){
+        this.item1 = item;
+    }
+    public void setItem2(Item item){
+        this.item2 = item;
+    }
 }
