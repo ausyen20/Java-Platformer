@@ -136,7 +136,11 @@ public class LevelGluttony extends GameScreen {
         front_batch.end();
         
         // Show back to menu button if game paused
-        if (PAUSED) super.drawButtons();
+        if (PAUSED && player.health > 0 ) { 
+            super.drawButtons(); 
+        } else if (!PAUSED && player.health > 0) {
+            Gdx.input.setInputProcessor(null);
+        } 
 
 
         box2DDebugRenderer.render(world, camera.combined.scl(Constants.PPM));}

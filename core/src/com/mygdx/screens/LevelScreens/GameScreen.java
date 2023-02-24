@@ -103,7 +103,7 @@ public abstract class GameScreen implements Screen {
 
     @Override
     public void dispose() {
-        // TODO Auto-generated method stub
+        Gdx.input.setInputProcessor(null);
         
     }
 

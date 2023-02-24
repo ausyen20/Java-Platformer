@@ -2,6 +2,7 @@ package com.mygdx.screens.LevelScreens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -148,7 +149,11 @@ public class LevelLust extends GameScreen {
         front_batch.end();
         
         // Show back to menu button if game paused
-        if (PAUSED) super.drawButtons();
+        if (PAUSED && player.health > 0 ) { 
+            super.drawButtons(); 
+        } else if (!PAUSED && player.health > 0) {
+            Gdx.input.setInputProcessor(null);
+        } 
         
 
         box2DDebugRenderer.render(world, camera.combined.scl(Constants.PPM));
