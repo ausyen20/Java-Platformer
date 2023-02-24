@@ -16,17 +16,16 @@ public class DemoLust extends DemoScreen {
     
     public DemoLust() {
         // Add demo assets
-        backgroundText = new Texture("demos/lustdemoText.png");
-        characterImage = new Texture("demos/lustdemoAnimation.png");
-        TextureRegion[][] tmpFrames = TextureRegion.split(characterImage, 160, 90);
-        animationFrames = new TextureRegion[4];
+        //backgroundText = new Texture("demos/lustdemoText.png");
+        backgroundText = new Texture("demos/demo1Text.png");
+        characterImage = new Texture("demos/demo1anim1-sheet.png");
+        TextureRegion[][] tmpFrames = TextureRegion.split(characterImage, 320, 180);
+        animationFrames = new TextureRegion[5];
         int index = 0;
-        for (int i = 0; i < 2; i++) {
-            for (int j = 0; j < 2; j++) {
-                animationFrames[index++] = tmpFrames[i][j];
-            }
+        for (int i = 0; i < 5; i++) {
+            animationFrames[index++] = tmpFrames[0][i];
         }
-        animation = new Animation<TextureRegion>(1f/4f, animationFrames);
+        animation = new Animation<TextureRegion>(1f/5f, animationFrames);
         batch = new SpriteBatch();
 
     }
