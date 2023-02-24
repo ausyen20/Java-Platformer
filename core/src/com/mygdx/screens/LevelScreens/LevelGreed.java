@@ -60,4 +60,18 @@ public class LevelGreed extends GameScreen {
             }
         }
     }
+
+
+    @Override
+    public LevelScreenTypes getCurrentScreen() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getCurrentScreen'");
+    }
+
+
+    @Override
+    public LevelScreenTypes getNextScreen() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getNextScreen'");
+    }
 }

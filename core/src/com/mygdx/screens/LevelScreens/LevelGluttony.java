@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.helpers.LevelScreenTypes;
+import com.mygdx.helpers.MenuScreenTypes;
 import com.mygdx.helpers.TileMapHelper;
 import com.mygdx.helpers.WorldContactListener;
 import com.mygdx.helpers.Constants;
@@ -72,7 +73,7 @@ public class LevelGluttony extends GameScreen {
         super.pauseScreen();
         
         if (player.health<=0) {
-        	((Indulge) Indulge.getInstance()).change_levels(LevelScreenTypes.GLUTTONY);
+        	((Indulge) Indulge.getInstance()).change_menu(MenuScreenTypes.END);
         }
     	world.step(1/60f,6, 2);
         // if paused, set deltatime to 0 to stop background scrolling
@@ -135,9 +136,8 @@ public class LevelGluttony extends GameScreen {
         front_batch.end();
         
         // Show back to menu button if game paused
-        if (PAUSED) {
-            super.drawButtons();
-        } else Gdx.input.setInputProcessor(null);
+        if (PAUSED) super.drawButtons();
+
 
         box2DDebugRenderer.render(world, camera.combined.scl(Constants.PPM));}
 
@@ -240,5 +240,17 @@ public class LevelGluttony extends GameScreen {
     
     public Player getPlayer() {
     	return player;
+    }
+
+
+    @Override
+    public LevelScreenTypes getCurrentScreen() {
+        return LevelScreenTypes.GLUTTONY;
+    }
+
+
+    @Override
+    public LevelScreenTypes getNextScreen() {
+        return LevelScreenTypes.SLOTH;
     }
 }

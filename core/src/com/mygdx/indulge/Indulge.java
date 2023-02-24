@@ -11,6 +11,7 @@ import com.mygdx.screens.LevelScreens.LevelGluttony;
 import com.mygdx.screens.LevelScreens.LevelGreed;
 import com.mygdx.screens.LevelScreens.LevelLust;
 import com.mygdx.screens.LevelScreens.LevelSloth;
+import com.mygdx.screens.MenuScreens.EndLevel;
 import com.mygdx.screens.MenuScreens.Options;
 import com.mygdx.screens.MenuScreens.TitleScreen;
 import com.mygdx.helpers.AudioManager;

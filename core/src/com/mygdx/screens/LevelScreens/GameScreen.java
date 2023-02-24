@@ -24,6 +24,7 @@ import com.mygdx.objects.player.Player;
 
 
 public abstract class GameScreen implements Screen {
+    private static GameScreen INSTANCE = null;
 
     // Screen
     protected OrthographicCamera camera;
@@ -78,6 +79,7 @@ public abstract class GameScreen implements Screen {
     //protected Player player;
     public static Player player;
     public GameScreen() {
+        INSTANCE = this;
         camera = new OrthographicCamera(16, 9);
         viewport = new StretchViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT, camera);
         stage = new Stage(new ScreenViewport());
@@ -93,6 +95,10 @@ public abstract class GameScreen implements Screen {
         item_bar1= new Texture("HUD/Itembar(1).png");
         item_bar2= new Texture("HUD/Itembar(2).png");
         item_bar3= new Texture("HUD/Itembar(3).png");
+    }
+
+    public static Object getInstance() {    
+        return INSTANCE;
     }
 
     @Override
@@ -218,4 +224,7 @@ public abstract class GameScreen implements Screen {
     public Item getItem2(){
         return this.item2;
     }
+    public abstract LevelScreenTypes getCurrentScreen();
+
+    public abstract LevelScreenTypes getNextScreen();
 }

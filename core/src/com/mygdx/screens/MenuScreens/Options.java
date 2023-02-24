@@ -14,10 +14,6 @@ import com.mygdx.indulge.Indulge;
 
 public class Options extends Menu {
 
-    // Batches
-    private SpriteBatch batch;
-    private SpriteBatch textbatch;
-
     // Background texture
     private Texture background;
 
@@ -36,8 +32,6 @@ public class Options extends Menu {
 
     public Options() {
         background = new Texture("titleScreen/titleBackground.png");
-        batch = new SpriteBatch();
-        textbatch = new SpriteBatch();
     }
     
     @Override
@@ -57,6 +51,8 @@ public class Options extends Menu {
         // Batch for text on buttons
         textbatch.begin();
         textbatch.draw(returnText, (Constants.WINDOW_WIDTH - returnButton.getWidth()) / 2, Constants.WINDOW_HEIGHT / 7);
+        textbatch.draw(normalText, Constants.WINDOW_WIDTH / 10, Constants.WINDOW_HEIGHT / 1.5f);
+        textbatch.draw(assistText, Constants.WINDOW_WIDTH / 10, Constants.WINDOW_HEIGHT / 2.5f);
         textbatch.end();
     }
 
@@ -76,9 +72,11 @@ public class Options extends Menu {
 
         normalButton = new ImageButton(buttTextureRegionDrawable);
         normalButton.setPosition(Constants.WINDOW_WIDTH / 10, Constants.WINDOW_HEIGHT / 1.5f);
-        
+        normalText = new Texture("titleScreen/normal.png");
+
         assistButton = new ImageButton(buttTextureRegionDrawable);
         assistButton.setPosition(Constants.WINDOW_WIDTH / 10, Constants.WINDOW_HEIGHT / 2.5f);
+        assistText = new Texture("titleScreen/assist.png");
 
         buttonGroup = new ButtonGroup<ImageButton>(normalButton, assistButton);
         buttonGroup.setMaxCheckCount(1);

@@ -1,6 +1,7 @@
 package com.mygdx.screens.MenuScreens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -15,10 +16,6 @@ import com.mygdx.helpers.AudioManager;
 
 public class TitleScreen extends Menu{
 
-    // Batches
-    private SpriteBatch batch;
-    private SpriteBatch textbatch;
-    
     // Background textures
     private Texture background;
     private Texture indulgeTitle;
@@ -40,9 +37,6 @@ public class TitleScreen extends Menu{
             ((AudioManager) AudioManager.getInstance()).setMusic("Music/deviation-130965.mp3");
             ((AudioManager) AudioManager.getInstance()).playMusic();
         }
-
-        batch = new SpriteBatch();
-        textbatch = new SpriteBatch();
     }
 
     public void userInput() {
@@ -90,6 +84,10 @@ public class TitleScreen extends Menu{
         textbatch.draw(optionsText, Constants.WINDOW_WIDTH / 15, Constants.WINDOW_HEIGHT / 3 );
         textbatch.draw(quitText, Constants.WINDOW_WIDTH / 15, Constants.WINDOW_HEIGHT / 6 );
         textbatch.end();
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+            ((Indulge) Indulge.getInstance()).change_demo(DemoScreenTypes.DEMO_LUST);
+        }
     }
 
     @Override
