@@ -40,6 +40,7 @@ public class Indulge extends Game {
         setScreen(new Options());
         break;
       case END:
+        setScreen(new EndLevel());
         break;
       default:
         break;
