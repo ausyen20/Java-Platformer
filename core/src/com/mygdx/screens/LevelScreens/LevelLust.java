@@ -149,6 +149,7 @@ public class LevelLust extends GameScreen {
         front_batch.end();
         
         // Show back to menu button if game paused
+        // TODO: debug this for win screen as well
         if (PAUSED && player.health > 0 ) { 
             super.drawButtons(); 
         } else if (!PAUSED && player.health > 0) {
