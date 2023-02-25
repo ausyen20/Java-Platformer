@@ -86,17 +86,7 @@ public class Indulge extends Game {
       case DEMO_ITEM:
         setScreen(new DemoItem());
         break;
-      case DEMO_ENVY:
-        break;
-      case DEMO_GREED:
-        break;
-      case DEMO_PRIDE:
-        break;
-      case DEMO_SLOTH:
-        break;
-      case DEMO_WRATH:
-        break;
-      default:
+      case DEMO_COINS:
         break;
     }
   }
