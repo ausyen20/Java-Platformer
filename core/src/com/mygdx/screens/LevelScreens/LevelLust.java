@@ -145,7 +145,22 @@ public class LevelLust extends GameScreen {
         	front_batch.draw(health_bar5, camera.position.x-160, 50);
         	break;
         }
-        front_batch.draw(item_bar0,camera.position.x-160 , 50);
+        switch(player.getItemsCollected()){
+            
+            case 0:
+                 front_batch.draw(item_bar0,camera.position.x-160 , 50);
+                 break;
+            case 1:
+                 front_batch.draw(item_bar1,camera.position.x-160 , 50);
+                 break;
+            case 2:
+                 front_batch.draw(item_bar2,camera.position.x-160 , 50);
+                 break;
+            case 3:
+                 front_batch.draw(item_bar3,camera.position.x-160 , 50);
+                 break;
+        }
+        
         front_batch.end();
         
         // Show back to menu button if game paused
@@ -225,7 +240,7 @@ public class LevelLust extends GameScreen {
             player.setRecovery(true);
         }
     }
-
+   
     private void cameraUpdate() {
         Vector3 position = camera.position;
 		// Camera center to the player obj
