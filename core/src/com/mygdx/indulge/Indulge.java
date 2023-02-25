@@ -5,7 +5,8 @@ import com.badlogic.gdx.Screen;
 import com.mygdx.helpers.DemoScreenTypes;
 import com.mygdx.helpers.LevelScreenTypes;
 import com.mygdx.helpers.MenuScreenTypes;
-import com.mygdx.screens.DemoScreens.DemoLust;
+import com.mygdx.screens.DemoScreens.DemoItem;
+import com.mygdx.screens.DemoScreens.DemoJump;
 import com.mygdx.screens.LevelScreens.LevelEnvy;
 import com.mygdx.screens.LevelScreens.LevelGluttony;
 import com.mygdx.screens.LevelScreens.LevelGreed;
@@ -79,12 +80,13 @@ public class Indulge extends Game {
     getScreen().dispose();
     ((AudioManager) AudioManager.getInstance()).disposeMusic();
     switch(new_demo) {
-      case DEMO_LUST:
-        setScreen(new DemoLust());
+      case DEMO_JUMP:
+        setScreen(new DemoJump());
+        break;
+      case DEMO_ITEM:
+        setScreen(new DemoItem());
         break;
       case DEMO_ENVY:
-        break;
-      case DEMO_GLUTTONY:
         break;
       case DEMO_GREED:
         break;

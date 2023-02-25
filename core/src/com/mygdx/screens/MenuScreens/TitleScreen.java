@@ -44,7 +44,7 @@ public class TitleScreen extends Menu{
         {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                ((Indulge) Indulge.getInstance()).change_demo(DemoScreenTypes.DEMO_LUST);
+                ((Indulge) Indulge.getInstance()).change_demo(DemoScreenTypes.DEMO_JUMP);
             }
         });
         optionsButton.addListener(new ClickListener()
@@ -86,7 +86,7 @@ public class TitleScreen extends Menu{
         textbatch.end();
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-            ((Indulge) Indulge.getInstance()).change_demo(DemoScreenTypes.DEMO_LUST);
+            ((Indulge) Indulge.getInstance()).change_demo(DemoScreenTypes.DEMO_JUMP);
         }
     }
 

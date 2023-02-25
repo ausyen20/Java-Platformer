@@ -7,14 +7,15 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.helpers.Constants;
+import com.mygdx.helpers.DemoScreenTypes;
 import com.mygdx.helpers.LevelScreenTypes;
 import com.mygdx.indulge.Indulge;
 
-public class DemoLust extends DemoScreen {
+public class DemoJump extends DemoScreen {
 
     private float elapsedtime;
     
-    public DemoLust() {
+    public DemoJump() {
         // Add demo assets
         //backgroundText = new Texture("demos/lustdemoText.png");
         backgroundText = new Texture("demos/demo1Text.png");
@@ -35,7 +36,7 @@ public class DemoLust extends DemoScreen {
         super.render(delta);
         elapsedtime += Gdx.graphics.getDeltaTime();
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-            ((Indulge) Indulge.getInstance()).change_levels(LevelScreenTypes.LUST);
+            ((Indulge) Indulge.getInstance()).change_demo(DemoScreenTypes.DEMO_ITEM);
         }
         batch.begin();
         batch.draw(backgroundText, 0, 0, Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
