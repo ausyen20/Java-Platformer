@@ -147,7 +147,6 @@ public class TileMapHelper {
 					
 				if (gameScreen.getClass()==LevelGluttony.class) {
 					if(rectangleName.equals("item0")) {
-					
 						gameScreen.setItem0(new Item( "Items/GluttonyItems/item0.png", gameScreen, rectangle.getX() + rectangle.getWidth() / 2, rectangle.getY() + rectangle.getHeight(),
 						rectangle.getWidth(), rectangle.getHeight()));
 					
@@ -165,10 +164,7 @@ public class TileMapHelper {
 					
 					}
 				}
-				
-			
 			}
-			
 		}
 	}
 	
