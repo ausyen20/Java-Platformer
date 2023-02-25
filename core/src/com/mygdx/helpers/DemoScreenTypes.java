@@ -1,8 +1,8 @@
 package com.mygdx.helpers;
 
 public enum DemoScreenTypes {
-    DEMO_LUST,
-    DEMO_GLUTTONY,
+    DEMO_JUMP,
+    DEMO_ITEM,
     DEMO_SLOTH,
     DEMO_GREED,
     DEMO_ENVY,
