@@ -174,9 +174,9 @@ public class LevelSloth extends GameScreen {
 
     private void renderBackground(float deltaTime) {
     
-        backgroundOffsets[0] += deltaTime * bgMaxScrollingSpeed / 4; 
-        backgroundOffsets[1] += deltaTime * bgMaxScrollingSpeed / 2; 
-        backgroundOffsets[2] += deltaTime * bgMaxScrollingSpeed; 
+        backgroundOffsets[0] += deltaTime * getScrollingSpeed() / 6; 
+        backgroundOffsets[1] += deltaTime * getScrollingSpeed() / 4; 
+        backgroundOffsets[2] += deltaTime * getScrollingSpeed() / 2;
 
         for (int layer = 0; layer < backgroundOffsets.length; layer++) {
             if (backgroundOffsets[layer] > Constants.ASSET_BACKGROUND_WIDTH) {
