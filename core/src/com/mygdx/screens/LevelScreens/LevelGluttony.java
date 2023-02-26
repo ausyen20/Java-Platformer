@@ -29,7 +29,7 @@ public class LevelGluttony extends GameScreen {
     // Timing
     private float cameraScrollingSpeed;
     private float constantScrollingSpeed;
-    private float playerOffsetX;
+    private float playerLeftOffset;
     private float playerSpeed;
     
     // Tiled Map
@@ -53,7 +53,7 @@ public class LevelGluttony extends GameScreen {
         constantScrollingSpeed = player.getSpeed() / (100 * (Constants.WORLD_WIDTH / Constants.ASSET_LAYOUT_WIDTH));
         cameraScrollingSpeed = constantScrollingSpeed;
         cameraUpdate();
-        playerOffsetX = (camera.position.x * 100) - player.getX();
+        playerLeftOffset = (camera.position.x * 100) - player.getX();
         playerSpeed = player.getSpeed();
 
         backgrounds = new Texture[3];
@@ -150,9 +150,9 @@ public class LevelGluttony extends GameScreen {
         front_batch.end();
         
         // Show back to menu button if game paused
-        if (PAUSED && player.health > 0 ) { 
+        if (PAUSED && !COMPLETED_LEVEL) { 
             super.drawButtons(); 
-        } else if (!PAUSED && player.health > 0) {
+        } else if (!PAUSED && !COMPLETED_LEVEL) {
             Gdx.input.setInputProcessor(null);
         } 
 
@@ -188,7 +188,8 @@ public class LevelGluttony extends GameScreen {
             cameraUpdate();
             player.update();
             acceleratePlayer();
-            outOfScreen();
+            outOfScreenLeft();
+            winCondition();
             player.setSpawnPoint();
             relocateCamera();
             world.setGravity(new Vector2(0, -7f));
@@ -199,16 +200,35 @@ public class LevelGluttony extends GameScreen {
 	}
 
     private void acceleratePlayer() {
-        if ((camera.position.x - player.getX()) > playerOffsetX + 2) {
+        if ((camera.position.x - player.getX()) > playerLeftOffset + 2) {
             player.setSpeed(playerSpeed + 2);
         }
         else player.setSpeed(playerSpeed);
     }
 
-    public void outOfScreen() {
-        if ((camera.position.x - player.getX()) > playerOffsetX + playerOffsetX/2 + player.getWidth()) {
+    public void outOfScreenLeft() {
+        if ((camera.position.x - player.getX()) > playerLeftOffset + playerLeftOffset/2 + player.getWidth()) {
             player.setDead(true);
-            System.out.println("Out of screen");
+        }
+    }
+
+    public void outOfScreenRight() {
+        if (player.getX() > Constants.ASSET_LAYOUT_WIDTH) {
+            COMPLETED_LEVEL = true;
+        }
+    }
+
+    public void collectedAllItems() {
+        if(player.getItemsCollected() == 3) {
+            COLLECTED_ALL_ITEMS = true;
+        }
+    }
+
+    public void winCondition() {
+        outOfScreenRight();
+        collectedAllItems();
+        if (COMPLETED_LEVEL && COLLECTED_ALL_ITEMS) {
+            ((Indulge) Indulge.getInstance()).change_menu(MenuScreenTypes.END);
         }
     }
 
@@ -218,7 +238,7 @@ public class LevelGluttony extends GameScreen {
              	player.health--;
              	System.out.println(player.health);
              }
-            camera.position.x = player.getX() + playerOffsetX;
+            camera.position.x = player.getX() + playerLeftOffset;
             player.setDead(false);
             player.setRecovery(true);
         }

@@ -32,7 +32,7 @@ public class LevelLust extends GameScreen {
     // Timing
     private float cameraScrollingSpeed;
     private float constantScrollingSpeed;
-    private float playerOffsetX;
+    private float playerLeftOffset;
     private float playerSpeed;
 
     
@@ -60,7 +60,7 @@ public class LevelLust extends GameScreen {
         constantScrollingSpeed = player.getSpeed() / (100 * (Constants.WORLD_WIDTH / Constants.ASSET_LAYOUT_WIDTH));
         cameraScrollingSpeed = constantScrollingSpeed;
         cameraUpdate();
-        playerOffsetX = (camera.position.x * 100) - player.getX();
+        playerLeftOffset = (camera.position.x * 100) - player.getX();
         playerSpeed = player.getSpeed();
 
         // Set background texture
@@ -165,9 +165,9 @@ public class LevelLust extends GameScreen {
         
         // Show back to menu button if game paused
         // TODO: debug this for win screen as well
-        if (PAUSED && player.health > 0 ) { 
+        if (PAUSED && !COMPLETED_LEVEL) { 
             super.drawButtons(); 
-        } else if (!PAUSED && player.health > 0) {
+        } else if (!PAUSED && !COMPLETED_LEVEL) {
             Gdx.input.setInputProcessor(null);
         } 
         
@@ -207,7 +207,8 @@ public class LevelLust extends GameScreen {
             cameraUpdate();
             player.update();
             acceleratePlayer();
-            outOfScreen();
+            outOfScreenLeft();
+            winCondition();
             player.setSpawnPoint();
             relocateCamera();
             world.setGravity(new Vector2(0, -7f));
@@ -218,15 +219,35 @@ public class LevelLust extends GameScreen {
 	}
 
     private void acceleratePlayer() {
-        if ((camera.position.x - player.getX()) > playerOffsetX + 2) {
+        if ((camera.position.x - player.getX()) > playerLeftOffset + 2) {
             player.setSpeed(playerSpeed + 2);
         }
         else player.setSpeed(playerSpeed);
     }
 
-    public void outOfScreen() {
-        if ((camera.position.x - player.getX()) > playerOffsetX + playerOffsetX/2 + player.getWidth()) {
+    public void outOfScreenLeft() {
+        if ((camera.position.x - player.getX()) > playerLeftOffset + playerLeftOffset/2 + player.getWidth()) {
             player.setDead(true);
+        }
+    }
+
+    public void outOfScreenRight() {
+        if (player.getX() > Constants.ASSET_LAYOUT_WIDTH) {
+            COMPLETED_LEVEL = true;
+        }
+    }
+
+    public void collectedAllItems() {
+        if(player.getItemsCollected() == 3) {
+            COLLECTED_ALL_ITEMS = true;
+        }
+    }
+
+    public void winCondition() {
+        outOfScreenRight();
+        collectedAllItems();
+        if (COMPLETED_LEVEL && COLLECTED_ALL_ITEMS) {
+            ((Indulge) Indulge.getInstance()).change_menu(MenuScreenTypes.END);
         }
     }
 
@@ -236,7 +257,7 @@ public class LevelLust extends GameScreen {
              	player.health--;
              	System.out.println(player.health);
              }
-            camera.position.x = player.getX() + playerOffsetX;
+            camera.position.x = player.getX() + playerLeftOffset;
             player.setDead(false);
             player.setRecovery(true);
         }

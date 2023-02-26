@@ -67,6 +67,8 @@ public abstract class GameScreen implements Screen {
 
     protected boolean PAUSED;
     protected boolean FIRSTPAUSED;
+    protected boolean COMPLETED_LEVEL;
+    protected boolean COLLECTED_ALL_ITEMS;
     private float timeSeconds = 0f;
     private float period = 2.8f;
     int recoverycooldown=0;
@@ -85,6 +87,8 @@ public abstract class GameScreen implements Screen {
         stage = new Stage(new ScreenViewport());
         PAUSED = false;
         FIRSTPAUSED = false;
+        COMPLETED_LEVEL = false;
+        COLLECTED_ALL_ITEMS = false;
 
         health_bar1=new Texture("HUD/greenbar (3).png");
         health_bar2=new Texture("HUD/greenbar (2).png");
