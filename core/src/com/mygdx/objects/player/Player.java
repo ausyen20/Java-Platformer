@@ -141,7 +141,6 @@ public class Player extends GameEntity{
 		jump();	
 		
 	}
-	
 	@Override
 	public void render(SpriteBatch batch) {
 		elapsedtime += Gdx.graphics.getDeltaTime();
