@@ -90,8 +90,8 @@ public class LevelSloth extends GameScreen {
         this.update();
         orthogonalTiledMapRenderer.setView(camera);
 
-        if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-            ((Indulge) Indulge.getInstance()).change_levels(LevelScreenTypes.SLOTH);
+        if (Gdx.input.isKeyPressed(Input.Keys.D)) {
+            ((Indulge) Indulge.getInstance()).change_levels(LevelScreenTypes.GREED);
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) && !FIRSTPAUSED) {
             if (PAUSED) {
@@ -285,7 +285,7 @@ public class LevelSloth extends GameScreen {
         {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                ((Indulge) Indulge.getInstance()).change_levels(LevelScreenTypes.LUST);
+                ((Indulge) Indulge.getInstance()).change_levels(LevelScreenTypes.SLOTH);
 
             }
         });
