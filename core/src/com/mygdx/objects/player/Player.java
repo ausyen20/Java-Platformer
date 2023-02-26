@@ -45,6 +45,7 @@ public class Player extends GameEntity{
 	public boolean DEAD;
 	public int health;
 	public boolean recovery=false;
+	public boolean lowgravity=false;
 	FixtureDef fixDef = new FixtureDef();
 	
 	//Austin: Remove collisionLayer from constructor, it unnecessary code
@@ -138,7 +139,7 @@ public class Player extends GameEntity{
 		x = body.getPosition().x * Constants.PPM;
 		y = body.getPosition().y * Constants.PPM;
 		
-		jump();	
+		jump();
 		
 	}
 	@Override
