@@ -15,6 +15,7 @@ import com.mygdx.helpers.LevelScreenTypes;
 import com.mygdx.helpers.MenuScreenTypes;
 import com.mygdx.helpers.TileMapHelper;
 import com.mygdx.helpers.WorldContactListener;
+import com.mygdx.helpers.AudioManager;
 import com.mygdx.helpers.Constants;
 import com.mygdx.indulge.Indulge;
 import com.mygdx.objects.player.Player;
@@ -64,6 +65,10 @@ public class LevelGluttony extends GameScreen {
         backgrounds[2] = new Texture("backgrounds/gluttony02.png");
         // Set background scrolling speed
         batch = new SpriteBatch();
+        
+     // Set music
+        ((AudioManager) AudioManager.getInstance()).setMusic("Music/Clown.mp3");
+        ((AudioManager) AudioManager.getInstance()).playMusic();
     }
 
 
