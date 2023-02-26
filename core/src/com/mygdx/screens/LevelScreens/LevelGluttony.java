@@ -31,6 +31,7 @@ public class LevelGluttony extends GameScreen {
     private float constantScrollingSpeed;
     private float playerLeftOffset;
     private float playerSpeed;
+    private Vector2 linearVel;
     
     // Tiled Map
     private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
@@ -55,6 +56,7 @@ public class LevelGluttony extends GameScreen {
         cameraUpdate();
         playerLeftOffset = (camera.position.x * 100) - player.getX();
         playerSpeed = player.getSpeed();
+        linearVel = new Vector2(0,0);
 
         backgrounds = new Texture[3];
         backgrounds[0] = new Texture("backgrounds/gluttony00.png");
@@ -90,6 +92,11 @@ public class LevelGluttony extends GameScreen {
             ((Indulge) Indulge.getInstance()).change_levels(LevelScreenTypes.SLOTH);
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) && !FIRSTPAUSED) {
+            if (PAUSED) {
+                player.getBody().setLinearVelocity(linearVel);
+            } else {
+                linearVel = player.getBody().getLinearVelocity();
+            }
             PAUSED = !PAUSED;
         }
 

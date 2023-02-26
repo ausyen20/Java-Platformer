@@ -34,6 +34,7 @@ public class LevelLust extends GameScreen {
     private float constantScrollingSpeed;
     private float playerLeftOffset;
     private float playerSpeed;
+    private Vector2 linearVel;
 
     
     
@@ -62,6 +63,8 @@ public class LevelLust extends GameScreen {
         cameraUpdate();
         playerLeftOffset = (camera.position.x * 100) - player.getX();
         playerSpeed = player.getSpeed();
+        linearVel = new Vector2(0,0);
+        
 
         // Set background texture
         backgrounds = new Texture[3];
@@ -100,6 +103,11 @@ public class LevelLust extends GameScreen {
             ((Indulge) Indulge.getInstance()).change_levels(LevelScreenTypes.GLUTTONY);
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) && !FIRSTPAUSED) {
+            if (PAUSED) {
+                player.getBody().setLinearVelocity(linearVel);
+            } else {
+                linearVel = player.getBody().getLinearVelocity();
+            }
             PAUSED = !PAUSED;
         }
 
@@ -216,7 +224,7 @@ public class LevelLust extends GameScreen {
             world.setGravity(new Vector2(0, -7f));
         } else {
             player.getBody().setLinearVelocity(0, 0);
-            world.setGravity(new Vector2(0, 0));
+            world.setGravity(new Vector2(0, 0f));
         }
 	}
 

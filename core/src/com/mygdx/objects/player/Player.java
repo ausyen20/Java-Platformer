@@ -18,6 +18,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Timer;
 import com.mygdx.helpers.TileMapHelper;
+import com.mygdx.screens.LevelScreens.GameScreen;
 import com.mygdx.helpers.Constants;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.actions.*;
@@ -62,14 +63,6 @@ public class Player extends GameEntity{
 		fixDef.isSensor = true;
 	}
 		
-	public float getLinearVelocity() {
-		return body.getLinearVelocity().x;
-	}
-
-	public void setLinearVelocity(float velx) {
-		body.getLinearVelocity().x = velx;
-	}
-
 	public float getSpeed() {
 		return this.speed;
 	}
