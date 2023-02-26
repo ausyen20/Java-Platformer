@@ -23,6 +23,7 @@ import com.mygdx.objects.player.Player;
 import com.mygdx.screens.LevelScreens.GameScreen;
 import com.mygdx.screens.LevelScreens.LevelGluttony;
 import com.mygdx.screens.LevelScreens.LevelLust;
+import com.mygdx.screens.LevelScreens.LevelSloth;
 
 import static com.mygdx.helpers.Constants.PPM;
 
@@ -42,6 +43,9 @@ public class TileMapHelper {
 	public OrthogonalTiledMapRenderer setupMap() {
 		if (gameScreen.getClass()==LevelLust.class) {
 			tiledMap = new TmxMapLoader().load("layouts/LustLayout.tmx");}
+		if (gameScreen.getClass()==LevelSloth.class) {
+			tiledMap = new TmxMapLoader().load("layouts/Sloth.tmx");
+		}
 		if (gameScreen.getClass()==LevelGluttony.class) {
 			tiledMap = new TmxMapLoader().load("layouts/GluttonyLayout.tmx");
 		}
