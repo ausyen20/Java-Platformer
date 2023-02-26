@@ -73,6 +73,7 @@ public class LevelGluttony extends GameScreen {
         super.pauseScreen();
         
         if (player.health<=0) {
+            setLose(true);
         	((Indulge) Indulge.getInstance()).change_menu(MenuScreenTypes.END);
         }
     	world.step(1/60f,6, 2);
@@ -150,9 +151,9 @@ public class LevelGluttony extends GameScreen {
         front_batch.end();
         
         // Show back to menu button if game paused
-        if (PAUSED && !COMPLETED_LEVEL) { 
+        if (PAUSED) { 
             super.drawButtons(); 
-        } else if (!PAUSED && !COMPLETED_LEVEL) {
+        } else if (!LOSE_LEVEL && !WIN_LEVEL) {
             Gdx.input.setInputProcessor(null);
         } 
 
@@ -228,6 +229,10 @@ public class LevelGluttony extends GameScreen {
         outOfScreenRight();
         collectedAllItems();
         if (COMPLETED_LEVEL && COLLECTED_ALL_ITEMS) {
+            setWin(true);
+            ((Indulge) Indulge.getInstance()).change_menu(MenuScreenTypes.END);
+        } else if (COMPLETED_LEVEL && !COLLECTED_ALL_ITEMS) {
+            setLose(true);
             ((Indulge) Indulge.getInstance()).change_menu(MenuScreenTypes.END);
         }
     }

@@ -82,6 +82,7 @@ public class LevelLust extends GameScreen {
         super.pauseScreen();
         
         if (player.health<=0) {
+            setLose(true);
         	((Indulge) Indulge.getInstance()).change_menu(MenuScreenTypes.END);
         }
     	world.step(1/60f,6, 2);
@@ -165,9 +166,9 @@ public class LevelLust extends GameScreen {
         
         // Show back to menu button if game paused
         // TODO: debug this for win screen as well
-        if (PAUSED && !COMPLETED_LEVEL) { 
+        if (PAUSED) { 
             super.drawButtons(); 
-        } else if (!PAUSED && !COMPLETED_LEVEL) {
+        } else if (!LOSE_LEVEL && !WIN_LEVEL) {
             Gdx.input.setInputProcessor(null);
         } 
         
@@ -209,6 +210,7 @@ public class LevelLust extends GameScreen {
             acceleratePlayer();
             outOfScreenLeft();
             winCondition();
+            getWin();
             player.setSpawnPoint();
             relocateCamera();
             world.setGravity(new Vector2(0, -7f));
@@ -247,6 +249,10 @@ public class LevelLust extends GameScreen {
         outOfScreenRight();
         collectedAllItems();
         if (COMPLETED_LEVEL && COLLECTED_ALL_ITEMS) {
+            setWin(true);
+            ((Indulge) Indulge.getInstance()).change_menu(MenuScreenTypes.END);
+        } else if (COMPLETED_LEVEL && !COLLECTED_ALL_ITEMS) {
+            setLose(true);
             ((Indulge) Indulge.getInstance()).change_menu(MenuScreenTypes.END);
         }
     }

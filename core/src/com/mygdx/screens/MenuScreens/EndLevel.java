@@ -44,7 +44,9 @@ public class EndLevel extends Menu{
         // Batch for text on the buttons
         textbatch.begin();
         textbatch.draw(menuText, (Constants.WINDOW_WIDTH - menuButton.getWidth()) / 2, Constants.WINDOW_HEIGHT / 6);
-        //textbatch.draw(nextLevelText, (Constants.WINDOW_WIDTH - nextLevelButton.getWidth()) / 2, Constants.WINDOW_HEIGHT / 2);
+        if (((GameScreen)GameScreen.getInstance()).getWin()) {
+            textbatch.draw(nextLevelText, (Constants.WINDOW_WIDTH - nextLevelButton.getWidth()) / 2, Constants.WINDOW_HEIGHT / 2);
+        }
         textbatch.draw(restartText, (Constants.WINDOW_WIDTH - restartButton.getWidth()) / 2, Constants.WINDOW_HEIGHT / 3);
         textbatch.end();
     }
@@ -75,8 +77,8 @@ public class EndLevel extends Menu{
 
             }
         });
-        //nextLevelText = new Texture("titleScreen/resume.png");
-
+        nextLevelText = new Texture("titleScreen/nextlevel.png");
+        
         restartButton = new ImageButton(buttTextureRegionDrawable);
         restartButton.setPosition((Constants.WINDOW_WIDTH - restartButton.getWidth()) / 2, Constants.WINDOW_HEIGHT / 3);
         restartButton.addListener(new ClickListener()
@@ -87,9 +89,11 @@ public class EndLevel extends Menu{
             }
         });
         restartText = new Texture("titleScreen/restart.png");
-
+        
+        if (((GameScreen)GameScreen.getInstance()).getWin()) {
+            stage.addActor(nextLevelButton);
+        }
         stage.addActor(menuButton);
-        stage.addActor(nextLevelButton);
         stage.addActor(restartButton);
     }    
 
@@ -102,5 +106,4 @@ public class EndLevel extends Menu{
         menuText.dispose();
         stage.dispose();
     }
-    
 }

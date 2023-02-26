@@ -69,6 +69,8 @@ public abstract class GameScreen implements Screen {
     protected boolean FIRSTPAUSED;
     protected boolean COMPLETED_LEVEL;
     protected boolean COLLECTED_ALL_ITEMS;
+    protected boolean WIN_LEVEL;
+    protected boolean LOSE_LEVEL;
     private float timeSeconds = 0f;
     private float period = 2.8f;
     int recoverycooldown=0;
@@ -89,6 +91,8 @@ public abstract class GameScreen implements Screen {
         FIRSTPAUSED = false;
         COMPLETED_LEVEL = false;
         COLLECTED_ALL_ITEMS = false;
+        WIN_LEVEL = false;
+        LOSE_LEVEL = false;
 
         health_bar1=new Texture("HUD/greenbar (3).png");
         health_bar2=new Texture("HUD/greenbar (2).png");
@@ -206,6 +210,22 @@ public abstract class GameScreen implements Screen {
     public World getWorld() {
 		return world;
 	}
+
+    public boolean getWin() {
+        return WIN_LEVEL;
+    }
+
+    public void setWin(boolean won) {
+        WIN_LEVEL = won;
+    }
+
+    public boolean getLose() {
+        return LOSE_LEVEL;
+    }
+
+    public void setLose(boolean lost) {
+        LOSE_LEVEL = lost;
+    }
     
     public void setPlayer(Player player) {
         this.player = player;
