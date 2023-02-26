@@ -124,12 +124,13 @@ public class LevelLust extends GameScreen {
         front_batch.setColor(1,1,1,1f);
         if (player.recovery==true) {
         	front_batch.setColor(1,0,0,1f);
-        	recoverycooldown++;
-        	if (recoverycooldown>60) {
-        		player.setRecovery(false);
-        		recoverycooldown=0;
-        	}
-        	
+            if(!PAUSED) {
+        	    recoverycooldown++;
+        	    if (recoverycooldown>60) {
+        		    player.setRecovery(false);
+        		    recoverycooldown=0;
+        	    }
+            }
         	
         }
         getItem0().render(front_batch);

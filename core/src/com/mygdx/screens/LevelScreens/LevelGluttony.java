@@ -112,13 +112,15 @@ public class LevelGluttony extends GameScreen {
         front_batch.begin();
         front_batch.setColor(1,1,1,1f);
         if (player.recovery==true) {
-        	front_batch.setColor(1,0,0,1f);
-        	recoverycooldown++;
-        	if (recoverycooldown>60) {
-        		player.setRecovery(false);
-        		recoverycooldown=0;
-        	}
-    }
+            front_batch.setColor(1,0,0,1f);
+            if(!PAUSED) {
+                recoverycooldown++;
+                if (recoverycooldown>60) {
+                    player.setRecovery(false);
+                    recoverycooldown=0;
+                }
+            }
+        }
         getItem0().render(front_batch);
         getItem1().render(front_batch);
         getItem2().render(front_batch);
