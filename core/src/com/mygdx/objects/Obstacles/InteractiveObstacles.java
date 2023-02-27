@@ -22,4 +22,13 @@ public abstract class InteractiveObstacles {
 	
 	
 	public abstract void onHit(Player player);
+	
+	public World getWorld() {
+		return world;
+	}
+	
+	public MapObject getMapObj() {
+		return mapObject;
+	}
 }
+

@@ -18,6 +18,7 @@ import com.mygdx.helpers.WorldContactListener;
 import com.mygdx.helpers.AudioManager;
 import com.mygdx.helpers.Constants;
 import com.mygdx.indulge.Indulge;
+import com.mygdx.objects.MovingObstacles.Peppermint;
 import com.mygdx.objects.player.Player;
 
 public class LevelGluttony extends GameScreen {
@@ -38,6 +39,7 @@ public class LevelGluttony extends GameScreen {
     private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
     private TileMapHelper tileMapHelper;
     protected Box2DDebugRenderer box2DDebugRenderer;
+    private boolean active;
 
     public LevelGluttony() {
         // Add background assets
@@ -205,9 +207,52 @@ public class LevelGluttony extends GameScreen {
             acceleratePlayer();
             outOfScreenLeft();
             winCondition();
-            player.setSpawnPoint();
+            player.setSpawnsGluttony();
             relocateCamera();
             world.setGravity(new Vector2(0, -7f));
+            // Getting peppermint array from tile map helper 
+            for(Peppermint p: tileMapHelper.getPeppermint()) {
+            	p.update(1f);
+            //System.out.println("B: " + p.getActive());
+           
+            	//When player's x position is beyond a certain range, active the body
+             	// + (value)f , when value is smaller lands faster, larger then lands later
+            	if(p.getX() < player.getPositionX() + 250f / Constants.PPM) {
+            		//Set true to be active when in range
+            		p.getMintBody().setActive(true);
+            		p.setActivng(true);
+            	
+            	}
+            	
+           // System.out.println("X: " + player.getPositionX() + ", " + p.getOriginalX()+ ", P: " + p.getX() + ", ID: " + p.getID() + ", respawn: " + player.getRespawn() + ", active: " + p.getActive());
+            	
+           //System.out.println("X: " + player.getPositionX() + " -> " + p.getID() + " , " + p.getX() +" , " + p.getY());
+            	// If id = 1, first pepper mint
+            	if(p.getID() == 1) {
+            		if(player.getPositionX() > 0f && player.getPositionX() < 65.53f) {
+            			
+            			if(player.RESPAWN == true) {
+            				System.out.println("reset1");
+            				
+            				p.resetPeppermint(player.getPositionX(), player.getRespawn(), p);
+            				player.setRespawn(false);
+            			
+            			}
+            		}
+            	}
+            	//If id =2, second pepper mint
+            	if(p.getID() == 2) {
+            		if(player.getPositionX() > 95f && player.getPositionX() < 131.8f) {
+            			if(player.RESPAWN == true) {
+            				System.out.println("reset2");
+            				
+            				p.resetPeppermint(player.getPositionX(), player.getRespawn(), p);
+            				player.setRespawn(false);
+            			
+            			}
+            		}
+            	}
+            }
         } else {
             player.getBody().setLinearVelocity(0, 0);
             world.setGravity(new Vector2(0, 0));

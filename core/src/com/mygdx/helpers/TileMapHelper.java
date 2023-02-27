@@ -2,6 +2,7 @@ package com.mygdx.helpers;
 
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.objects.EllipseMapObject;
 import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -9,6 +10,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Ellipse;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -17,7 +19,11 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
+import com.badlogic.gdx.utils.Array;
 import com.mygdx.objects.Items.Item;
+import com.mygdx.objects.MovingObstacles.Enemy;
+import com.mygdx.objects.MovingObstacles.Peppermint;
+import com.mygdx.objects.Obstacles.ChocolatePuddle;
 import com.mygdx.objects.Obstacles.Spike;
 import com.mygdx.objects.player.Player;
 import com.mygdx.screens.LevelScreens.GameScreen;
@@ -33,7 +39,9 @@ public class TileMapHelper {
 	private TiledMap tiledMap;
 	private GameScreen gameScreen;
 	protected Fixture fixture;
-	private Player player;
+
+	private Array<Peppermint> peppermints;
+
 	
 	
 	public TileMapHelper(GameScreen level) {
@@ -199,19 +207,54 @@ public class TileMapHelper {
 		
 	}
 	
-	//Creating only spikes, from Spike class
+	//Creating obstacles
 	private void parseObstacles(MapObjects mapObjects) {
+		peppermints = new Array<Peppermint>();
+		int counter = 1;
 		for (MapObject mapObject : mapObjects) {
-			if (mapObject instanceof PolygonMapObject) {
-				
+			
+			
+			
+			//creating spikes
+			if (mapObject instanceof PolygonMapObject) {				
 				String polyName = mapObject.getName();
-				
+	
 				if(polyName.equals("spike")) {
 					new Spike(((PolygonMapObject) mapObject), gameScreen.getWorld());
-					
 				}
 			}
+			//Creating choco puddles
+			if(mapObject instanceof RectangleMapObject) {
+				String rectName = mapObject.getName();
+				
+				if(rectName.equals("puddle")) {
+					new ChocolatePuddle(((RectangleMapObject) mapObject), gameScreen.getWorld());
+				}
+			}
+			//Creating peppermints, (in-complete)
+			
+			if(mapObject instanceof EllipseMapObject) {
+				String ellipseName = mapObject.getName();
+				Ellipse ellipse = ((EllipseMapObject)mapObject).getEllipse();
+				
+				
+				if(ellipseName.equals("peppermint")) {
+					
+					peppermints.add(new Peppermint(gameScreen.getWorld(),gameScreen, mapObject, counter));
+					counter++;
+				}
+				
+			}
 		}
+	}
+
+	public Array<Peppermint> getPeppermint(){
+		return peppermints;
+	}
+	public Array<Enemy> getEnemies(){
+		Array<Enemy> enemies = new Array<Enemy>();
+		enemies.addAll(peppermints);
+		return enemies;
 	}
 
 	

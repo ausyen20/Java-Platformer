@@ -6,6 +6,8 @@ import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.mygdx.objects.Items.Item;
+import com.mygdx.objects.MovingObstacles.Peppermint;
+import com.mygdx.objects.Obstacles.ChocolatePuddle;
 import com.mygdx.objects.Obstacles.Spike;
 import com.mygdx.objects.player.Player;
 import com.mygdx.screens.LevelScreens.GameScreen;
@@ -43,13 +45,39 @@ public class WorldContactListener implements ContactListener {
 			
 			}
 		}
+		//If player in contact with a choco puddle
+		if(fa.getUserData() instanceof Player || fb.getUserData() instanceof Player) {
+			if(fa.getUserData() instanceof ChocolatePuddle || fb.getUserData() instanceof ChocolatePuddle) {
+				Actualplayer.slowing();
+			}
+		}
+		//If player in contact with peppermint
+		if(fa.getUserData() instanceof Player || fb.getUserData() instanceof Player) {
+			if(fa.getUserData() instanceof Peppermint || fb.getUserData() instanceof Peppermint) {
+				Actualplayer.hitByMint();
+			}
+		}
 		
 	}
 
 	@Override
 	public void endContact(Contact contact) {
-		// TODO Auto-generated method stub
-		//Gdx.app.log("End", "");
+		Player Actualplayer=GameScreen.player;
+		Fixture efa = contact.getFixtureA();
+		Fixture efb = contact.getFixtureB();
+		
+
+		if(efa == null || efb == null) return;
+		if(efa.getUserData() == null || efb.getUserData() == null) return;
+		
+		System.out.println("eA: " + efa.getUserData() + ", eB: " + efb.getUserData());
+		
+		if(efa.getUserData() instanceof Player || efb.getUserData() instanceof Player) {
+			if(efa.getUserData() instanceof ChocolatePuddle || efb.getUserData() instanceof ChocolatePuddle) {
+				Actualplayer.resetSlowing();
+				
+			}
+		}
 	}
 
 	@Override

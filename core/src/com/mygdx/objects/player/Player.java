@@ -43,6 +43,8 @@ public class Player extends GameEntity{
 	private int itemsCollected;
 
 	public boolean DEAD;
+	public boolean SLOW;
+	public boolean RESPAWN = false;
 	public int health;
 	public boolean recovery=false;
 	public boolean lowgravity=false;
@@ -71,6 +73,36 @@ public class Player extends GameEntity{
 	public void setSpeed(float newspeed) {
 		this.speed = newspeed;
 	}
+
+	public void setVelx(float newVelx) {
+		this.velX = newVelx;
+	}
+	
+	//Player slowed when in contact with a choco puddle
+	public void slowing() {
+		if(SLOW == false) {
+			SLOW = true;
+			this.setVelx(0.05f);
+		}
+	}
+	// Player reset to original velx when leaving choclate puddle
+	public void resetSlowing() {
+		if(SLOW == true) {
+			SLOW = false;
+			this.setVelx(0.15f);
+		}
+	}
+	//Player in contact with peppermint, then set it to dead.
+	public void hitByMint() {
+		this.setDead(true);
+		if(this.recovery == false) {
+			System.out.println("health:" + health);
+			this.health--;
+		}
+		this.setDead(false);
+		this.setRecovery(true);
+	}
+
 	//Testing function, when a player hits a spike
 	public void damage() {
 		if (recovery==false) {
@@ -152,8 +184,9 @@ public class Player extends GameEntity{
 	private void jump() {
 		float oldX = x, oldY = y;
 		boolean collisionX = false, collisionY = false;
-		
-		velX = (float) 0.15;
+		if(!SLOW) {
+			velX = (float) 0.15;
+		}
 		if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && jumpCounter < 2) {
 			changeState(State.JUMPING);
 			float force = body.getMass() * 4;
@@ -255,6 +288,48 @@ public class Player extends GameEntity{
 			}	
 	}
 
+	//Spawnpoints for Level Gluttony
+	public void setSpawnsGluttony() {
+		if(body.getPosition().x > 0 && body.getPosition().x < 38.3f) {
+			//
+			if(body.getPosition().y < 0 || DEAD) {
+				//Reset to player to the start position
+				body.setTransform(1.78f, 0.83f, 0);
+				setDead(true);
+				setRespawn(true);
+				
+			}
+		}else if (body.getPosition().x >= 38.3f && body.getPosition().x < 65.53f) {
+			if(body.getPosition().y < 0 || DEAD) {
+				body.setTransform(38f, 3.4f, 0);
+				setDead(true);
+				setRespawn(true);
+			}
+		}else if (body.getPosition().x >= 65.53f && body.getPosition().x < 95f) {
+			if(body.getPosition().y < 0 || DEAD) {
+				//Checkpoint between torch and chocolate pud
+				body.setTransform(65.53f, 1.3275f, 0);
+				setDead(true);
+				setRespawn(true);
+			}
+		}else if (body.getPosition().x >= 95f && body.getPosition().x < 130.8f) {
+			if(body.getPosition().y < 0 || DEAD) {
+				//CheckPoint next to candy cane 
+				body.setTransform(95f, 1.3275f, 0);
+				setDead(true);
+				setRespawn(true);
+				
+			}
+		}else if (body.getPosition().x >= 130.8f && body.getPosition().x < 158.26f) {
+			if(body.getPosition().y < 0 || DEAD) {
+				//Before icecream item and endpoint
+				body.setTransform(130.8f, 3.84f, 0);
+				setDead(true);
+				setRespawn(true);
+			}
+		}
+	}
+
 	public boolean getDead() {
 		return DEAD;
 	}
@@ -265,11 +340,29 @@ public class Player extends GameEntity{
 	public void setRecovery(boolean state) {
 		recovery=state;
 	}
+	public boolean getRespawn() {
+		return RESPAWN;
+	}
+	public void setRespawn(boolean flag) {
+		this.RESPAWN = flag;
+	}
 	public void incItemsCollected(){
 		this.itemsCollected += 1;
 	}
 	public int getItemsCollected(){
 		return itemsCollected;
+	}
+	public float getPositionX() {
+		return body.getPosition().x;
+	}
+	public float getPositionY() {
+		return body.getPosition().y;
+	}
+	public float getPPM_X() {
+		return body.getPosition().x * Constants.PPM;
+	}
+	public float getPPM_Y() {
+		return body.getPosition().y * Constants.PPM;
 	}
 	
 	
