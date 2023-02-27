@@ -5,6 +5,7 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
+import com.mygdx.objects.Items.Coin;
 import com.mygdx.objects.Items.Item;
 import com.mygdx.objects.MovingObstacles.Peppermint;
 import com.mygdx.objects.Obstacles.ChocolatePuddle;
@@ -42,6 +43,14 @@ public class WorldContactListener implements ContactListener {
 				ffb.onHit(Actualplayer);
 				
 		
+			
+			}
+		}
+		if(fa.getUserData() instanceof Player || fb.getUserData() instanceof Player) {
+			if(fa.getUserData() instanceof Coin|| fb.getUserData() instanceof Coin) { 
+				Player ffa = (Player) fa.getUserData();
+				Coin ffb = (Coin) fb.getUserData();
+				ffb.onHit(Actualplayer);		
 			
 			}
 		}

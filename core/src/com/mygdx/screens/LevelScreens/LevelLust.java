@@ -3,7 +3,9 @@ package com.mygdx.screens.LevelScreens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
@@ -11,8 +13,12 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.helpers.LevelScreenTypes;
 import com.mygdx.helpers.MenuScreenTypes;
 import com.mygdx.helpers.TileMapHelper;
@@ -36,13 +42,14 @@ public class LevelLust extends GameScreen {
     private float playerSpeed;
     private Vector2 linearVel;
 
-    
+    Label coinCount;
+    Stage coinStage;
     
     // Tiled Map
     private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
     private TileMapHelper tileMapHelper;
     protected Box2DDebugRenderer box2DDebugRenderer;
-
+    
     // Objects
    
     
@@ -75,6 +82,10 @@ public class LevelLust extends GameScreen {
         // Set music
         ((AudioManager) AudioManager.getInstance()).setMusic("Music/spy-jazz-20925.mp3");
         ((AudioManager) AudioManager.getInstance()).playMusic();
+        
+        coinStage = new Stage(new ScreenViewport(camera),front_batch);
+        coinCount = new Label(String.format("%d", player.getCoinsCollected()), new Label.LabelStyle(font24,Color.WHITE));
+        coinStage.addActor(coinCount);
     }
     
     @Override
@@ -172,7 +183,9 @@ public class LevelLust extends GameScreen {
         }
         
         front_batch.end();
-        
+        coinCount.setText(String.format("%02d",player.getCoinsCollected()));
+        coinCount.setPosition(camera.position.x+ 130, 160);
+        coinStage.draw();
         // Show back to menu button if game paused
         // TODO: debug this for win screen as well
         if (PAUSED) { 

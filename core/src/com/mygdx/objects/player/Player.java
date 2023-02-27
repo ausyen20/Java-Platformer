@@ -41,7 +41,7 @@ public class Player extends GameEntity{
 	private String blockedKey = "blocked";
 	private TiledMapTileLayer collisionLayer;
 	private int itemsCollected;
-
+	private int coinsCollected;
 	public boolean DEAD;
 	public boolean SLOW;
 	public boolean RESPAWN = false;
@@ -57,7 +57,7 @@ public class Player extends GameEntity{
 		this.jumpCounter = 0;
 		this.health=3;
 		this.itemsCollected = 0; 
-		
+		this.coinsCollected = 0;
 		// Player animation
 		playerImage = new Texture("character/creatureSheet.png");
 		splitFrames = TextureRegion.split(playerImage, Constants.PLAYER_SPRITE_WIDTH, Constants.PLAYER_SPRITE_HEIGHT);
@@ -351,6 +351,12 @@ public class Player extends GameEntity{
 	}
 	public int getItemsCollected(){
 		return itemsCollected;
+	}
+	public void incCoinsCollected(){
+		this.coinsCollected += 1;
+	}
+	public int getCoinsCollected(){
+		return coinsCollected;
 	}
 	public float getPositionX() {
 		return body.getPosition().x;

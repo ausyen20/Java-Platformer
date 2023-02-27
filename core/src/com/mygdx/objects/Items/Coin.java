@@ -13,7 +13,7 @@ import com.mygdx.helpers.Constants;
 import com.mygdx.objects.player.Player;
 import com.mygdx.screens.LevelScreens.GameScreen;
 
-public class Item extends Collectables {
+public class Coin extends Collectables {
 	private Texture itemTexture;
 	private Boolean isCollected;
 	private Boolean toBeCollected;
@@ -21,7 +21,7 @@ public class Item extends Collectables {
 	private float height;
 	private float x;
 	private float y;
-	public Item(String assetPath,GameScreen gameScreen, float x, float y, float width, float height) {
+	public Coin(GameScreen gameScreen, float x, float y, float width, float height) {
 		super(gameScreen, x, y);
 		this.width = width;
 		this.height = height;
@@ -29,7 +29,7 @@ public class Item extends Collectables {
 		this.y = y;
 		this.isCollected = false;
 		this.toBeCollected = true;
-		this.itemTexture = new Texture(assetPath);
+		this.itemTexture = new Texture("Items/Coin.png");
 		create();
 	}
 
@@ -56,7 +56,7 @@ public class Item extends Collectables {
 	@Override
 	public void render(SpriteBatch batch) {
 		if(!isCollected) {
-			batch.draw(itemTexture,x - width /2 , y - height /2 , 16, 16);
+			batch.draw(itemTexture,x - width /2 , y - height /2 , 12, 12);
 		}
 		
 	}
@@ -68,7 +68,7 @@ public class Item extends Collectables {
 		isCollected = true;
 		itemTexture.dispose();
 		if(toBeCollected){
-			player.incItemsCollected();
+			player.incCoinsCollected();
 			toBeCollected = false;
 
 		}
@@ -77,7 +77,7 @@ public class Item extends Collectables {
 	}
 
 
-	
+}
 	
 
-}
+

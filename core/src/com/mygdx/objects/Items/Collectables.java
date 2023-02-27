@@ -7,7 +7,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.screens.LevelScreens.GameScreen;
 
-public abstract class Collectibles extends Sprite{
+public abstract class Collectables extends Sprite{
 
 	protected GameScreen gameScreen;
 	protected World world;
@@ -15,14 +15,14 @@ public abstract class Collectibles extends Sprite{
 	protected Boolean destoryed;
 	
 
-	public Collectibles(GameScreen gameScreen, float x, float y) {
+	public Collectables(GameScreen gameScreen, float x, float y) {
 		this.gameScreen = gameScreen;
 		this.world = gameScreen.getWorld();
 		destoryed = false;		
 		
 	}
 	
-	public abstract void createItem();
+	public abstract void create();
 
 	public abstract void render(SpriteBatch batch);
 	

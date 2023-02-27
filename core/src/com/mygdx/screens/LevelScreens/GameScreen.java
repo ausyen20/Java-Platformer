@@ -1,15 +1,22 @@
 package com.mygdx.screens.LevelScreens;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -19,6 +26,7 @@ import com.mygdx.helpers.Constants;
 import com.mygdx.helpers.LevelScreenTypes;
 import com.mygdx.helpers.MenuScreenTypes;
 import com.mygdx.indulge.Indulge;
+import com.mygdx.objects.Items.Coin;
 import com.mygdx.objects.Items.Item;
 import com.mygdx.objects.player.Player;
 
@@ -64,7 +72,8 @@ public abstract class GameScreen implements Screen {
     Texture item_bar1;
     Texture item_bar2;
     Texture item_bar3;
-
+    
+   
     protected boolean PAUSED;
     protected boolean FIRSTPAUSED;
     protected boolean COMPLETED_LEVEL;
@@ -75,10 +84,11 @@ public abstract class GameScreen implements Screen {
     private float period = 2.8f;
     int recoverycooldown=0;
     World world;
-
+    private ArrayList<Coin> coins; 
     protected Item item0;
     protected Item item1;
     protected Item item2;
+    BitmapFont font24 ;
     // Objects
     //protected Player player;
     public static Player player;
@@ -99,10 +109,28 @@ public abstract class GameScreen implements Screen {
         health_bar3=new Texture("HUD/greenbar (1).png");
         health_bar4=new Texture("HUD/greenbar (4).png");
         health_bar5=new Texture("HUD/greenbar (5).png");
+       
         item_bar0=new Texture("HUD/Itembar(0).png");
         item_bar1= new Texture("HUD/Itembar(1).png");
         item_bar2= new Texture("HUD/Itembar(2).png");
         item_bar3= new Texture("HUD/Itembar(3).png");
+        coins = new ArrayList<Coin>();
+        
+        
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("rainyhearts.ttf"));
+        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+        parameter.size = 15;
+        parameter.borderWidth = 1;
+        parameter.color = Color.WHITE;
+        parameter.shadowOffsetX = 2;
+        parameter.shadowOffsetY = 2;
+        parameter.shadowColor = Color.YELLOW;
+        font24 = generator.generateFont(parameter);
+        font24.setUseIntegerPositions(false); // font size 24 pixels
+        generator.dispose();
+ 
+        
+        
     }
 
     public static Object getInstance() {    
@@ -175,16 +203,18 @@ public abstract class GameScreen implements Screen {
         restartButton = new ImageButton(buttTextureRegionDrawable);
         restartButton.setPosition((Constants.WINDOW_WIDTH - restartButton.getWidth()) / 2, Constants.WINDOW_HEIGHT / 3);
         restartText = new Texture("titleScreen/restart.png");
-
         stage.addActor(menuButton);
         stage.addActor(resumeButton);
         stage.addActor(restartButton);
+        
     }    
 
     public void drawButtons() {
+        
         Gdx.input.setInputProcessor(stage);
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
+        
         textbatch.begin();
         textbatch.draw(menuText, (Constants.WINDOW_WIDTH - menuButton.getWidth()) / 2, Constants.WINDOW_HEIGHT / 6);
         textbatch.draw(resumeText, (Constants.WINDOW_WIDTH - resumeButton.getWidth()) / 2, Constants.WINDOW_HEIGHT / 2);
@@ -230,6 +260,9 @@ public abstract class GameScreen implements Screen {
     public void setPlayer(Player player) {
         this.player = player;
     } 
+    public void setCoin(Coin coin){
+        this.coins.add(coin);
+    }
     public void setItem0(Item item){
         this.item0 = item;
     }
