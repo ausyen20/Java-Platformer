@@ -68,8 +68,12 @@ public class Coin extends Collectables {
 		isCollected = true;
 		itemTexture.dispose();
 		if(toBeCollected){
-			player.incCoinsCollected();
+			player.incCoinsCollected();		
 			toBeCollected = false;
+			if(player.getCoinsCollected() % 30 == 0){
+				player.health++;
+				player.resetCoinsCollected();
+			}
 
 		}
 

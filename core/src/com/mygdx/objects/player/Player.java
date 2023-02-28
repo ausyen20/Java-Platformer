@@ -355,6 +355,9 @@ public class Player extends GameEntity{
 	public void incCoinsCollected(){
 		this.coinsCollected += 1;
 	}
+	public void resetCoinsCollected(){
+		this.coinsCollected = 0;
+	}
 	public int getCoinsCollected(){
 		return coinsCollected;
 	}
