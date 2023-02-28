@@ -71,8 +71,11 @@ public class Coin extends Collectables {
 			player.incCoinsCollected();		
 			toBeCollected = false;
 			if(player.getCoinsCollected() % 30 == 0){
-				player.health++;
-				player.resetCoinsCollected();
+				if(player.health <6){
+					player.health++;
+					player.resetCoinsCollected();
+				}
+				
 			}
 
 		}

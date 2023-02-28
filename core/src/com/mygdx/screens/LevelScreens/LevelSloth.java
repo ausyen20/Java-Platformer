@@ -139,6 +139,7 @@ public class LevelSloth extends GameScreen {
                 }
             }
         }
+        getCoinList().forEach((c) -> c.render(front_batch));
         //getItem0().render(front_batch);
         //getItem1().render(front_batch);
         //getItem2().render(front_batch);
