@@ -2,7 +2,9 @@ package com.mygdx.objects.MovingObstacles;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.CircleMapObject;
 import com.badlogic.gdx.maps.objects.EllipseMapObject;
@@ -28,6 +30,9 @@ public class Peppermint extends Enemy{
 	private boolean active = false;
 	private float elapsedtime;
 	private Texture peppermintImage;
+	private TextureRegion[] frames;
+	private Animation<TextureRegion> animation;
+	private TextureRegion[][] splitFrames;
 	
 	public Peppermint(World world, GameScreen gameScreen, MapObject mapObject, int ID) {
 		super(world, mapObject);
@@ -38,6 +43,13 @@ public class Peppermint extends Enemy{
 		velocity = new Vector2(-1, -2);
 		b2dBody.setActive(false);
 		peppermintImage = new Texture("obstacles/peppermint.png");
+		splitFrames = TextureRegion.split(peppermintImage, 20, 20);
+		frames = new TextureRegion[4];
+		for (int i = 0; i < 4; i++) {
+			frames[i] = splitFrames[0][i];
+		} 
+		animation = new Animation<TextureRegion>(1f/8f, frames);
+	
 	}
 
 	@Override
@@ -69,8 +81,8 @@ public class Peppermint extends Enemy{
 
 	@Override
 	public void render(Batch batch) {
-		//elapsedtime += Gdx.graphics.getDeltaTime();
-		batch.draw(peppermintImage, b2dBody.getWorldCenter().x * Constants.PPM - 10, b2dBody.getWorldCenter().y * Constants.PPM - 10);
+		elapsedtime += Gdx.graphics.getDeltaTime();
+		batch.draw(animation.getKeyFrame(elapsedtime, true), b2dBody.getWorldCenter().x * Constants.PPM - 10, b2dBody.getWorldCenter().y * Constants.PPM - 10);
 	}
 	
 	//Help parsing the Ellipse Object (in-Complete)
