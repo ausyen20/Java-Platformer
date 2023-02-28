@@ -50,6 +50,7 @@ public class LevelGluttony extends GameScreen {
     Stage coinStage;
     Group coinGroup;
 
+
     public LevelGluttony() {
         // Add background assets
 
@@ -149,6 +150,7 @@ public class LevelGluttony extends GameScreen {
         getItem1().render(front_batch);
         getItem2().render(front_batch);
         player.render(front_batch);
+        tileMapHelper.getPeppermint().forEach((c) -> c.render(front_batch));
         switch(player.health) {
         case 1:
         	front_batch.draw(health_bar1, camera.position.x-160, 50);
