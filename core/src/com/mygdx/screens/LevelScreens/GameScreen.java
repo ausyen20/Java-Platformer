@@ -281,6 +281,9 @@ public abstract class GameScreen implements Screen {
     public Item getItem2(){
         return this.item2;
     }
+    public ArrayList<Coin> getCoinList(){
+        return coins;
+    }
     public abstract LevelScreenTypes getCurrentScreen();
 
     public abstract LevelScreenTypes getNextScreen();

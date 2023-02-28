@@ -20,6 +20,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.objects.Items.Coin;
 import com.mygdx.objects.Items.Item;
 import com.mygdx.objects.MovingObstacles.Enemy;
 import com.mygdx.objects.MovingObstacles.Peppermint;
@@ -134,6 +135,10 @@ public class TileMapHelper {
 			if(mapObject instanceof RectangleMapObject) {
 				Rectangle rectangle = ((RectangleMapObject)mapObject).getRectangle();
 				String rectangleName = mapObject.getName();
+				if(rectangleName.equals("coin")){
+					gameScreen.setCoin(new Coin(gameScreen, rectangle.getX() + rectangle.getWidth() / 2, rectangle.getY() + rectangle.getHeight(),
+					rectangle.getWidth(), rectangle.getHeight()));
+				}
 				if(gameScreen.getClass()==LevelLust.class){
 					if(rectangleName.equals("item0")) {
 					
