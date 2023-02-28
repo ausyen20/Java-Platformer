@@ -73,7 +73,7 @@ public class Coin extends Collectables {
 			toBeCollected = false;
 			((AudioManager) AudioManager.getInstance()).setSound("Sound/Coin3.wav");
         	((AudioManager) AudioManager.getInstance()).playSound();
-			if(player.getCoinsCollected() % 5== 0){
+			if(player.getCoinsCollected() % 30== 0){
 				if(player.health <6){
 					
 					player.health++;
