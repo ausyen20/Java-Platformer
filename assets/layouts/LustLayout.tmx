@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.6" orientation="orthogonal" renderorder="right-down" width="320" height="12" tilewidth="16" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="102">
+<map version="1.8" tiledversion="1.8.6" orientation="orthogonal" renderorder="right-down" width="320" height="12" tilewidth="16" tileheight="16" infinite="0" nextlayerid="10" nextobjectid="174">
  <tileset firstgid="1" source="LustGluttonytiles.tsx"/>
  <tileset firstgid="101" source="Hearts1.tsx"/>
  <tileset firstgid="102" source="Hearts2.tsx"/>
@@ -328,5 +328,65 @@
   <object id="99" name="item0" x="1072.67" y="79.6667" width="16" height="16"/>
   <object id="100" name="item1" x="2480" y="32.6667" width="16" height="16"/>
   <object id="101" name="item2" x="4720" y="64" width="16" height="16"/>
+  <object id="102" name="coin" x="351.5" y="160" width="12" height="12"/>
+  <object id="104" name="coin" x="376.5" y="160" width="12" height="12"/>
+  <object id="105" name="coin" x="538.5" y="127" width="12" height="12"/>
+  <object id="106" name="coin" x="400.5" y="160" width="12" height="12"/>
+  <object id="107" name="coin" x="567.5" y="95" width="12" height="12"/>
+  <object id="108" name="coin" x="600" y="68.5" width="12" height="12"/>
+  <object id="109" name="coin" x="652.5" y="68.5" width="12" height="12"/>
+  <object id="110" name="coin" x="833.5" y="52" width="12" height="12"/>
+  <object id="111" name="coin" x="1331" y="160" width="12" height="12"/>
+  <object id="112" name="coin" x="1377.5" y="160" width="12" height="12"/>
+  <object id="113" name="coin" x="1345" y="135" width="12" height="12"/>
+  <object id="114" name="coin" x="1361.5" y="135" width="12" height="12"/>
+  <object id="115" name="coin" x="1556" y="32" width="12" height="12"/>
+  <object id="116" name="coin" x="1575" y="32" width="12" height="12"/>
+  <object id="117" name="coin" x="1595" y="32" width="12" height="12"/>
+  <object id="118" name="coin" x="1614" y="32" width="12" height="12"/>
+  <object id="119" name="coin" x="1633.5" y="32" width="12" height="12"/>
+  <object id="120" name="coin" x="1666.5" y="150" width="12" height="12"/>
+  <object id="121" name="coin" x="1711" y="150" width="12" height="12"/>
+  <object id="122" name="coin" x="1690" y="150" width="12" height="12"/>
+  <object id="123" name="coin" x="1845.5" y="57" width="12" height="12"/>
+  <object id="124" name="coin" x="1931.5" y="57" width="12" height="12"/>
+  <object id="125" name="coin" x="2119.5" y="57" width="12" height="12"/>
+  <object id="126" name="coin" x="2011" y="57" width="12" height="12"/>
+  <object id="127" name="coin" x="1939" y="160" width="12" height="12"/>
+  <object id="128" name="coin" x="2096" y="160" width="12" height="12"/>
+  <object id="129" name="coin" x="2300" y="99" width="12" height="12"/>
+  <object id="130" name="coin" x="2344" y="99" width="12" height="12"/>
+  <object id="131" name="coin" x="2489" y="110" width="12" height="12"/>
+  <object id="132" name="coin" x="2507.5" y="110" width="12" height="12"/>
+  <object id="133" name="coin" x="2690" y="81" width="12" height="12"/>
+  <object id="134" name="coin" x="2658" y="81" width="12" height="12"/>
+  <object id="135" name="coin" x="2673.5" y="81" width="12" height="12"/>
+  <object id="136" name="coin" x="2890" y="50" width="12" height="12"/>
+  <object id="137" name="coin" x="2906.5" y="50" width="12" height="12"/>
+  <object id="138" name="coin" x="2924.5" y="50" width="12" height="12"/>
+  <object id="142" name="coin" x="2936.75" y="158" width="12" height="12"/>
+  <object id="143" name="coin" x="2953.25" y="158" width="12" height="12"/>
+  <object id="144" name="coin" x="2971.25" y="158" width="12" height="12"/>
+  <object id="148" name="coin" x="2977.25" y="50" width="12" height="12"/>
+  <object id="149" name="coin" x="2993.75" y="50" width="12" height="12"/>
+  <object id="150" name="coin" x="3011.75" y="50" width="12" height="12"/>
+  <object id="154" name="coin" x="3693.25" y="69.5" width="12" height="12"/>
+  <object id="155" name="coin" x="3709.75" y="69.5" width="12" height="12"/>
+  <object id="157" name="coin" x="3817.75" y="21.5" width="12" height="12"/>
+  <object id="158" name="coin" x="3834.25" y="21.5" width="12" height="12"/>
+  <object id="159" name="coin" x="3852.25" y="21.5" width="12" height="12"/>
+  <object id="160" name="coin" x="3845.75" y="129.5" width="12" height="12"/>
+  <object id="161" name="coin" x="3862.25" y="129.5" width="12" height="12"/>
+  <object id="162" name="coin" x="4090.25" y="111.5" width="12" height="12"/>
+  <object id="163" name="coin" x="4348.75" y="162.5" width="12" height="12"/>
+  <object id="164" name="coin" x="4365.25" y="162.5" width="12" height="12"/>
+  <object id="165" name="coin" x="4383.25" y="162.5" width="12" height="12"/>
+  <object id="166" name="coin" x="4161" y="18" width="12" height="12"/>
+  <object id="168" name="coin" x="4592.5" y="68.5" width="12" height="12"/>
+  <object id="169" name="coin" x="4611.5" y="69" width="12" height="12"/>
+  <object id="170" name="coin" x="4805" y="74" width="12" height="12"/>
+  <object id="171" name="coin" x="4919.5" y="102.5" width="12" height="12"/>
+  <object id="172" name="coin" x="864.5" y="52" width="12" height="12"/>
+  <object id="173" name="coin" x="899.5" y="52" width="12" height="12"/>
  </objectgroup>
 </map>
