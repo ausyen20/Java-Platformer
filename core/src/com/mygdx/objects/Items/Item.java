@@ -9,6 +9,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.mygdx.helpers.AudioManager;
 import com.mygdx.helpers.Constants;
 import com.mygdx.objects.player.Player;
 import com.mygdx.screens.LevelScreens.GameScreen;
@@ -70,6 +71,8 @@ public class Item extends Collectables {
 		if(toBeCollected){
 			player.incItemsCollected();
 			toBeCollected = false;
+			((AudioManager) AudioManager.getInstance()).setSound("Sound/Collectable4.wav");
+        	((AudioManager) AudioManager.getInstance()).playSound();
 
 		}
 
