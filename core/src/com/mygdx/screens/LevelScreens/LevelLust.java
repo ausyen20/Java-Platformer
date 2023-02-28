@@ -12,7 +12,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -45,7 +44,6 @@ public class LevelLust extends GameScreen {
 
     Label coinCount;
     Stage coinStage;
-    Group coinGroup;
     
     // Tiled Map
     private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
@@ -85,12 +83,9 @@ public class LevelLust extends GameScreen {
         ((AudioManager) AudioManager.getInstance()).setMusic("Music/spy-jazz-20925.mp3");
         ((AudioManager) AudioManager.getInstance()).playMusic();
         
-        coinStage = new Stage(new ScreenViewport());
+        coinStage = new Stage(new ScreenViewport(camera),front_batch);
         coinCount = new Label(String.format("%d", player.getCoinsCollected()), new Label.LabelStyle(font24,Color.WHITE));
         coinStage.addActor(coinCount);
-        coinGroup = new Group();
-        coinGroup.addActor(coinCount);
-        coinStage.addActor(coinGroup);
     }
     
     @Override
@@ -149,6 +144,7 @@ public class LevelLust extends GameScreen {
             }
         	
         }
+        getCoinList().forEach((c) -> c.render(front_batch));
         getItem0().render(front_batch);
         getItem1().render(front_batch);
         getItem2().render(front_batch);
@@ -189,8 +185,7 @@ public class LevelLust extends GameScreen {
         
         front_batch.end();
         coinCount.setText(String.format("%02d",player.getCoinsCollected()));
-        coinGroup.setScale(5f, 5f);
-        coinGroup.setPosition(Constants.WORLD_WIDTH + 1100, Constants.WINDOW_HEIGHT - 100);
+        coinCount.setPosition(camera.position.x+ 130, 160);
         coinStage.draw();
         // Show back to menu button if game paused
         // TODO: debug this for win screen as well
