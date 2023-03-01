@@ -43,8 +43,9 @@ public abstract class GameScreen implements Screen {
 
     // Graphics
     //protected World world;
-    protected SpriteBatch batch;
+    protected SpriteBatch bg_batch;
     protected SpriteBatch front_batch;
+    protected SpriteBatch player_batch;
     protected SpriteBatch textbatch;
     protected Texture[] backgrounds;
     protected float w = Gdx.graphics.getWidth();
@@ -163,7 +164,7 @@ public abstract class GameScreen implements Screen {
     public void resize(int width, int height) {
         camera.position.set(width/2f, height/2f, 0);
         viewport.update(width, height, true);
-        batch.setProjectionMatrix(camera.combined);
+        bg_batch.setProjectionMatrix(camera.combined);
     }
 
     @Override

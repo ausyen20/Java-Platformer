@@ -23,7 +23,7 @@ public class LevelEnvy extends GameScreen {
         backgrounds[2] = new Texture("backgrounds/envy02.png");
         // Set background scrolling speed
         layoutScrollingSpeed = (float) (Constants.WORLD_WIDTH) / 4;
-        batch = new SpriteBatch();
+        bg_batch = new SpriteBatch();
     }
 
 
@@ -35,10 +35,10 @@ public class LevelEnvy extends GameScreen {
         if (Gdx.input.isKeyPressed(Input.Keys.G)) {
             ((Indulge) Indulge.getInstance()).change_levels(LevelScreenTypes.LUST);
         }
-        batch.begin();
+        bg_batch.begin();
         // Scrolling background
         renderBackground(deltaTime);
-        batch.end();
+        bg_batch.end();
     }
 
     private void renderBackground(float deltaTime) {
@@ -52,7 +52,7 @@ public class LevelEnvy extends GameScreen {
                 backgroundOffsets[layer] = 0;
             }
             for (int i = 0; i < 2; i++) {
-                batch.draw(backgrounds[layer],
+                bg_batch.draw(backgrounds[layer],
                         -1 * backgroundOffsets[layer] + camera.position.x - camera.viewportWidth / 2 + (i * Constants.ASSET_BACKGROUND_WIDTH), 
                         0,
                         Constants.ASSET_BACKGROUND_WIDTH,

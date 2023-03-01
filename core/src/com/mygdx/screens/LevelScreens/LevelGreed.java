@@ -22,7 +22,7 @@ public class LevelGreed extends GameScreen {
         backgrounds[2] = new Texture("backgrounds/greed02.png");
         // Set background scrolling speed
         bgMaxScrollingSpeed = (float) (Constants.WORLD_WIDTH) / 4;
-        batch = new SpriteBatch();
+        bg_batch = new SpriteBatch();
     }
 
 
@@ -34,10 +34,10 @@ public class LevelGreed extends GameScreen {
         if (Gdx.input.isKeyPressed(Input.Keys.F)) {
             ((Indulge) Indulge.getInstance()).change_levels(LevelScreenTypes.ENVY);
         }
-        batch.begin();
+        bg_batch.begin();
         // Scrolling background
         renderBackground(deltaTime);
-        batch.end();
+        bg_batch.end();
         
     }
 
@@ -52,7 +52,7 @@ public class LevelGreed extends GameScreen {
                 backgroundOffsets[layer] = 0;
             }
             for (int i = 0; i < 2; i++) {
-                batch.draw(backgrounds[layer],
+                bg_batch.draw(backgrounds[layer],
                         -1 * backgroundOffsets[layer] + camera.position.x - camera.viewportWidth / 2 + (i * Constants.ASSET_BACKGROUND_WIDTH), 
                         0,
                         Constants.ASSET_BACKGROUND_WIDTH,

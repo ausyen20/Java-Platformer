@@ -54,8 +54,9 @@ public class LevelGluttony extends GameScreen {
     public LevelGluttony() {
         // Add background assets
 
-    	this.batch = new SpriteBatch();
+    	this.bg_batch = new SpriteBatch();
         this.front_batch = new SpriteBatch();
+        this.player_batch = new SpriteBatch();
         this.textbatch = new SpriteBatch();
 
         this.world = new World(new Vector2(0,-7f),false);
@@ -76,7 +77,7 @@ public class LevelGluttony extends GameScreen {
         backgrounds[1] = new Texture("backgrounds/gluttony01.png");
         backgrounds[2] = new Texture("backgrounds/gluttony02.png");
         // Set background scrolling speed
-        batch = new SpriteBatch();
+        bg_batch = new SpriteBatch();
         
      // Set music
         ((AudioManager) AudioManager.getInstance()).setMusic("Music/Clown.mp3");
@@ -124,32 +125,22 @@ public class LevelGluttony extends GameScreen {
             PAUSED = !PAUSED;
         }
 
-        batch.setProjectionMatrix(this.camera.combined);
+        bg_batch.setProjectionMatrix(this.camera.combined);
         front_batch.setProjectionMatrix(this.camera.combined);
+        player_batch.setProjectionMatrix(this.camera.combined);
+
         // batch for the background
-        batch.begin();
+        bg_batch.begin();
         renderBackground(deltaTime);
-        batch.end();
+        bg_batch.end();
         orthogonalTiledMapRenderer.render();
 
         // batch for foreground (player, etc)
         front_batch.begin();
-        front_batch.setColor(1,1,1,1f);
-        if (player.recovery==true) {
-            front_batch.setColor(1,0,0,1f);
-            if(!PAUSED) {
-                recoverycooldown++;
-                if (recoverycooldown>60) {
-                    player.setRecovery(false);
-                    recoverycooldown=0;
-                }
-            }
-        }
         getCoinList().forEach((c) -> c.render(front_batch));
         getItem0().render(front_batch);
         getItem1().render(front_batch);
         getItem2().render(front_batch);
-        player.render(front_batch);
         tileMapHelper.getPeppermint().forEach((c) -> c.render(front_batch));
         switch(player.health) {
         case 1:
@@ -184,6 +175,23 @@ public class LevelGluttony extends GameScreen {
                  break;
         }
         front_batch.end();
+
+        player_batch.begin();
+        player_batch.setColor(1,1,1,1f);
+        if (player.recovery==true) {
+        	player_batch.setColor(1,0,0,1f);
+            if(!PAUSED) {
+        	    recoverycooldown++;
+        	    if (recoverycooldown>60) {
+        		    player.setRecovery(false);
+        		    recoverycooldown=0;
+        	    }
+            }
+        	
+        }
+        player.render(player_batch);
+        player_batch.end();
+
         coinCount.setText(String.format("%02d",player.getCoinsCollected()));
         coinGroup.setScale(5f, 5f);
         coinGroup.setPosition(Constants.WORLD_WIDTH + 1100, Constants.WINDOW_HEIGHT - 100);
@@ -209,7 +217,7 @@ public class LevelGluttony extends GameScreen {
                 backgroundOffsets[layer] = 0;
             }
             for (int i = 0; i < 2; i++) {
-                batch.draw(backgrounds[layer],
+                bg_batch.draw(backgrounds[layer],
                         -1 * backgroundOffsets[layer] + camera.position.x - camera.viewportWidth / 2 + (i * Constants.ASSET_BACKGROUND_WIDTH), 
                         0,
                         Constants.ASSET_BACKGROUND_WIDTH,
@@ -220,7 +228,7 @@ public class LevelGluttony extends GameScreen {
     
     private void update() {
 		world.step(1/60f,6, 2);
-		batch.setProjectionMatrix(camera.combined);
+		bg_batch.setProjectionMatrix(camera.combined);
 		orthogonalTiledMapRenderer.setView(camera);	
         // If game is not paused, update camera and player
         if (!PAUSED && !FIRSTPAUSED) {

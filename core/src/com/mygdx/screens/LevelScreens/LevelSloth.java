@@ -49,8 +49,9 @@ public class LevelSloth extends GameScreen {
     Group coinGroup;
 
     public LevelSloth() {
-    	this.batch = new SpriteBatch();
+    	this.bg_batch = new SpriteBatch();
         this.front_batch = new SpriteBatch();
+        this.player_batch = new SpriteBatch();
         this.textbatch = new SpriteBatch();
 
         this.world = new World(new Vector2(0,-7f),false);
@@ -72,7 +73,7 @@ public class LevelSloth extends GameScreen {
         backgrounds[2] = new Texture("backgrounds/sloth02.png");
         // Set background scrolling speed
         bgMaxScrollingSpeed = (float) (Constants.WORLD_WIDTH) / 4;
-        batch = new SpriteBatch();
+        bg_batch = new SpriteBatch();
         
         ((AudioManager) AudioManager.getInstance()).setMusic("Music/Slothmusic.mp3");
         ((AudioManager) AudioManager.getInstance()).playMusic();
@@ -118,27 +119,18 @@ public class LevelSloth extends GameScreen {
             PAUSED = !PAUSED;
         }
 
-        batch.setProjectionMatrix(this.camera.combined);
+        bg_batch.setProjectionMatrix(this.camera.combined);
         front_batch.setProjectionMatrix(this.camera.combined);
+        player_batch.setProjectionMatrix(this.camera.combined);
+
         // batch for the background
-        batch.begin();
+        bg_batch.begin();
         renderBackground(deltaTime);
-        batch.end();
+        bg_batch.end();
         orthogonalTiledMapRenderer.render();
 
         // batch for foreground (player, etc)
         front_batch.begin();
-        front_batch.setColor(1,1,1,1f);
-        if (player.recovery==true) {
-            front_batch.setColor(1,0,0,1f);
-            if(!PAUSED) {
-                recoverycooldown++;
-                if (recoverycooldown>60) {
-                    player.setRecovery(false);
-                    recoverycooldown=0;
-                }
-            }
-        }
         getCoinList().forEach((c) -> c.render(front_batch));
         //getItem0().render(front_batch);
         //getItem1().render(front_batch);
@@ -177,6 +169,23 @@ public class LevelSloth extends GameScreen {
                  break;
         }
         front_batch.end();
+
+        player_batch.begin();
+        player_batch.setColor(1,1,1,1f);
+        if (player.recovery==true) {
+        	player_batch.setColor(1,0,0,1f);
+            if(!PAUSED) {
+        	    recoverycooldown++;
+        	    if (recoverycooldown>60) {
+        		    player.setRecovery(false);
+        		    recoverycooldown=0;
+        	    }
+            }
+        	
+        }
+        player.render(player_batch);
+        player_batch.end();
+        
         coinCount.setText(String.format("%02d",player.getCoinsCollected()));
         coinGroup.setScale(5f, 5f);
         coinGroup.setPosition(Constants.WORLD_WIDTH + 1100, Constants.WINDOW_HEIGHT - 100);
@@ -203,7 +212,7 @@ public class LevelSloth extends GameScreen {
                 backgroundOffsets[layer] = 0;
             }
             for (int i = 0; i < 2; i++) {
-                batch.draw(backgrounds[layer],
+                bg_batch.draw(backgrounds[layer],
                         -1 * backgroundOffsets[layer] + camera.position.x - camera.viewportWidth / 2 + (i * Constants.ASSET_BACKGROUND_WIDTH), 
                         0,
                         Constants.ASSET_BACKGROUND_WIDTH,
@@ -214,7 +223,7 @@ public class LevelSloth extends GameScreen {
     
     private void update() {
 		world.step(1/60f,6, 2);
-		batch.setProjectionMatrix(camera.combined);
+		bg_batch.setProjectionMatrix(camera.combined);
 		orthogonalTiledMapRenderer.setView(camera);	
         // If game is not paused, update camera and player
         if (!PAUSED && !FIRSTPAUSED) {
