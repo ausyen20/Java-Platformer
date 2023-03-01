@@ -29,6 +29,7 @@ import com.mygdx.objects.Obstacles.Spike;
 import com.mygdx.objects.player.Player;
 import com.mygdx.screens.LevelScreens.GameScreen;
 import com.mygdx.screens.LevelScreens.LevelGluttony;
+import com.mygdx.screens.LevelScreens.LevelGreed;
 import com.mygdx.screens.LevelScreens.LevelLust;
 import com.mygdx.screens.LevelScreens.LevelSloth;
 
@@ -58,8 +59,13 @@ public class TileMapHelper {
 		if (gameScreen.getClass()==LevelGluttony.class) {
 			tiledMap = new TmxMapLoader().load("layouts/GluttonyLayout.tmx");
 		}
+		if (gameScreen.getClass()==LevelGreed.class) {
+			tiledMap = new TmxMapLoader().load("layouts/Greed.tmx");
+		}
 		parseMapObjects(tiledMap.getLayers().get("Object Layer 1").getObjects());
-		parseObjs(tiledMap.getLayers().get("Items").getObjects());
+		if (gameScreen.getClass()!=LevelGreed.class) {
+			parseObjs(tiledMap.getLayers().get("Items").getObjects());
+		}		
 		parseObstacles(tiledMap.getLayers().get("Obstacles Object").getObjects());
 		return new OrthogonalTiledMapRenderer(tiledMap);
 	}
