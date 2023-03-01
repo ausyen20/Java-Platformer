@@ -132,9 +132,9 @@ public class LevelSloth extends GameScreen {
         // batch for foreground (player, etc)
         front_batch.begin();
         getCoinList().forEach((c) -> c.render(front_batch));
-        //getItem0().render(front_batch);
-        //getItem1().render(front_batch);
-        //getItem2().render(front_batch);
+        getItem0().render(front_batch);
+        getItem1().render(front_batch);
+        getItem2().render(front_batch);
         player.render(front_batch);
         switch(player.health) {
         case 1:
