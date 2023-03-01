@@ -146,49 +146,39 @@ public class TileMapHelper {
 					rectangle.getWidth(), rectangle.getHeight()));
 				}
 				if(gameScreen.getClass()==LevelLust.class){
-					if(rectangleName.equals("item0")) {
-					
-						gameScreen.setItem0(new Item( "Items/LustItems/item0.png", gameScreen, rectangle.getX() + rectangle.getWidth() / 2, rectangle.getY() + rectangle.getHeight(),
-						rectangle.getWidth(), rectangle.getHeight()));
-					
-					}
-					if(rectangleName.equals("item1")) {
-						
-						gameScreen.setItem1(new Item( "Items/LustItems/item1.png", gameScreen, rectangle.getX() + rectangle.getWidth() / 2, rectangle.getY() + rectangle.getHeight(),
-						rectangle.getWidth(), rectangle.getHeight()));
-					
-					}
-					if(rectangleName.equals("item2")) {
-						
-						gameScreen.setItem2(new Item( "Items/LustItems/item2.png", gameScreen, rectangle.getX() + rectangle.getWidth() / 2, rectangle.getY() + rectangle.getHeight(),
-						rectangle.getWidth(), rectangle.getHeight()));
-					
-					}
-				}
-				
-				
-					
+					setLevelItems("LustItems", rectangle, rectangleName);
+				}					
 				if (gameScreen.getClass()==LevelGluttony.class) {
-					if(rectangleName.equals("item0")) {
-						gameScreen.setItem0(new Item( "Items/GluttonyItems/item0.png", gameScreen, rectangle.getX() + rectangle.getWidth() / 2, rectangle.getY() + rectangle.getHeight(),
-						rectangle.getWidth(), rectangle.getHeight()));
-					
-					}
-					if(rectangleName.equals("item1")) {
-						
-						gameScreen.setItem1(new Item( "Items/GluttonyItems/item1.png", gameScreen, rectangle.getX() + rectangle.getWidth() / 2, rectangle.getY() + rectangle.getHeight(),
-						rectangle.getWidth(), rectangle.getHeight()));
-					
-					}
-					if(rectangleName.equals("item2")) {
-						
-						gameScreen.setItem2(new Item( "Items/GluttonyItems/item2.png", gameScreen, rectangle.getX() + rectangle.getWidth() / 2, rectangle.getY() + rectangle.getHeight(),
-						rectangle.getWidth(), rectangle.getHeight()));
-					
-					}
+					setLevelItems("GluttonyItems", rectangle, rectangleName);
 				}
+				if (gameScreen.getClass()==LevelSloth.class) {
+					setLevelItems("SlothItems", rectangle, rectangleName);
+				}
+				
 			}
 		}
+	}
+
+	private void setLevelItems(String itemFolderName, Rectangle rectangle, String rectangleName){
+		
+		if(rectangleName.equals("item0")) {
+			gameScreen.setItem0(new Item( "Items/" + itemFolderName + "/item0.png", gameScreen, rectangle.getX() + rectangle.getWidth() / 2, rectangle.getY() + rectangle.getHeight(),
+			rectangle.getWidth(), rectangle.getHeight()));
+		
+		}
+		if(rectangleName.equals("item1")) {
+			
+			gameScreen.setItem1(new Item( "Items/" + itemFolderName + "/item1.png", gameScreen, rectangle.getX() + rectangle.getWidth() / 2, rectangle.getY() + rectangle.getHeight(),
+			rectangle.getWidth(), rectangle.getHeight()));
+		
+		}
+		if(rectangleName.equals("item2")) {
+			
+			gameScreen.setItem2(new Item( "Items/" + itemFolderName + "/item2.png", gameScreen, rectangle.getX() + rectangle.getWidth() / 2, rectangle.getY() + rectangle.getHeight(),
+			rectangle.getWidth(), rectangle.getHeight()));
+		
+		}
+
 	}
 	
 	private void createSensorObj(PolygonMapObject polygonMapObject) {
