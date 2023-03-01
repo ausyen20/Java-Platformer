@@ -39,6 +39,7 @@ public class LevelGluttony extends GameScreen {
     private float playerLeftOffset;
     private float playerSpeed;
     private Vector2 linearVel;
+    private Vector2 mintLinearVel;
     
     // Tiled Map
     private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
@@ -71,7 +72,8 @@ public class LevelGluttony extends GameScreen {
         playerLeftOffset = (camera.position.x * 100) - player.getX();
         playerSpeed = player.getSpeed();
         linearVel = new Vector2(0,0);
-
+        mintLinearVel = new Vector2(0,0);
+        
         backgrounds = new Texture[3];
         backgrounds[0] = new Texture("backgrounds/gluttony00.png");
         backgrounds[1] = new Texture("backgrounds/gluttony01.png");
@@ -119,8 +121,10 @@ public class LevelGluttony extends GameScreen {
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) && !FIRSTPAUSED) {
             if (PAUSED) {
                 player.getBody().setLinearVelocity(linearVel);
+                tileMapHelper.getPeppermint().forEach((c) -> c.getMintBody().setLinearVelocity(mintLinearVel));
             } else {
                 linearVel = player.getBody().getLinearVelocity();
+                tileMapHelper.getPeppermint().forEach((c) -> mintLinearVel = c.getMintBody().getLinearVelocity());
             }
             PAUSED = !PAUSED;
         }
@@ -285,6 +289,7 @@ public class LevelGluttony extends GameScreen {
             }
         } else {
             player.getBody().setLinearVelocity(0, 0);
+            tileMapHelper.getPeppermint().forEach((c) -> c.getMintBody().setLinearVelocity(0, 0));
             world.setGravity(new Vector2(0, 0));
         }
 	}
