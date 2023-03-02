@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -294,6 +295,42 @@ public abstract class GameScreen implements Screen {
             }
         }
     }
+
+    public void update() {
+		world.step(1/60f,6, 2);
+		bg_batch.setProjectionMatrix(camera.combined);
+		orthogonalTiledMapRenderer.setView(camera);	
+        // If game is not paused, update camera and player
+        if (!PAUSED && !FIRSTPAUSED) {
+            cameraUpdate();
+            player.update();
+            acceleratePlayer();
+            outOfScreenLeft();
+            winCondition();
+            getWin();
+            player.setSpawnPoint();
+            relocateCamera();
+            world.setGravity(new Vector2(0, -7f));
+        } else {
+            player.getBody().setLinearVelocity(0, 0);
+            world.setGravity(new Vector2(0, 0f));
+        }
+	}
+
+    public void cameraUpdate() {
+        Vector3 position = camera.position;
+		// Camera center to the player obj
+		position.x += cameraScrollingSpeed;
+        position.y = Constants.WORLD_HEIGHT / 2;
+		camera.position.set(position);   
+        setScrollingSpeed(cameraScrollingSpeed * 100); // scrolling speed of the background matches the camera
+        // If player is at the end of level, stop camera movement
+        if (position.x >= Constants.ASSET_LAYOUT_WIDTH - Constants.WORLD_WIDTH / 2) {
+            position.x = Constants.ASSET_LAYOUT_WIDTH - Constants.WORLD_WIDTH / 2;
+            cameraScrollingSpeed = 0;
+        } 
+        else cameraScrollingSpeed = constantScrollingSpeed;
+	}
 
     public void acceleratePlayer() {
         if ((camera.position.x - player.getX()) > playerLeftOffset + 2) {

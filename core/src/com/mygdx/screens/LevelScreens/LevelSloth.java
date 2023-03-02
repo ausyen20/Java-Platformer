@@ -159,7 +159,8 @@ public class LevelSloth extends GameScreen {
         box2DDebugRenderer.render(world, camera.combined.scl(Constants.PPM));
     }
     
-    private void update() {
+    @Override
+    public void update() {
 		world.step(1/60f,6, 2);
 		bg_batch.setProjectionMatrix(camera.combined);
 		orthogonalTiledMapRenderer.setView(camera);	
@@ -178,22 +179,6 @@ public class LevelSloth extends GameScreen {
             player.getBody().setLinearVelocity(0, 0);
             world.setGravity(new Vector2(0, 0f));
         }
-	}
-
-    private void cameraUpdate() {
-        Vector3 position = camera.position;
-		// Camera center to the player obj
-		//position.x = Math.round((player.getBody().getPosition().x  * Constants.PPM * 10) / 10f) + Constants.WORLD_WIDTH / 3;
-		position.x += cameraScrollingSpeed;
-        position.y = Constants.WORLD_HEIGHT / 2;
-		camera.position.set(position);   
-        setScrollingSpeed(cameraScrollingSpeed * 100); // scrolling speed of the background matches the camera
-        // If player is at the end of level, stop camera movement
-        if (position.x >= Constants.ASSET_LAYOUT_WIDTH - Constants.WORLD_WIDTH / 2) {
-            position.x = Constants.ASSET_LAYOUT_WIDTH - Constants.WORLD_WIDTH / 2;
-            cameraScrollingSpeed = 0;
-        } 
-        else cameraScrollingSpeed = constantScrollingSpeed;
 	}
 
     @Override

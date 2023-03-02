@@ -167,7 +167,8 @@ public class LevelGluttony extends GameScreen {
 
         box2DDebugRenderer.render(world, camera.combined.scl(Constants.PPM));}
     
-    private void update() {
+    @Override
+    public void update() {
 		world.step(1/60f,6, 2);
 		bg_batch.setProjectionMatrix(camera.combined);
 		orthogonalTiledMapRenderer.setView(camera);	
@@ -183,9 +184,7 @@ public class LevelGluttony extends GameScreen {
             world.setGravity(new Vector2(0, -7f));
             // Getting peppermint array from tile map helper 
             for(Peppermint p: tileMapHelper.getPeppermint()) {
-            	p.update(1f);
-            //System.out.println("B: " + p.getActive());
-           
+            	p.update(1f);           
             	//When player's x position is beyond a certain range, active the body
              	// + (value)f , when value is smaller lands faster, larger then lands later
             	if(p.getX() < player.getPositionX() + 250f / Constants.PPM) {
@@ -194,17 +193,11 @@ public class LevelGluttony extends GameScreen {
             		p.setActivng(true);
             	
             	}
-            	
-           // System.out.println("X: " + player.getPositionX() + ", " + p.getOriginalX()+ ", P: " + p.getX() + ", ID: " + p.getID() + ", respawn: " + player.getRespawn() + ", active: " + p.getActive());
-            	
-           //System.out.println("X: " + player.getPositionX() + " -> " + p.getID() + " , " + p.getX() +" , " + p.getY());
             	// If id = 1, first pepper mint
             	if(p.getID() == 1) {
             		if(player.getPositionX() > 0f && player.getPositionX() < 65.53f) {
             			
-            			if(player.RESPAWN == true) {
-            				System.out.println("reset1");
-            				
+            			if(player.RESPAWN == true) {            				
             				p.resetPeppermint(player.getPositionX(), player.getRespawn(), p);
             				player.setRespawn(false);
             			
@@ -214,9 +207,7 @@ public class LevelGluttony extends GameScreen {
             	//If id =2, second pepper mint
             	if(p.getID() == 2) {
             		if(player.getPositionX() > 95f && player.getPositionX() < 131.8f) {
-            			if(player.RESPAWN == true) {
-            				System.out.println("reset2");
-            				
+            			if(player.RESPAWN == true) {            				
             				p.resetPeppermint(player.getPositionX(), player.getRespawn(), p);
             				player.setRespawn(false);
             			
@@ -229,22 +220,6 @@ public class LevelGluttony extends GameScreen {
             tileMapHelper.getPeppermint().forEach((c) -> c.getMintBody().setLinearVelocity(0, 0));
             world.setGravity(new Vector2(0, 0));
         }
-	}
-
-    private void cameraUpdate() {
-        Vector3 position = camera.position;
-		// Camera center to the player obj
-		//position.x = Math.round((player.getBody().getPosition().x  * Constants.PPM * 10) / 10f) + Constants.WORLD_WIDTH / 3;
-		position.x += cameraScrollingSpeed;
-        position.y = Constants.WORLD_HEIGHT / 2;
-		camera.position.set(position);   
-        setScrollingSpeed(cameraScrollingSpeed * 100); // scrolling speed of the background matches the camera
-        // If player is at the end of level, stop camera movement
-        if (position.x >= Constants.ASSET_LAYOUT_WIDTH - Constants.WORLD_WIDTH / 2) {
-            position.x = Constants.ASSET_LAYOUT_WIDTH - Constants.WORLD_WIDTH / 2;
-            cameraScrollingSpeed = 0;
-        } 
-        else cameraScrollingSpeed = constantScrollingSpeed;
 	}
 
     @Override
