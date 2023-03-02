@@ -38,59 +38,29 @@ public class LevelGluttony extends GameScreen {
     private float constantScrollingSpeed;
     private float playerLeftOffset;
     private float playerSpeed;
-    private Vector2 linearVel;
+    private Vector2 playerLinearVel;
     private Vector2 mintLinearVel;
     
-    // Tiled Map
-    private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
-    private TileMapHelper tileMapHelper;
-    protected Box2DDebugRenderer box2DDebugRenderer;
+
     private boolean active;
 
-    Label coinCount;
-    Stage coinStage;
-    Group coinGroup;
-
-
     public LevelGluttony() {
-        // Add background assets
-
-    	this.bg_batch = new SpriteBatch();
-        this.front_batch = new SpriteBatch();
-        this.player_batch = new SpriteBatch();
-        this.textbatch = new SpriteBatch();
-
-        this.world = new World(new Vector2(0,-7f),false);
-        this.box2DDebugRenderer = new Box2DDebugRenderer();
-        this.tileMapHelper = new TileMapHelper(this);
-        this.orthogonalTiledMapRenderer = tileMapHelper.setupMap();
-        world.setContactListener(new WorldContactListener());
-        player.initPos();
         constantScrollingSpeed = player.getSpeed() / (100 * (Constants.WORLD_WIDTH / Constants.ASSET_LAYOUT_WIDTH));
         cameraScrollingSpeed = constantScrollingSpeed;
         cameraUpdate();
         playerLeftOffset = (camera.position.x * 100) - player.getX();
         playerSpeed = player.getSpeed();
-        linearVel = new Vector2(0,0);
+        playerLinearVel = new Vector2(0,0);
         mintLinearVel = new Vector2(0,0);
         
         backgrounds = new Texture[3];
         backgrounds[0] = new Texture("backgrounds/gluttony00.png");
         backgrounds[1] = new Texture("backgrounds/gluttony01.png");
         backgrounds[2] = new Texture("backgrounds/gluttony02.png");
-        // Set background scrolling speed
-        bg_batch = new SpriteBatch();
         
      // Set music
         ((AudioManager) AudioManager.getInstance()).setMusic("Music/Clown.mp3");
         ((AudioManager) AudioManager.getInstance()).playMusic();
-
-        coinStage = new Stage(new ScreenViewport());
-        coinCount = new Label(String.format("%d", player.getCoinsCollected()), new Label.LabelStyle(font24,Color.WHITE));
-        coinStage.addActor(coinCount);
-        coinGroup = new Group();
-        coinGroup.addActor(coinCount);
-        coinStage.addActor(coinGroup);
     }
 
 
@@ -120,10 +90,10 @@ public class LevelGluttony extends GameScreen {
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) && !FIRSTPAUSED) {
             if (PAUSED) {
-                player.getBody().setLinearVelocity(linearVel);
+                player.getBody().setLinearVelocity(playerLinearVel);
                 tileMapHelper.getPeppermint().forEach((c) -> c.getMintBody().setLinearVelocity(mintLinearVel));
             } else {
-                linearVel = player.getBody().getLinearVelocity();
+                playerLinearVel = player.getBody().getLinearVelocity();
                 tileMapHelper.getPeppermint().forEach((c) -> mintLinearVel = c.getMintBody().getLinearVelocity());
             }
             PAUSED = !PAUSED;

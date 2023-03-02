@@ -38,28 +38,8 @@ public class LevelSloth extends GameScreen {
     private float playerLeftOffset;
     private float playerSpeed;
     private Vector2 linearVel;
-    
-    // Tiled Map
-    private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
-    private TileMapHelper tileMapHelper;
-    protected Box2DDebugRenderer box2DDebugRenderer;
-
-    Label coinCount;
-    Stage coinStage;
-    Group coinGroup;
 
     public LevelSloth() {
-    	this.bg_batch = new SpriteBatch();
-        this.front_batch = new SpriteBatch();
-        this.player_batch = new SpriteBatch();
-        this.textbatch = new SpriteBatch();
-
-        this.world = new World(new Vector2(0,-7f),false);
-        this.box2DDebugRenderer = new Box2DDebugRenderer();
-        this.tileMapHelper = new TileMapHelper(this);
-        this.orthogonalTiledMapRenderer = tileMapHelper.setupMap();
-        world.setContactListener(new WorldContactListener());
-        player.initPos();
         constantScrollingSpeed = player.getSpeed() / (100 * (Constants.WORLD_WIDTH / Constants.ASSET_LAYOUT_WIDTH));
         cameraScrollingSpeed = constantScrollingSpeed;
         cameraUpdate();
@@ -73,17 +53,9 @@ public class LevelSloth extends GameScreen {
         backgrounds[2] = new Texture("backgrounds/sloth02.png");
         // Set background scrolling speed
         bgMaxScrollingSpeed = (float) (Constants.WORLD_WIDTH) / 4;
-        bg_batch = new SpriteBatch();
         
         ((AudioManager) AudioManager.getInstance()).setMusic("Music/Slothmusic.mp3");
         ((AudioManager) AudioManager.getInstance()).playMusic();
-
-        coinStage = new Stage(new ScreenViewport());
-        coinCount = new Label(String.format("%d", player.getCoinsCollected()), new Label.LabelStyle(font24,Color.WHITE));
-        coinStage.addActor(coinCount);
-        coinGroup = new Group();
-        coinGroup.addActor(coinCount);
-        coinStage.addActor(coinGroup);
     }
 
     @Override

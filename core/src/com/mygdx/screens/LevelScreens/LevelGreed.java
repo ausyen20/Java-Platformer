@@ -31,23 +31,8 @@ public class LevelGreed extends GameScreen {
 	    private float playerLeftOffset;
 	    private float playerSpeed;
 	    private Vector2 linearVel;
-	    
-	    // Tiled Map
-	    private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
-	    private TileMapHelper tileMapHelper;
-	    protected Box2DDebugRenderer box2DDebugRenderer;
 
     public LevelGreed() {
-    	this.bg_batch = new SpriteBatch();
-        this.front_batch = new SpriteBatch();
-        this.textbatch = new SpriteBatch();
-
-        this.world = new World(new Vector2(0,-7f),false);
-        this.box2DDebugRenderer = new Box2DDebugRenderer();
-        this.tileMapHelper = new TileMapHelper(this);
-        this.orthogonalTiledMapRenderer = tileMapHelper.setupMap();
-        world.setContactListener(new WorldContactListener());
-        player.initPos();
         playerSpeed = player.getSpeed() * 1.3f;
         constantScrollingSpeed = playerSpeed / (100 * (Constants.WORLD_WIDTH / Constants.ASSET_LAYOUT_WIDTH));
         cameraScrollingSpeed = constantScrollingSpeed;
@@ -61,9 +46,6 @@ public class LevelGreed extends GameScreen {
         backgrounds[2] = new Texture("backgrounds/greed02.png");
         // Set background scrolling speed
         bgMaxScrollingSpeed = (float) (Constants.WORLD_WIDTH) / 4;
-        bg_batch = new SpriteBatch();
-        bgMaxScrollingSpeed = (float) (Constants.WORLD_WIDTH) / 4;
-        bg_batch = new SpriteBatch();
         
         ((AudioManager) AudioManager.getInstance()).setMusic("Music/OST 2 - Business As Usual.mp3");
         ((AudioManager) AudioManager.getInstance()).playMusic();

@@ -42,31 +42,8 @@ public class LevelLust extends GameScreen {
     private float playerLeftOffset;
     private float playerSpeed;
     private Vector2 linearVel;
-
-    Label coinCount;
-    Stage coinStage;
-    Group coinGroup;
-    // Tiled Map
-    private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
-    private TileMapHelper tileMapHelper;
-    protected Box2DDebugRenderer box2DDebugRenderer;
     
-    // Objects
-   
-    
-
     public LevelLust() {
-        this.bg_batch = new SpriteBatch();
-        this.front_batch = new SpriteBatch();
-        this.player_batch = new SpriteBatch();
-        this.textbatch = new SpriteBatch();
-
-        this.world = new World(new Vector2(0,-7f),false);
-        this.box2DDebugRenderer = new Box2DDebugRenderer();
-        this.tileMapHelper = new TileMapHelper(this);
-        this.orthogonalTiledMapRenderer = tileMapHelper.setupMap();
-        world.setContactListener(new WorldContactListener());
-        player.initPos();
         constantScrollingSpeed = player.getSpeed() / (100 * (Constants.WORLD_WIDTH / Constants.ASSET_LAYOUT_WIDTH));
         cameraScrollingSpeed = constantScrollingSpeed;
         cameraUpdate();
@@ -74,7 +51,6 @@ public class LevelLust extends GameScreen {
         playerSpeed = player.getSpeed();
         linearVel = new Vector2(0,0);
         
-
         // Set background texture
         backgrounds = new Texture[3];
         backgrounds[0] = new Texture("backgrounds/lust00.png");
@@ -84,13 +60,6 @@ public class LevelLust extends GameScreen {
         // Set music
         ((AudioManager) AudioManager.getInstance()).setMusic("Music/spy-jazz-20925.mp3");
         ((AudioManager) AudioManager.getInstance()).playMusic();
-        
-        coinStage = new Stage(new ScreenViewport());
-        coinCount = new Label(String.format("%d", player.getCoinsCollected()), new Label.LabelStyle(font24,Color.WHITE));
-        coinStage.addActor(coinCount);
-        coinGroup = new Group();
-        coinGroup.addActor(coinCount);
-        coinStage.addActor(coinGroup);
     }
     
     @Override

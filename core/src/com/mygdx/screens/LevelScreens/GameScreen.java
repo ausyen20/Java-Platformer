@@ -11,7 +11,11 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -25,6 +29,8 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.helpers.Constants;
 import com.mygdx.helpers.LevelScreenTypes;
 import com.mygdx.helpers.MenuScreenTypes;
+import com.mygdx.helpers.TileMapHelper;
+import com.mygdx.helpers.WorldContactListener;
 import com.mygdx.indulge.Indulge;
 import com.mygdx.objects.Items.Coin;
 import com.mygdx.objects.Items.Item;
@@ -38,11 +44,15 @@ public abstract class GameScreen implements Screen {
     protected OrthographicCamera camera;
     protected Viewport viewport;
 
+    // Tiled Map
+    protected OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
+    protected TileMapHelper tileMapHelper;
+    protected Box2DDebugRenderer box2DDebugRenderer;
+
     // Background
     private float bgMaxScrollingSpeed;
 
     // Graphics
-    //protected World world;
     protected SpriteBatch bg_batch;
     protected SpriteBatch front_batch;
     protected SpriteBatch player_batch;
@@ -50,7 +60,6 @@ public abstract class GameScreen implements Screen {
     protected Texture[] backgrounds;
     protected float w = Gdx.graphics.getWidth();
 	protected float h = Gdx.graphics.getHeight();
-
 
     // Buttons
     protected Stage stage;
@@ -84,16 +93,35 @@ public abstract class GameScreen implements Screen {
     private float timeSeconds = 0f;
     private float period = 2.8f;
     int recoverycooldown=0;
-    World world;
-    private ArrayList<Coin> coins; 
+    protected World world;
+    protected ArrayList<Coin> coins; 
     protected Item item0;
     protected Item item1;
     protected Item item2;
-    BitmapFont font24 ;
-    // Objects
-    //protected Player player;
+    BitmapFont font24;
+
+    protected Label coinCount;
+    protected Stage coinStage;
+    protected Group coinGroup;
+
     public static Player player;
+
     public GameScreen() {
+        bg_batch = new SpriteBatch();
+        front_batch = new SpriteBatch();
+        player_batch = new SpriteBatch();
+        textbatch = new SpriteBatch();
+        
+        coins = new ArrayList<Coin>();
+
+        world = new World(new Vector2(0,-7f),false);
+        box2DDebugRenderer = new Box2DDebugRenderer();
+        tileMapHelper = new TileMapHelper(this);
+        orthogonalTiledMapRenderer = tileMapHelper.setupMap();
+        world.setContactListener(new WorldContactListener());
+
+        player.initPos();
+
         INSTANCE = this;
         camera = new OrthographicCamera(16, 9);
         viewport = new StretchViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT, camera);
@@ -115,9 +143,8 @@ public abstract class GameScreen implements Screen {
         item_bar1= new Texture("HUD/Itembar(1).png");
         item_bar2= new Texture("HUD/Itembar(2).png");
         item_bar3= new Texture("HUD/Itembar(3).png");
-        coins = new ArrayList<Coin>();
         
-        
+
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("rainyhearts.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
         parameter.size = 15;
@@ -129,9 +156,13 @@ public abstract class GameScreen implements Screen {
         font24 = generator.generateFont(parameter);
         font24.setUseIntegerPositions(false); // font size 24 pixels
         generator.dispose();
- 
         
-        
+        coinStage = new Stage(new ScreenViewport());
+        coinCount = new Label(String.format("%d", player.getCoinsCollected()), new Label.LabelStyle(font24,Color.WHITE));
+        coinStage.addActor(coinCount);
+        coinGroup = new Group();
+        coinGroup.addActor(coinCount);
+        coinStage.addActor(coinGroup);
     }
 
     public static Object getInstance() {    
