@@ -11,9 +11,6 @@ import com.mygdx.indulge.Indulge;
 
 public class LevelEnvy extends GameScreen {
 	
-    // Timing
-    private float[] backgroundOffsets = {0, 0, 0};
-    private float layoutScrollingSpeed;
 
     public LevelEnvy() {
         // Add background assets
@@ -21,9 +18,6 @@ public class LevelEnvy extends GameScreen {
         backgrounds[0] = new Texture("backgrounds/envy00.png");
         backgrounds[1] = new Texture("backgrounds/envy01.png");
         backgrounds[2] = new Texture("backgrounds/envy02.png");
-        // Set background scrolling speed
-        layoutScrollingSpeed = (float) (Constants.WORLD_WIDTH) / 4;
-        bg_batch = new SpriteBatch();
     }
 
 

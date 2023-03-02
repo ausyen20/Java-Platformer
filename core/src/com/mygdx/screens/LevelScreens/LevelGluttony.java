@@ -104,36 +104,40 @@ public class LevelGluttony extends GameScreen {
         getItem2().render(front_batch);
         tileMapHelper.getPeppermint().forEach((c) -> c.render(front_batch));
         switch(player.health) {
-        case 1:
-        	front_batch.draw(health_bar1, camera.position.x-160, 50);
-        	break;
-        case 2:
-        	front_batch.draw(health_bar2, camera.position.x-160, 50);
-        	break;
-        case 3:
-        	front_batch.draw(health_bar3, camera.position.x-160, 50);
-        	break;
-        case 4:
-        	front_batch.draw(health_bar4, camera.position.x-160, 50);
-        	break;
-        case 5:
-        	front_batch.draw(health_bar5, camera.position.x-160, 50);
-        	break;
+            case 1:
+                front_batch.draw(health_bar1, camera.position.x-160, 50);
+                break;
+            case 2:
+                front_batch.draw(health_bar2, camera.position.x-160, 50);
+                break;
+            case 3:
+                front_batch.draw(health_bar3, camera.position.x-160, 50);
+                break;
+            case 4:
+                front_batch.draw(health_bar4, camera.position.x-160, 50);
+                break;
+            case 5:
+                front_batch.draw(health_bar5, camera.position.x-160, 50);
+                break;
+            default:
+                break;
         }
         switch(player.getItemsCollected()){
             
             case 0:
-                 front_batch.draw(item_bar0,camera.position.x-160 , 50);
-                 break;
+                front_batch.draw(item_bar0,camera.position.x-160 , 50);
+                break;
             case 1:
-                 front_batch.draw(item_bar1,camera.position.x-160 , 50);
-                 break;
+                front_batch.draw(item_bar1,camera.position.x-160 , 50);
+                break;
             case 2:
-                 front_batch.draw(item_bar2,camera.position.x-160 , 50);
-                 break;
+                front_batch.draw(item_bar2,camera.position.x-160 , 50);
+                break;
             case 3:
-                 front_batch.draw(item_bar3,camera.position.x-160 , 50);
-                 break;
+                front_batch.draw(item_bar3,camera.position.x-160 , 50);
+                break;
+            default:
+                break;
         }
         front_batch.end();
 
