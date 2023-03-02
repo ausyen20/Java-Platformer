@@ -198,14 +198,11 @@ public class TileMapHelper {
 		
 		PolygonShape shape2 = new PolygonShape();
 		shape2.set(worldvertices);
-		//
 		fixtureDef2.shape = shape2;
 		fixtureDef2.isSensor = true;
 		body2.createFixture(fixtureDef2);
 		body2.createFixture(fixtureDef2).setUserData(polygonMapObject.getName());
-	
-		shape2.dispose();
-		
+		shape2.dispose();	
 	}
 	
 	//Creating obstacles
@@ -213,9 +210,6 @@ public class TileMapHelper {
 		peppermints = new Array<Peppermint>();
 		int counter = 1;
 		for (MapObject mapObject : mapObjects) {
-			
-			
-			
 			//creating spikes
 			if (mapObject instanceof PolygonMapObject) {				
 				String polyName = mapObject.getName();
@@ -237,14 +231,11 @@ public class TileMapHelper {
 			if(mapObject instanceof EllipseMapObject) {
 				String ellipseName = mapObject.getName();
 				Ellipse ellipse = ((EllipseMapObject)mapObject).getEllipse();
-				
-				
-				if(ellipseName.equals("peppermint")) {
-					
+		
+				if(ellipseName.equals("peppermint")) {					
 					peppermints.add(new Peppermint(gameScreen.getWorld(),gameScreen, mapObject, counter));
 					counter++;
-				}
-				
+				}				
 			}
 		}
 	}
