@@ -49,6 +49,13 @@ public abstract class GameScreen implements Screen {
     protected TileMapHelper tileMapHelper;
     protected Box2DDebugRenderer box2DDebugRenderer;
 
+    // Timing
+    protected float cameraScrollingSpeed;
+    protected float constantScrollingSpeed;
+    protected float playerLeftOffset;
+    protected float playerSpeed;
+    protected Vector2 playerLinearVel;
+
     // Background
     private float bgMaxScrollingSpeed;
 
@@ -58,6 +65,7 @@ public abstract class GameScreen implements Screen {
     protected SpriteBatch player_batch;
     protected SpriteBatch textbatch;
     protected Texture[] backgrounds;
+    protected float[] backgroundOffsets = {0, 0, 0};
     protected float w = Gdx.graphics.getWidth();
 	protected float h = Gdx.graphics.getHeight();
 
@@ -106,7 +114,7 @@ public abstract class GameScreen implements Screen {
 
     public static Player player;
 
-    public GameScreen() {
+    protected GameScreen() {
         bg_batch = new SpriteBatch();
         front_batch = new SpriteBatch();
         player_batch = new SpriteBatch();
@@ -120,7 +128,9 @@ public abstract class GameScreen implements Screen {
         orthogonalTiledMapRenderer = tileMapHelper.setupMap();
         world.setContactListener(new WorldContactListener());
 
+        backgrounds = new Texture[3];
         player.initPos();
+        playerLinearVel = new Vector2(0,0);
 
         INSTANCE = this;
         camera = new OrthographicCamera(16, 9);
@@ -260,6 +270,78 @@ public abstract class GameScreen implements Screen {
         if(timeSeconds < period){
             FIRSTPAUSED = true;
         } else FIRSTPAUSED = false;
+    }
+
+    /*
+     * Parallex effect for the background layers
+     */
+    public void renderBackground(float deltaTime) {
+    
+        backgroundOffsets[0] += deltaTime * getScrollingSpeed() / 6; 
+        backgroundOffsets[1] += deltaTime * getScrollingSpeed() / 4; 
+        backgroundOffsets[2] += deltaTime * getScrollingSpeed() / 2;
+
+        for (int layer = 0; layer < backgroundOffsets.length; layer++) {
+            if (backgroundOffsets[layer] > Constants.ASSET_BACKGROUND_WIDTH) {
+                backgroundOffsets[layer] = 0;
+            }
+            for (int i = 0; i < 2; i++) {
+                bg_batch.draw(backgrounds[layer],
+                        -1 * backgroundOffsets[layer] + camera.position.x - camera.viewportWidth / 2 + (i * Constants.ASSET_BACKGROUND_WIDTH), 
+                        0,
+                        Constants.ASSET_BACKGROUND_WIDTH,
+                        Constants.WORLD_HEIGHT);
+            }
+        }
+    }
+
+    public void acceleratePlayer() {
+        if ((camera.position.x - player.getX()) > playerLeftOffset + 2) {
+            player.setSpeed(playerSpeed + 2);
+        }
+        else player.setSpeed(playerSpeed);
+    }
+
+    public void outOfScreenLeft() {
+        if ((camera.position.x - player.getX()) > playerLeftOffset + playerLeftOffset/2 + player.getWidth()) {
+            player.setDead(true);
+        }
+    }
+
+    public void outOfScreenRight() {
+        if (player.getX() > Constants.ASSET_LAYOUT_WIDTH) {
+            COMPLETED_LEVEL = true;
+        }
+    }
+
+    public void collectedAllItems() {
+        if(player.getItemsCollected() == 3) {
+            COLLECTED_ALL_ITEMS = true;
+        }
+    }
+
+    public void winCondition() {
+        outOfScreenRight();
+        collectedAllItems();
+        if (COMPLETED_LEVEL && COLLECTED_ALL_ITEMS) {
+            setWin(true);
+            ((Indulge) Indulge.getInstance()).change_menu(MenuScreenTypes.END);
+        } else if (COMPLETED_LEVEL && !COLLECTED_ALL_ITEMS) {
+            setLose(true);
+            ((Indulge) Indulge.getInstance()).change_menu(MenuScreenTypes.END);
+        }
+    }
+
+    public void relocateCamera() {
+        if (player.getDead()) {
+            if (player.recovery==false){
+                 player.health--;
+                 System.out.println(player.health);
+             }
+            camera.position.x = player.getX() + playerLeftOffset;
+            player.setDead(false);
+            player.setRecovery(true);
+        }
     }
 
     public void setScrollingSpeed(float newSpeed) {

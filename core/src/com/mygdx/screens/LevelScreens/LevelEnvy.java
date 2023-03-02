@@ -41,27 +41,6 @@ public class LevelEnvy extends GameScreen {
         bg_batch.end();
     }
 
-    private void renderBackground(float deltaTime) {
-    
-        backgroundOffsets[0] += deltaTime * layoutScrollingSpeed / 4; 
-        backgroundOffsets[1] += deltaTime * layoutScrollingSpeed / 2; 
-        backgroundOffsets[2] += deltaTime * layoutScrollingSpeed; 
-
-        for (int layer = 0; layer < backgroundOffsets.length; layer++) {
-            if (backgroundOffsets[layer] > Constants.ASSET_BACKGROUND_WIDTH) {
-                backgroundOffsets[layer] = 0;
-            }
-            for (int i = 0; i < 2; i++) {
-                bg_batch.draw(backgrounds[layer],
-                        -1 * backgroundOffsets[layer] + camera.position.x - camera.viewportWidth / 2 + (i * Constants.ASSET_BACKGROUND_WIDTH), 
-                        0,
-                        Constants.ASSET_BACKGROUND_WIDTH,
-                        Constants.WORLD_HEIGHT);
-            }
-        }
-    }
-
-
     @Override
     public LevelScreenTypes getCurrentScreen() {
         // TODO Auto-generated method stub

@@ -21,31 +21,18 @@ import com.mygdx.indulge.Indulge;
 import com.mygdx.objects.player.Player;
 
 public class LevelGreed extends GameScreen {
-	
-	 private float[] backgroundOffsets = {0, 0, 0};
-	    private float bgMaxScrollingSpeed;
-	    
-	    // Timing
-	    private float cameraScrollingSpeed;
-	    private float constantScrollingSpeed;
-	    private float playerLeftOffset;
-	    private float playerSpeed;
-	    private Vector2 linearVel;
-
+		    
     public LevelGreed() {
         playerSpeed = player.getSpeed() * 1.3f;
         constantScrollingSpeed = playerSpeed / (100 * (Constants.WORLD_WIDTH / Constants.ASSET_LAYOUT_WIDTH));
         cameraScrollingSpeed = constantScrollingSpeed;
         cameraUpdate();
         playerLeftOffset = (camera.position.x * 77) - player.getX();
-        linearVel = new Vector2(0,0);
         // Add background assets
         backgrounds = new Texture[3];
         backgrounds[0] = new Texture("backgrounds/greed00.png");
         backgrounds[1] = new Texture("backgrounds/greed01.png");
         backgrounds[2] = new Texture("backgrounds/greed02.png");
-        // Set background scrolling speed
-        bgMaxScrollingSpeed = (float) (Constants.WORLD_WIDTH) / 4;
         
         ((AudioManager) AudioManager.getInstance()).setMusic("Music/OST 2 - Business As Usual.mp3");
         ((AudioManager) AudioManager.getInstance()).playMusic();
@@ -78,9 +65,9 @@ public class LevelGreed extends GameScreen {
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) && !FIRSTPAUSED) {
             if (PAUSED) {
-                player.getBody().setLinearVelocity(linearVel);
+                player.getBody().setLinearVelocity(playerLinearVel);
             } else {
-                linearVel = player.getBody().getLinearVelocity();
+                playerLinearVel = player.getBody().getLinearVelocity();
             }
             PAUSED = !PAUSED;
         }
@@ -156,25 +143,6 @@ public class LevelGreed extends GameScreen {
         
     }
 
-    private void renderBackground(float deltaTime) {
-    
-    	backgroundOffsets[0] += deltaTime * getScrollingSpeed() / 6; 
-        backgroundOffsets[1] += deltaTime * getScrollingSpeed() / 4; 
-        backgroundOffsets[2] += deltaTime * getScrollingSpeed() / 2;
-
-        for (int layer = 0; layer < backgroundOffsets.length; layer++) {
-            if (backgroundOffsets[layer] > Constants.ASSET_BACKGROUND_WIDTH) {
-                backgroundOffsets[layer] = 0;
-            }
-            for (int i = 0; i < 2; i++) {
-                bg_batch.draw(backgrounds[layer],
-                        -1 * backgroundOffsets[layer] + camera.position.x - camera.viewportWidth / 2 + (i * Constants.ASSET_BACKGROUND_WIDTH), 
-                        0,
-                        Constants.ASSET_BACKGROUND_WIDTH,
-                        Constants.WORLD_HEIGHT);
-            }
-        }
-    }
     private void update() {
  		world.step(1/60f,6, 2);
  		bg_batch.setProjectionMatrix(camera.combined);
@@ -195,55 +163,6 @@ public class LevelGreed extends GameScreen {
              world.setGravity(new Vector2(0, 0f));
          }
  	}
-
-     private void acceleratePlayer() {
-         if ((camera.position.x - player.getX()) > playerLeftOffset + 2) {
-             player.setSpeed(playerSpeed + 2);
-         }
-         else player.setSpeed(playerSpeed);
-     }
-
-     public void outOfScreenLeft() {
-         if ((camera.position.x - player.getX()) > playerLeftOffset + playerLeftOffset/2 + player.getWidth()) {
-             player.setDead(true);
-         }
-     }
-
-     public void outOfScreenRight() {
-         if (player.getX() > Constants.ASSET_LAYOUT_WIDTH) {
-             COMPLETED_LEVEL = true;
-         }
-     }
-
-     public void collectedAllItems() {
-         if(player.getItemsCollected() == 3) {
-             COLLECTED_ALL_ITEMS = true;
-         }
-     }
-
-     public void winCondition() {
-         outOfScreenRight();
-         collectedAllItems();
-         if (COMPLETED_LEVEL && COLLECTED_ALL_ITEMS) {
-             setWin(true);
-             ((Indulge) Indulge.getInstance()).change_menu(MenuScreenTypes.END);
-         } else if (COMPLETED_LEVEL && !COLLECTED_ALL_ITEMS) {
-             setLose(true);
-             ((Indulge) Indulge.getInstance()).change_menu(MenuScreenTypes.END);
-         }
-     }
-
-     private void relocateCamera() {
-         if (player.getDead()) {
-         	if (player.recovery==false){
-              	player.health--;
-              	System.out.println(player.health);
-              }
-             camera.position.x = player.getX() + playerLeftOffset;
-             player.setDead(false);
-             player.setRecovery(true);
-         }
-     }
     
      private void cameraUpdate() {
          Vector3 position = camera.position;
