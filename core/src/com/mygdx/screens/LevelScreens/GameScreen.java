@@ -3,6 +3,7 @@ package com.mygdx.screens.LevelScreens;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -21,9 +22,9 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -40,6 +41,9 @@ import com.mygdx.objects.player.Player;
 
 public abstract class GameScreen implements Screen {
     private static GameScreen INSTANCE = null;
+    private LevelScreenTypes prevScreen;
+    private LevelScreenTypes curScreen;
+    private LevelScreenTypes nextScreen;
 
     // Screen
     protected OrthographicCamera camera;
@@ -56,6 +60,7 @@ public abstract class GameScreen implements Screen {
     protected float playerLeftOffset;
     protected float playerSpeed;
     protected Vector2 playerLinearVel;
+    protected Vector2 mintLinearVel;
 
     // Background
     private float bgMaxScrollingSpeed;
@@ -70,7 +75,7 @@ public abstract class GameScreen implements Screen {
     protected float w = Gdx.graphics.getWidth();
 	protected float h = Gdx.graphics.getHeight();
 
-    // Buttons
+    // Pause Screen Buttons
     protected Stage stage;
     protected TextureRegion buttTextureRegion;
     protected TextureRegionDrawable buttTextureRegionDrawable;
@@ -102,20 +107,25 @@ public abstract class GameScreen implements Screen {
     private float timeSeconds = 0f;
     private float period = 2.8f;
     int recoverycooldown=0;
+
+    // Objects
+    public static Player player;
     protected World world;
     protected ArrayList<Coin> coins; 
     protected Item item0;
     protected Item item1;
     protected Item item2;
     BitmapFont font24;
-
     protected Label coinCount;
     protected Stage coinStage;
     protected Group coinGroup;
 
-    public static Player player;
-
     protected GameScreen() {
+        INSTANCE = this;
+        this.prevScreen = ((GameScreen) GameScreen.getInstance()).getPreviousScreen();
+        this.curScreen = ((GameScreen) GameScreen.getInstance()).getCurrentScreen();
+        this.nextScreen = ((GameScreen) GameScreen.getInstance()).getNextScreen();
+
         bg_batch = new SpriteBatch();
         front_batch = new SpriteBatch();
         player_batch = new SpriteBatch();
@@ -132,8 +142,8 @@ public abstract class GameScreen implements Screen {
         backgrounds = new Texture[3];
         player.initPos();
         playerLinearVel = new Vector2(0,0);
+        mintLinearVel = new Vector2(0,0);
 
-        INSTANCE = this;
         camera = new OrthographicCamera(16, 9);
         viewport = new StretchViewport(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT, camera);
         stage = new Stage(new ScreenViewport());
@@ -199,7 +209,135 @@ public abstract class GameScreen implements Screen {
     }
 
     @Override
-    public abstract void render(float delta);   
+    public void render(float deltaTime) {
+        // Clear screen
+        ScreenUtils.clear(0, 0, 0, 1);
+
+        pauseScreen();
+        
+        if (player.health<=0) {
+            setLose(true);
+        	((Indulge) Indulge.getInstance()).change_menu(MenuScreenTypes.END);
+        }
+    	world.step(1/60f,6, 2);
+        // if paused, set deltatime to 0 to stop background scrolling
+        if (PAUSED || FIRSTPAUSED) {
+            deltaTime = 0;
+        } 
+        
+        camera.update(true);
+        this.update();
+        orthogonalTiledMapRenderer.setView(camera);
+
+        // User input to change screens / pause
+        if (Gdx.input.isKeyPressed(Input.Keys.A) && curScreen != LevelScreenTypes.ENVY) {
+            ((Indulge) Indulge.getInstance()).change_levels(nextScreen);
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.S) && curScreen != LevelScreenTypes.LUST) {
+            ((Indulge) Indulge.getInstance()).change_levels(prevScreen);
+        }
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) && !FIRSTPAUSED) {
+            if (PAUSED) {
+                player.getBody().setLinearVelocity(playerLinearVel);
+                if (curScreen == LevelScreenTypes.GLUTTONY) {
+                    tileMapHelper.getPeppermint().forEach((c) -> c.getMintBody().setLinearVelocity(mintLinearVel));
+                }
+            } else {
+                playerLinearVel = player.getBody().getLinearVelocity();
+                if (curScreen == LevelScreenTypes.GLUTTONY) {
+                    tileMapHelper.getPeppermint().forEach((c) -> mintLinearVel = c.getMintBody().getLinearVelocity());
+                }
+            }
+            PAUSED = !PAUSED;
+        }
+
+        bg_batch.setProjectionMatrix(this.camera.combined);
+        front_batch.setProjectionMatrix(this.camera.combined);
+        player_batch.setProjectionMatrix(this.camera.combined);
+        // batch for the background
+        bg_batch.begin();
+        renderBackground(deltaTime);
+        bg_batch.end();
+        orthogonalTiledMapRenderer.render();
+        // batch for foreground (coins, items, layout...)
+        front_batch.begin();
+        getCoinList().forEach((c) -> c.render(front_batch));
+        if(curScreen != LevelScreenTypes.GREED) {
+            getItem0().render(front_batch);
+            getItem1().render(front_batch);
+            getItem2().render(front_batch);
+        }
+
+        if (curScreen == LevelScreenTypes.GLUTTONY) {
+            tileMapHelper.getPeppermint().forEach((c) -> c.render(front_batch));
+        }
+        
+        switch(player.health) {
+            case 1:
+                front_batch.draw(health_bar1, camera.position.x-160, 50);
+                break;
+            case 2:
+                front_batch.draw(health_bar2, camera.position.x-160, 50);
+                break;
+            case 3:
+                front_batch.draw(health_bar3, camera.position.x-160, 50);
+                break;
+            case 4:
+                front_batch.draw(health_bar4, camera.position.x-160, 50);
+                break;
+            case 5:
+                front_batch.draw(health_bar5, camera.position.x-160, 50);
+                break;
+            default:
+                break;
+        }
+        switch(player.getItemsCollected()){
+            case 0:
+                front_batch.draw(item_bar0,camera.position.x-160 , 50);
+                break;
+            case 1:
+                front_batch.draw(item_bar1,camera.position.x-160 , 50);
+                break;
+            case 2:
+                front_batch.draw(item_bar2,camera.position.x-160 , 50);
+                break;
+            case 3:
+                front_batch.draw(item_bar3,camera.position.x-160 , 50);
+                break;
+            default:
+                break;
+        }
+        front_batch.end();
+
+        // batch for the player
+        player_batch.begin();
+        player_batch.setColor(1,1,1,1f);
+        if (player.recovery) {
+        	player_batch.setColor(1,0,0,1f);
+            if(!PAUSED) {
+        	    recoverycooldown++;
+        	    if (recoverycooldown>60) {
+        		    player.setRecovery(false);
+        		    recoverycooldown=0;
+        	    }
+            }
+        	
+        }
+        player.render(player_batch);
+        player_batch.end();
+
+        coinCount.setText(String.format("%02d",player.getCoinsCollected()));
+        coinGroup.setScale(5f, 5f);
+        coinGroup.setPosition(Constants.WORLD_WIDTH + 1100, Constants.WINDOW_HEIGHT - 100);
+        coinStage.draw();
+        // Show back to menu button if game paused
+        if (PAUSED) { 
+            drawButtons(); 
+        } else if (!LOSE_LEVEL && !WIN_LEVEL) {
+            Gdx.input.setInputProcessor(null);
+        } 
+        box2DDebugRenderer.render(world, camera.combined.scl(Constants.PPM));
+    }
     
 
     @Override
@@ -245,11 +383,18 @@ public abstract class GameScreen implements Screen {
 
         restartButton = new ImageButton(buttTextureRegionDrawable);
         restartButton.setPosition((Constants.WINDOW_WIDTH - restartButton.getWidth()) / 2, Constants.WINDOW_HEIGHT / 3);
+        restartButton.addListener(new ClickListener()
+        {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                ((Indulge) Indulge.getInstance()).change_levels(curScreen);
+
+            }
+        });
         restartText = new Texture("titleScreen/restart.png");
         stage.addActor(menuButton);
         stage.addActor(resumeButton);
         stage.addActor(restartButton);
-        
     }    
 
     public void drawButtons() {
@@ -308,11 +453,37 @@ public abstract class GameScreen implements Screen {
             outOfScreenLeft();
             winCondition();
             getWin();
-            player.setSpawnPoint();
+            switch (curScreen) {
+                case LUST:
+                    player.setSpawnsLust();
+                    break;
+                case GLUTTONY:
+                    player.setSpawnsGluttony();
+                    break;
+                case SLOTH:
+                    player.setSpawnsSloth();
+                    break;
+                case GREED:
+                    // TEMPORARY!
+                    player.setSpawnsLust();
+                    break;
+                case ENVY:
+                    // TEMPORARY!
+                    player.setSpawnsLust();
+                    break;
+                default:
+                    break;
+            }
             relocateCamera();
-            world.setGravity(new Vector2(0, -7f));
+            if (curScreen == LevelScreenTypes.SLOTH) {
+                world.setGravity(new Vector2(0, -4f));
+            } else world.setGravity(new Vector2(0, -7f));
+            updatePeppermint();
         } else {
             player.getBody().setLinearVelocity(0, 0);
+            if (curScreen == LevelScreenTypes.GLUTTONY) {
+                tileMapHelper.getPeppermint().forEach((c) -> c.getMintBody().setLinearVelocity(0, 0));
+            }
             world.setGravity(new Vector2(0, 0f));
         }
 	}
@@ -373,12 +544,15 @@ public abstract class GameScreen implements Screen {
         if (player.getDead()) {
             if (player.recovery==false){
                  player.health--;
-                 System.out.println(player.health);
              }
             camera.position.x = player.getX() + playerLeftOffset;
             player.setDead(false);
             player.setRecovery(true);
         }
+    }
+
+    public void updatePeppermint() {
+        
     }
 
     public void setScrollingSpeed(float newSpeed) {
@@ -435,7 +609,7 @@ public abstract class GameScreen implements Screen {
     public ArrayList<Coin> getCoinList(){
         return coins;
     }
+    public abstract LevelScreenTypes getPreviousScreen();
     public abstract LevelScreenTypes getCurrentScreen();
-
     public abstract LevelScreenTypes getNextScreen();
 }

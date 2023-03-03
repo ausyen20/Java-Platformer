@@ -6,22 +6,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.Timer;
-import com.mygdx.helpers.TileMapHelper;
-import com.mygdx.screens.LevelScreens.GameScreen;
 import com.mygdx.helpers.Constants;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.actions.*;
 
 public class Player extends GameEntity{
 	
@@ -96,7 +86,6 @@ public class Player extends GameEntity{
 	public void hitByMint() {
 		this.setDead(true);
 		if(this.recovery == false) {
-			System.out.println("health:" + health);
 			this.health--;
 		}
 		this.setDead(false);
@@ -106,9 +95,9 @@ public class Player extends GameEntity{
 	//Testing function, when a player hits a spike
 	public void damage() {
 		if (recovery==false) {
-		health--;
-		setRecovery(true);
-		System.out.println("Player: " + health);}
+			health--;
+			setRecovery(true);
+		}
 	}
 	
 	/*
@@ -170,7 +159,6 @@ public class Player extends GameEntity{
 
 		x = body.getPosition().x * Constants.PPM;
 		y = body.getPosition().y * Constants.PPM;
-		System.out.println("X: " + body.getPosition().x + ", Y: " + body.getPosition().y);
 		jump();
 		
 	}
@@ -204,7 +192,7 @@ public class Player extends GameEntity{
 		body.setLinearVelocity(velX * speed, body.getLinearVelocity().y< 25 ? body.getLinearVelocity().y :25);
 	}
 	
-	public void setSpawnPoint() {
+	public void setSpawnsLust() {
 		//Set a range, therefore as long the player is still in range. Then set spawn point to regarding flag
 		//Lust Layout
 			if(body.getPosition().x > 0 && body.getPosition().x < 52f) {
@@ -279,30 +267,20 @@ public class Player extends GameEntity{
 	//Spawn points for Sloth Level
 	public void setSpawnsSloth() {
 		setRespawn(false);
-		System.out.println("--> X: " + body.getPosition().x +", Y: " + body.getPosition().y );
 		if(body.getPosition().x > 0 && body.getPosition().x < 48.9f) {
-			System.out.println("Spawn 1");
 			if(body.getPosition().y < 0 || DEAD) {
-				
 				body.setTransform(1.78f, 0.83f, 0);
 				setDead(true);
-				
 			}
 		}else if (body.getPosition().x >= 49f && body.getPosition().x < 101.2f) {
-			System.out.println("Spawn 2");
 			if(body.getPosition().y < 0 || DEAD) {
-				
 				body.setTransform(49f, 1f, 0);
 				setDead(true);
-				
 			}
 		}else if (body.getPosition().x >= 101.2f && body.getPosition().x < 155.8f) {
-			System.out.println("Spawn 3");
 			if(body.getPosition().y < 0 || DEAD) {
-			
 				body.setTransform(101.2f, 4.33f, 0);
 				setDead(true);
-			
 			}
 		}
 		
