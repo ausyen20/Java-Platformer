@@ -82,6 +82,8 @@ public class LevelGreed extends GameScreen {
 
         // batch for foreground (player, etc)
         front_batch.begin();
+        getCoinList().forEach((c) -> c.render(front_batch));
+        
         front_batch.setColor(1,1,1,1f);
         if (player.recovery==true) {
             front_batch.setColor(1,0,0,1f);
@@ -133,7 +135,10 @@ public class LevelGreed extends GameScreen {
                 break;
         }
         front_batch.end();
-        
+        coinCount.setText(String.format("%02d",player.getCoinsCollected()));
+        coinGroup.setScale(5f, 5f);
+        coinGroup.setPosition(Constants.WORLD_WIDTH + 1100, Constants.WINDOW_HEIGHT - 100);
+        coinStage.draw();
         // Show back to menu button if game paused
         if (PAUSED) { 
             super.drawButtons(); 
