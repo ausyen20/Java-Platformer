@@ -170,7 +170,7 @@ public class Player extends GameEntity{
 
 		x = body.getPosition().x * Constants.PPM;
 		y = body.getPosition().y * Constants.PPM;
-		
+		System.out.println("X: " + body.getPosition().x + ", Y: " + body.getPosition().y);
 		jump();
 		
 	}
@@ -182,8 +182,7 @@ public class Player extends GameEntity{
 	
 	// Basic Player Movement
 	private void jump() {
-		float oldX = x, oldY = y;
-		boolean collisionX = false, collisionY = false;
+	
 		if(!SLOW) {
 			velX = (float) 0.15;
 		}
@@ -205,57 +204,6 @@ public class Player extends GameEntity{
 		body.setLinearVelocity(velX * speed, body.getLinearVelocity().y< 25 ? body.getLinearVelocity().y :25);
 	}
 	
-	/*
-	
-	//If the cell is blocked, then return true
-	private boolean isCellBlocked(float x, float y) {
-		Cell cell = collisionLayer.getCell((int) (x/collisionLayer.getTileWidth()), (int)(y/collisionLayer.getTileHeight()));
-		return cell != null && cell.getTile() != null && cell.getTile().getProperties().containsKey(blockedKey);
-	}
-	
-	//Collision Detection for different sides
-	public boolean collidesRight() {
-		boolean collides = false;
-
-		for(float step = 0; step < getHeight(); step += collisionLayer.getTileHeight() / 2)
-			if(collides = isCellBlocked(getX() + getWidth(), getY() + step))
-				break;
-
-		return collides;
-	}
-	
-
-	public boolean collidesLeft() {
-		boolean collides = false;
-
-		for(float step = 0; step < getHeight(); step += collisionLayer.getTileHeight() / 2)
-			if(collides = isCellBlocked(getX(), getY() + step))
-				break;
-
-		return collides;
-	}
-
-	public boolean collidesTop() {
-		boolean collides = false;
-
-		for(float step = 0; step < getWidth(); step += collisionLayer.getTileWidth() / 2)
-			if(collides = isCellBlocked(getX() + step, getY() + getHeight()))
-				break;
-
-		return collides;
-	}
-
-	public boolean collidesBottom() {
-		boolean collides = false;
-
-		for(float step = 0; step < getWidth(); step += collisionLayer.getTileWidth() / 2)
-			if(collides = isCellBlocked(getX() + step, getY()))
-				break;
-
-		return collides;
-	}
-	
-	*/
 	public void setSpawnPoint() {
 		//Set a range, therefore as long the player is still in range. Then set spawn point to regarding flag
 		//Lust Layout
@@ -291,13 +239,11 @@ public class Player extends GameEntity{
 	//Spawnpoints for Level Gluttony
 	public void setSpawnsGluttony() {
 		if(body.getPosition().x > 0 && body.getPosition().x < 38.3f) {
-			//
 			if(body.getPosition().y < 0 || DEAD) {
 				//Reset to player to the start position
 				body.setTransform(1.78f, 0.83f, 0);
 				setDead(true);
 				setRespawn(true);
-				
 			}
 		}else if (body.getPosition().x >= 38.3f && body.getPosition().x < 65.53f) {
 			if(body.getPosition().y < 0 || DEAD) {
@@ -330,6 +276,37 @@ public class Player extends GameEntity{
 		}
 	}
 
+	//Spawn points for Sloth Level
+	public void setSpawnsSloth() {
+		setRespawn(false);
+		System.out.println("--> X: " + body.getPosition().x +", Y: " + body.getPosition().y );
+		if(body.getPosition().x > 0 && body.getPosition().x < 48.9f) {
+			System.out.println("Spawn 1");
+			if(body.getPosition().y < 0 || DEAD) {
+				
+				body.setTransform(1.78f, 0.83f, 0);
+				setDead(true);
+				
+			}
+		}else if (body.getPosition().x >= 49f && body.getPosition().x < 101.2f) {
+			System.out.println("Spawn 2");
+			if(body.getPosition().y < 0 || DEAD) {
+				
+				body.setTransform(49f, 1f, 0);
+				setDead(true);
+				
+			}
+		}else if (body.getPosition().x >= 101.2f && body.getPosition().x < 155.8f) {
+			System.out.println("Spawn 3");
+			if(body.getPosition().y < 0 || DEAD) {
+			
+				body.setTransform(101.2f, 4.33f, 0);
+				setDead(true);
+			
+			}
+		}
+		
+	}
 	public boolean getDead() {
 		return DEAD;
 	}

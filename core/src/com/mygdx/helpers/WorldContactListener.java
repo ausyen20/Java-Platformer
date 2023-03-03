@@ -23,7 +23,7 @@ public class WorldContactListener implements ContactListener {
 		
 		if(fa == null || fb == null) return;
 		if(fa.getUserData() == null || fb.getUserData() == null) return;
-		System.out.println("A: " + fa.getUserData() + ", B: " + fb.getUserData());
+		//System.out.println("A: " + fa.getUserData() + ", B: " + fb.getUserData());
 		
 		//Check if a Player obj contacted with a spike obj
 		if(fa.getUserData() instanceof Player || fb.getUserData() instanceof Player) {
@@ -79,7 +79,7 @@ public class WorldContactListener implements ContactListener {
 		if(efa == null || efb == null) return;
 		if(efa.getUserData() == null || efb.getUserData() == null) return;
 		
-		System.out.println("eA: " + efa.getUserData() + ", eB: " + efb.getUserData());
+		//System.out.println("eA: " + efa.getUserData() + ", eB: " + efb.getUserData());
 		
 		if(efa.getUserData() instanceof Player || efb.getUserData() instanceof Player) {
 			if(efa.getUserData() instanceof ChocolatePuddle || efb.getUserData() instanceof ChocolatePuddle) {

@@ -175,7 +175,7 @@ public class LevelSloth extends GameScreen {
             outOfScreenLeft();
             winCondition();
             getWin();
-            player.setSpawnPoint();
+            player.setSpawnsSloth();
             relocateCamera();
             world.setGravity(new Vector2(0, -4f));
         } else {
