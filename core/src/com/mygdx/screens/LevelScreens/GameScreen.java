@@ -33,6 +33,7 @@ import com.mygdx.helpers.LevelScreenTypes;
 import com.mygdx.helpers.MenuScreenTypes;
 import com.mygdx.helpers.TileMapHelper;
 import com.mygdx.helpers.WorldContactListener;
+import com.mygdx.helpers.Modes;
 import com.mygdx.indulge.Indulge;
 import com.mygdx.objects.Items.Coin;
 import com.mygdx.objects.Items.Item;
@@ -230,11 +231,14 @@ public abstract class GameScreen implements Screen {
         orthogonalTiledMapRenderer.setView(camera);
 
         // User input to change screens / pause
-        if (Gdx.input.isKeyPressed(Input.Keys.A) && curScreen != LevelScreenTypes.ENVY) {
-            ((Indulge) Indulge.getInstance()).change_levels(nextScreen);
-        }
-        if (Gdx.input.isKeyPressed(Input.Keys.S) && curScreen != LevelScreenTypes.LUST) {
-            ((Indulge) Indulge.getInstance()).change_levels(prevScreen);
+        // If in assist mode, use A and S to change screens
+        if (((Modes) Modes.getInstance()).getAssist()) {
+            if (Gdx.input.isKeyPressed(Input.Keys.A) && curScreen != LevelScreenTypes.ENVY) {
+                ((Indulge) Indulge.getInstance()).change_levels(nextScreen);
+            }
+            if (Gdx.input.isKeyPressed(Input.Keys.S) && curScreen != LevelScreenTypes.LUST) {
+                ((Indulge) Indulge.getInstance()).change_levels(prevScreen);
+            }
         }
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) && !FIRSTPAUSED) {
             if (PAUSED) {
