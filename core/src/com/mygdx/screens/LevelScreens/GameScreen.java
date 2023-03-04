@@ -266,7 +266,7 @@ public abstract class GameScreen implements Screen {
         // batch for foreground (coins, items, layout...)
         front_batch.begin();
         getCoinList().forEach((c) -> c.render(front_batch));
-        if(curScreen != LevelScreenTypes.GREED) {
+        if((curScreen != LevelScreenTypes.GREED)&&(curScreen !=LevelScreenTypes.ENVY)) {
             getItem0().render(front_batch);
             getItem1().render(front_batch);
             getItem2().render(front_batch);
