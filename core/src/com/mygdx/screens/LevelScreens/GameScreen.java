@@ -196,25 +196,7 @@ public abstract class GameScreen implements Screen {
 
     public static Object getInstance() {    
         return INSTANCE;
-    }
-
-    @Override
-    public void dispose() {
-        Gdx.input.setInputProcessor(null);
-        
-    }
-
-    @Override
-    public void hide() {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void pause() {
-        // TODO Auto-generated method stub
-        
-    }
+    }    
 
     @Override
     public void render(float deltaTime) {
@@ -236,9 +218,9 @@ public abstract class GameScreen implements Screen {
         if (FIRSTPAUSED) {
             timeSeconds += Gdx.graphics.getDeltaTime();
             if(timeSeconds < period - 0.8f){
-                readygo.setText(String.format("ready?"));
+                readygo.setText("ready?");
             } else if(timeSeconds >= period - 0.8f) {
-                readygo.setText(String.format("go!"));
+                readygo.setText("go!");
             }
             readygoGroup.setScale(5f, 5f);
             readygoGroup.setPosition(Constants.WORLD_WIDTH + 350, Constants.WINDOW_HEIGHT - 500);
@@ -574,6 +556,24 @@ public abstract class GameScreen implements Screen {
     }
 
     public void updatePeppermint() {
+        
+    }
+
+    @Override
+    public void dispose() {
+        Gdx.input.setInputProcessor(null);
+        
+    }
+
+    @Override
+    public void hide() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void pause() {
+        // TODO Auto-generated method stub
         
     }
 
