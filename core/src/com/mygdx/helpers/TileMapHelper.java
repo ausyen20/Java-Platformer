@@ -28,6 +28,7 @@ import com.mygdx.objects.Obstacles.ChocolatePuddle;
 import com.mygdx.objects.Obstacles.Spike;
 import com.mygdx.objects.player.Player;
 import com.mygdx.screens.LevelScreens.GameScreen;
+import com.mygdx.screens.LevelScreens.LevelEnvy;
 import com.mygdx.screens.LevelScreens.LevelGluttony;
 import com.mygdx.screens.LevelScreens.LevelGreed;
 import com.mygdx.screens.LevelScreens.LevelLust;
@@ -62,8 +63,11 @@ public class TileMapHelper {
 		if (gameScreen.getClass()==LevelGreed.class) {
 			tiledMap = new TmxMapLoader().load("layouts/Greed.tmx");
 		}
+		if (gameScreen.getClass()==LevelEnvy.class) {
+			tiledMap = new TmxMapLoader().load("layouts/Envy.tmx");
+		}
 		parseMapObjects(tiledMap.getLayers().get("Object Layer 1").getObjects());
-		if (gameScreen.getClass()!=LevelGreed.class) {
+		if ((gameScreen.getClass()!=LevelGreed.class)&&(gameScreen.getClass()!=LevelEnvy.class)) {
 			parseObjs(tiledMap.getLayers().get("Items").getObjects());
 		}		
 		parseObstacles(tiledMap.getLayers().get("Obstacles Object").getObjects());
