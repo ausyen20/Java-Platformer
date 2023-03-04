@@ -108,6 +108,8 @@ public abstract class GameScreen implements Screen {
     private float timeSeconds = 0f;
     private float period = 2.8f;
     int recoverycooldown=0;
+    protected Label readygo;
+    protected Group readygoGroup;
 
     // Objects
     public static Player player;
@@ -185,6 +187,11 @@ public abstract class GameScreen implements Screen {
         coinGroup = new Group();
         coinGroup.addActor(coinCount);
         coinStage.addActor(coinGroup);
+
+        readygo = new Label(String.format("ready?"), new Label.LabelStyle(font24,Color.WHITE));
+        readygoGroup = new Group();
+        readygoGroup.addActor(readygo);
+        coinStage.addActor(readygoGroup);
     }
 
     public static Object getInstance() {    
@@ -225,6 +232,17 @@ public abstract class GameScreen implements Screen {
         if (PAUSED || FIRSTPAUSED) {
             deltaTime = 0;
         } 
+
+        if (FIRSTPAUSED) {
+            timeSeconds += Gdx.graphics.getDeltaTime();
+            if(timeSeconds < period - 0.8f){
+                readygo.setText(String.format("ready?"));
+            } else if(timeSeconds >= period - 0.8f) {
+                readygo.setText(String.format("go!"));
+            }
+            readygoGroup.setScale(5f, 5f);
+            readygoGroup.setPosition(Constants.WORLD_WIDTH + 350, Constants.WINDOW_HEIGHT - 500);
+        } else readygoGroup.remove();
         
         camera.update(true);
         this.update();
