@@ -4,18 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.mygdx.helpers.Constants;
 import com.mygdx.helpers.MenuScreenTypes;
 import com.mygdx.helpers.Modes;
@@ -40,7 +36,6 @@ public class Options extends Menu {
     private BitmapFont font24;
     private Label controls;
     private Group controlsGroup;
-    private ButtonGroup<ImageButton> buttonGroup;
 
     public Options() {
         background = new Texture("titleScreen/titleBackground.png");
@@ -120,12 +115,7 @@ public class Options extends Menu {
         });
         assistText = new Texture("titleScreen/assist.png");
 
-        /*buttonGroup = new ButtonGroup<ImageButton>(normalButton, assistButton);
-        buttonGroup.setMaxCheckCount(1);
-        buttonGroup.setMinCheckCount(0);
-        buttonGroup.setUncheckLast(true);*/
         controls();
-
         stage.addActor(returnButton);
         stage.addActor(normalButton);
         stage.addActor(assistButton);

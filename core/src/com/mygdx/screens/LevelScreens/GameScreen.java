@@ -233,10 +233,10 @@ public abstract class GameScreen implements Screen {
         // User input to change screens / pause
         // If in assist mode, use A and S to change screens
         if (((Modes) Modes.getInstance()).getAssist()) {
-            if (Gdx.input.isKeyPressed(Input.Keys.A) && curScreen != LevelScreenTypes.ENVY) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.A) && curScreen != LevelScreenTypes.ENVY) {
                 ((Indulge) Indulge.getInstance()).change_levels(nextScreen);
             }
-            if (Gdx.input.isKeyPressed(Input.Keys.S) && curScreen != LevelScreenTypes.LUST) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.S) && curScreen != LevelScreenTypes.LUST) {
                 ((Indulge) Indulge.getInstance()).change_levels(prevScreen);
             }
         }
