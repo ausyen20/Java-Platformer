@@ -10,6 +10,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.mygdx.helpers.AudioManager;
 import com.mygdx.helpers.Constants;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
@@ -95,6 +96,8 @@ public class Player extends GameEntity{
 	//Testing function, when a player hits a spike
 	public void damage() {
 		if (recovery==false) {
+			((AudioManager) AudioManager.getInstance()).setSound("Sound/Ouch.wav");
+        	((AudioManager) AudioManager.getInstance()).playSound();
 			health--;
 			setRecovery(true);
 		}
