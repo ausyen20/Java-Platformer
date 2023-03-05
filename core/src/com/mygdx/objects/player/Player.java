@@ -162,7 +162,6 @@ public class Player extends GameEntity{
 
 		x = body.getPosition().x * Constants.PPM;
 		y = body.getPosition().y * Constants.PPM;
-		//System.out.println("X: " + body.getPosition().x + ", Y: " + body.getPosition().y);
 		jump();
 		
 	}
@@ -292,42 +291,36 @@ public class Player extends GameEntity{
 	public void setSpawnsGreed() {
 		if(body.getPosition().x > 0 && body.getPosition().x < 42.5f) {
 			if(body.getPosition().y < 0 || DEAD) {
-				System.out.println("Spawn 1");
 				body.setTransform(0.33f, 0.83f, 0);
 				setDead(true);
 			}
 		}else if (body.getPosition().x >= 42.5f && body.getPosition().x < 109.5f) {
 			if(body.getPosition().y < 0 || DEAD) {
-				System.out.println("Spawn 2");
 				body.setTransform(44f, 4.83f, 0);
 				setDead(true);
 			}
 		}else if (body.getPosition().x >= 109.5f && body.getPosition().x < 158f) {
 			if(body.getPosition().y < 0 || DEAD) {
-				System.out.println("Spawn 3");
 				body.setTransform(109.5f, 1.33f, 0);
 				setDead(true);
 			}
 		}
 	}
-	//Currently Not used
+	//Spawns for Envy
 	public void setSpawnsEnvy() {
-		if(body.getPosition().x > 0 && body.getPosition().x < 42.5f) {
+		if(body.getPosition().x > 0 && body.getPosition().x < 77f) {
 			if(body.getPosition().y < 0 || DEAD) {
-				System.out.println("Spawn 1");
-				body.setTransform(0.33f, 0.83f, 0);
+				body.setTransform(1.73f, 0.83f, 0);
 				setDead(true);
 			}
-		}else if (body.getPosition().x >= 42.5f && body.getPosition().x < 109.5f) {
+		}else if (body.getPosition().x >= 77f && body.getPosition().x < 117f) {
 			if(body.getPosition().y < 0 || DEAD) {
-				System.out.println("Spawn 2");
-				body.setTransform(44f, 4.83f, 0);
+				body.setTransform(77.2f, 1.8388f, 0);
 				setDead(true);
 			}
-		}else if (body.getPosition().x >= 109.5f && body.getPosition().x < 158f) {
+		}else if (body.getPosition().x >= 117f && body.getPosition().x < 158f) {
 			if(body.getPosition().y < 0 || DEAD) {
-				System.out.println("Spawn 3");
-				body.setTransform(109.5f, 1.33f, 0);
+				body.setTransform(118.5f, 3.33f, 0);
 				setDead(true);
 			}
 		}

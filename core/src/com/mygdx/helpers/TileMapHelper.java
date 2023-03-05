@@ -108,7 +108,7 @@ public class TileMapHelper {
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyDef.BodyType.StaticBody;
 		Body body = gameScreen.getWorld().createBody(bodyDef);
-
+		FixtureDef fixDef = new FixtureDef();
 		// layout branch code
 		/*Shape shape = createPolygonShape(polygonmapObject);
 		body.createFixture(shape, 1000);
@@ -116,9 +116,14 @@ public class TileMapHelper {
 		
 		String polygonName = polygonmapObject.getName();
 		Shape shape = createPolygonShape(polygonmapObject);
-		body.createFixture(shape, 1000);
-		//Fetching and naming each polygon object with their given name
-		body.createFixture(shape, 1000).setUserData(polygonName);
+		
+		fixDef.shape = shape;
+		fixDef.density = 1000;
+		fixDef.friction = 0;
+		body.createFixture(fixDef);
+		body.createFixture(fixDef).setUserData(polygonName);
+//		body.createFixture(shape, 1000);
+//		body.createFixture(shape, 1000).setUserData(polygonName);
 		shape.dispose();
 	}
 	private Shape createPolygonShape(PolygonMapObject polygonmapObject) {

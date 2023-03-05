@@ -473,7 +473,7 @@ public abstract class GameScreen implements Screen {
                     break;
                 case ENVY:
                     // TEMPORARY!
-                    player.setSpawnsLust();
+                    player.setSpawnsEnvy();
                     break;
                 default:
                     break;
