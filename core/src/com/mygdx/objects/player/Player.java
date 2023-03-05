@@ -188,13 +188,13 @@ public class Player extends GameEntity{
 			changeState(State.FALLING);
 		}
 		// reset Jump Counter
-		if(body.getLinearVelocity().y == 0) {
+		if(body.getLinearVelocity().y == 0 || body.getLinearVelocity().y == (float)-1.26217745E-29) {
 			changeState(State.WALKING);
 			jumpCounter = 0;
 		}
 		body.setLinearVelocity(velX * speed, body.getLinearVelocity().y< 25 ? body.getLinearVelocity().y :25);
 	}
-	
+
 	public void setSpawnsLust() {
 		//Set a range, therefore as long the player is still in range. Then set spawn point to regarding flag
 		//Lust Layout
@@ -325,7 +325,6 @@ public class Player extends GameEntity{
 			}
 		}
 	}
-	
 	public boolean getDead() {
 		return DEAD;
 	}
