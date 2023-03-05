@@ -20,6 +20,8 @@ public class EndLevel extends Menu{
     private Texture restartText;
     private ImageButton menuButton;
     private Texture menuText;
+    private Texture wonText;
+    private Texture lostText;
     private LevelScreenTypes curScreen;
     private LevelScreenTypes nextScreen;
     
@@ -41,7 +43,9 @@ public class EndLevel extends Menu{
         textbatch.draw(menuText, (Constants.WINDOW_WIDTH - menuButton.getWidth()) / 2, Constants.WINDOW_HEIGHT / 6);
         if (((GameScreen)GameScreen.getInstance()).getWin()) {
             textbatch.draw(nextLevelText, (Constants.WINDOW_WIDTH - nextLevelButton.getWidth()) / 2, Constants.WINDOW_HEIGHT / 2);
-        }
+            textbatch.draw(wonText, (Constants.WINDOW_WIDTH - nextLevelButton.getWidth()) / 2 - 60, Constants.WINDOW_HEIGHT / 1.5f);
+        } else textbatch.draw(lostText, (Constants.WINDOW_WIDTH - restartButton.getWidth()) / 2 - 60, Constants.WINDOW_HEIGHT / 2);
+
         textbatch.draw(restartText, (Constants.WINDOW_WIDTH - restartButton.getWidth()) / 2, Constants.WINDOW_HEIGHT / 3);
         textbatch.end();
     }
@@ -88,6 +92,10 @@ public class EndLevel extends Menu{
         if (((GameScreen)GameScreen.getInstance()).getWin()) {
             stage.addActor(nextLevelButton);
         }
+
+        wonText = new Texture("titleScreen/youwon.png");
+        lostText = new Texture("titleScreen/youlost.png");
+
         stage.addActor(menuButton);
         stage.addActor(restartButton);
     }    
