@@ -68,7 +68,7 @@ public class TileMapHelper {
 		}
 		parseMapObjects(tiledMap.getLayers().get("Object Layer 1").getObjects());
 		
-		if ((gameScreen.getClass()!=LevelGreed.class)&&(gameScreen.getClass()!=LevelEnvy.class)) {
+		if (gameScreen.getClass()!=LevelEnvy.class) {
 			parseObjs(tiledMap.getLayers().get("Items").getObjects());
 		}		
 		parseObstacles(tiledMap.getLayers().get("Obstacles Object").getObjects());
