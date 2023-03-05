@@ -68,8 +68,9 @@ public class TileMapHelper {
 		}
 		parseMapObjects(tiledMap.getLayers().get("Object Layer 1").getObjects());
 		
-		parseObjs(tiledMap.getLayers().get("Items").getObjects());
-				
+		if ((gameScreen.getClass()!=LevelGreed.class)&&(gameScreen.getClass()!=LevelEnvy.class)) {
+			parseObjs(tiledMap.getLayers().get("Items").getObjects());
+		}		
 		parseObstacles(tiledMap.getLayers().get("Obstacles Object").getObjects());
 		return new OrthogonalTiledMapRenderer(tiledMap);
 	}
