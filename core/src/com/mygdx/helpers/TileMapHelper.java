@@ -67,9 +67,9 @@ public class TileMapHelper {
 			tiledMap = new TmxMapLoader().load("layouts/Envy.tmx");
 		}
 		parseMapObjects(tiledMap.getLayers().get("Object Layer 1").getObjects());
-		if ((gameScreen.getClass()!=LevelGreed.class)&&(gameScreen.getClass()!=LevelEnvy.class)) {
-			parseObjs(tiledMap.getLayers().get("Items").getObjects());
-		}		
+		
+		parseObjs(tiledMap.getLayers().get("Items").getObjects());
+				
 		parseObstacles(tiledMap.getLayers().get("Obstacles Object").getObjects());
 		return new OrthogonalTiledMapRenderer(tiledMap);
 	}

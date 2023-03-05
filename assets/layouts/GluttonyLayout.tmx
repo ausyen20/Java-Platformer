@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.8" tiledversion="1.8.6" orientation="orthogonal" renderorder="right-down" width="320" height="12" tilewidth="16" tileheight="16" infinite="0" nextlayerid="9" nextobjectid="157">
+<map version="1.8" tiledversion="1.8.6" orientation="orthogonal" renderorder="right-down" width="320" height="12" tilewidth="16" tileheight="16" infinite="0" nextlayerid="9" nextobjectid="171">
  <tileset firstgid="1" source="LustGluttonytiles.tsx"/>
  <layer id="1" name="Foreground" width="320" height="12">
   <data encoding="csv">
@@ -305,9 +305,7 @@
   <object id="126" name="coin" x="2122.17" y="149" width="12" height="12"/>
   <object id="127" name="coin" x="2138.5" y="149" width="12" height="12"/>
   <object id="128" name="coin" x="2154" y="149" width="12" height="12"/>
-  <object id="129" name="coin" x="2543.67" y="112.333" width="12" height="12"/>
-  <object id="130" name="coin" x="2624.67" y="80.3333" width="12" height="12"/>
-  <object id="131" name="coin" x="2721" y="48.6667" width="12" height="12"/>
+  <object id="129" name="coin" x="2537.67" y="113.333" width="12" height="12"/>
   <object id="132" name="coin" x="3391.33" y="149.333" width="12" height="12"/>
   <object id="133" name="coin" x="3372.33" y="149.333" width="12" height="12"/>
   <object id="134" name="coin" x="3729.67" y="130.333" width="12" height="12"/>
@@ -328,6 +326,19 @@
   <object id="154" name="coin" x="1630.67" y="161.667" width="12" height="12"/>
   <object id="155" name="coin" x="911.333" y="146" width="12" height="12"/>
   <object id="156" name="coin" x="1056" y="97.3333" width="12" height="12"/>
+  <object id="157" name="coin" x="2552.67" y="113.333" width="12" height="12"/>
+  <object id="158" name="coin" x="2620.17" y="80.3333" width="12" height="12"/>
+  <object id="159" name="coin" x="2635.16" y="80.3333" width="12" height="12"/>
+  <object id="160" name="coin" x="2714.84" y="48.6667" width="12" height="12"/>
+  <object id="161" name="coin" x="2729.83" y="48.6667" width="12" height="12"/>
+  <object id="162" name="coin" x="2771.51" y="145" width="12" height="12"/>
+  <object id="163" name="coin" x="2787.83" y="145" width="12" height="12"/>
+  <object id="164" name="coin" x="2803.51" y="145" width="12" height="12"/>
+  <object id="166" name="coin" x="3011.67" y="145.333" width="12" height="12"/>
+  <object id="167" name="coin" x="3044.33" y="113" width="12" height="12"/>
+  <object id="168" name="coin" x="3171.67" y="112.667" width="12" height="12"/>
+  <object id="169" name="coin" x="3203.67" y="147" width="12" height="12"/>
+  <object id="170" name="coin" x="3106" y="79.6667" width="12" height="12"/>
  </objectgroup>
  <objectgroup id="6" name="Obstacles Object">
   <object id="89" name="spike" x="576" y="112">

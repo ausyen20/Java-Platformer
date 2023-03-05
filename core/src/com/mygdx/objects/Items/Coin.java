@@ -13,6 +13,7 @@ import com.mygdx.helpers.AudioManager;
 import com.mygdx.helpers.Constants;
 import com.mygdx.objects.player.Player;
 import com.mygdx.screens.LevelScreens.GameScreen;
+import com.mygdx.screens.LevelScreens.LevelGreed;
 
 public class Coin extends Collectables {
 	private Texture itemTexture;
@@ -73,9 +74,14 @@ public class Coin extends Collectables {
 			toBeCollected = false;
 			((AudioManager) AudioManager.getInstance()).setSound("Sound/Coin3.wav");
         	((AudioManager) AudioManager.getInstance()).playSound();
-			if(player.getCoinsCollected() % 10== 0){
+			if(player.getCoinsCollected() % 30 == 0 && gameScreen.getClass()==LevelGreed.class ){
+				player.incItemsCollected(); 
+				((AudioManager) AudioManager.getInstance()).setSound("Sound/Collectable4.wav");
+        		((AudioManager) AudioManager.getInstance()).playSound();     
+			}
+			
+			if(player.getCoinsCollected() % 20== 0 && gameScreen.getClass()!=LevelGreed.class){
 				if(player.health <6){
-					
 					player.health++;
 					player.resetCoinsCollected();
 					((AudioManager) AudioManager.getInstance()).setSound("Sound/Coin1.wav");
