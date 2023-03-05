@@ -27,7 +27,7 @@ public class AudioManager {
     }
     
     public void playSound() {
-    sound.play();
+        sound.play();
     }
 
     public void disposeMusic() {
