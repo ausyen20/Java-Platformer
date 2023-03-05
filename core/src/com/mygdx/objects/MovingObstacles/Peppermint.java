@@ -59,7 +59,7 @@ public class Peppermint extends Enemy{
 	
 	//Use to reset Mints
 	public void resetPeppermint(float playerX, boolean respawn, Peppermint p) {
-		System.out.println("pID: " + p.getID() + ", pX: " + p.getOriginalX() + ", pY: " + p.getOriginalY());
+		//System.out.println("pID: " + p.getID() + ", pX: " + p.getOriginalX() + ", pY: " + p.getOriginalY());
 	
 		if(p.getID() == 1) {
 				p.b2dBody.setActive(false);

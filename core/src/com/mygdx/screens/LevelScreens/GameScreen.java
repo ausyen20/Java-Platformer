@@ -469,7 +469,7 @@ public abstract class GameScreen implements Screen {
                     break;
                 case GREED:
                     // TEMPORARY!
-                    player.setSpawnsLust();
+                    player.setSpawnsGreed();
                     break;
                 case ENVY:
                     // TEMPORARY!

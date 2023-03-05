@@ -30,7 +30,6 @@ public class WorldContactListener implements ContactListener {
 			if(fa.getUserData() instanceof Spike || fb.getUserData() instanceof Spike) { 
 				Player ffa = (Player) fa.getUserData();
 				Actualplayer.damage();
-				//Print I am a player, to indicate there is contact
 			
 			}
 		}
