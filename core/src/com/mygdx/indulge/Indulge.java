@@ -15,6 +15,7 @@ import com.mygdx.screens.LevelScreens.LevelSloth;
 import com.mygdx.screens.MenuScreens.EndLevel;
 import com.mygdx.screens.MenuScreens.Options;
 import com.mygdx.screens.MenuScreens.TitleScreen;
+import com.mygdx.screens.MenuScreens.WinScreen;
 import com.mygdx.helpers.AudioManager;
  
 public class Indulge extends Game {
@@ -43,6 +44,9 @@ public class Indulge extends Game {
         break;
       case END:
         setScreen(new EndLevel());
+        break;
+      case WIN:
+        setScreen(new WinScreen());
         break;
       default:
         break;

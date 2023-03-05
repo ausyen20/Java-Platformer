@@ -4,4 +4,5 @@ public enum MenuScreenTypes {
     TITLE,
     OPTIONS,
     END,
+    WIN
 }

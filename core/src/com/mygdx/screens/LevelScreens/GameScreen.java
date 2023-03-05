@@ -537,7 +537,9 @@ public abstract class GameScreen implements Screen {
         collectedAllItems();
         if (COMPLETED_LEVEL && COLLECTED_ALL_ITEMS) {
             setWin(true);
-            ((Indulge) Indulge.getInstance()).change_menu(MenuScreenTypes.END);
+            if (curScreen == LevelScreenTypes.ENVY) {
+                ((Indulge) Indulge.getInstance()).change_menu(MenuScreenTypes.WIN);
+            }else ((Indulge) Indulge.getInstance()).change_menu(MenuScreenTypes.END);
         } else if (COMPLETED_LEVEL && !COLLECTED_ALL_ITEMS) {
             setLose(true);
             ((Indulge) Indulge.getInstance()).change_menu(MenuScreenTypes.END);
