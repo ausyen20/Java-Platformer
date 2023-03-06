@@ -11,6 +11,7 @@ public class DesktopLauncher {
     config.setForegroundFPS(60);
     config.setTitle("Indulge");
     config.setWindowedMode(1600, 900);
+    config.setResizable(false);
     new Lwjgl3Application(new Indulge(), config);
   }
 }
