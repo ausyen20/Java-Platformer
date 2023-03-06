@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="320" height="12" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="187">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="320" height="12" tilewidth="16" tileheight="16" infinite="0" nextlayerid="6" nextobjectid="195">
  <tileset firstgid="1" source="Envy.tsx"/>
  <tileset firstgid="513" source="LustGluttonytiles.tsx"/>
  <layer id="3" name="Transparent" width="320" height="12" opacity="0.36">
@@ -524,6 +524,18 @@
    <ellipse/>
   </object>
   <object id="186" name="boulder" x="4769" y="8" width="30" height="30">
+   <ellipse/>
+  </object>
+  <object id="189" name="boulder" x="1130.5" y="8" width="8" height="8">
+   <ellipse/>
+  </object>
+  <object id="192" name="boulder" x="1144.5" y="8" width="8" height="8">
+   <ellipse/>
+  </object>
+  <object id="193" name="boulder" x="1029.5" y="7.5" width="8" height="8">
+   <ellipse/>
+  </object>
+  <object id="194" name="boulder" x="1043.5" y="7.5" width="8" height="8">
    <ellipse/>
   </object>
  </objectgroup>
