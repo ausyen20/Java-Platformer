@@ -483,6 +483,9 @@ public abstract class GameScreen implements Screen {
                 world.setGravity(new Vector2(0, -4f));
             } else world.setGravity(new Vector2(0, -7f));
             updatePeppermint();
+            
+            updateBoulder();
+            
         } else {
             player.getBody().setLinearVelocity(0, 0);
             if (curScreen == LevelScreenTypes.GLUTTONY) {
@@ -490,9 +493,13 @@ public abstract class GameScreen implements Screen {
             }
             world.setGravity(new Vector2(0, 0f));
         }
+        
 	}
 
-    public void cameraUpdate() {
+
+	
+
+	public void cameraUpdate() {
         Vector3 position = camera.position;
 		// Camera center to the player obj
 		position.x += cameraScrollingSpeed;
@@ -556,10 +563,14 @@ public abstract class GameScreen implements Screen {
             player.setRecovery(true);
         }
     }
-
+    
     public void updatePeppermint() {
         
     }
+    
+    public void updateBoulder() {
+	
+	}
 
     @Override
     public void dispose() {

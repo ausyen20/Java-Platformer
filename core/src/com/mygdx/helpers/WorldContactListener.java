@@ -7,6 +7,7 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.mygdx.objects.Items.Coin;
 import com.mygdx.objects.Items.Item;
+import com.mygdx.objects.MovingObstacles.Boulder;
 import com.mygdx.objects.MovingObstacles.Peppermint;
 import com.mygdx.objects.Obstacles.ChocolatePuddle;
 import com.mygdx.objects.Obstacles.Spike;
@@ -29,7 +30,7 @@ public class WorldContactListener implements ContactListener {
 		if(fa.getUserData() instanceof Player || fb.getUserData() instanceof Player) {
 			if(fa.getUserData() instanceof Spike || fb.getUserData() instanceof Spike) { 
 				Player ffa = (Player) fa.getUserData();
-				Actualplayer.damage();
+				//Actualplayer.damage();
 			
 			}
 		}
@@ -62,6 +63,12 @@ public class WorldContactListener implements ContactListener {
 		//If player in contact with peppermint
 		if(fa.getUserData() instanceof Player || fb.getUserData() instanceof Player) {
 			if(fa.getUserData() instanceof Peppermint || fb.getUserData() instanceof Peppermint) {
+				Actualplayer.hitByMint();
+			}
+		}
+		//If player in contact with boulder
+		if(fa.getUserData() instanceof Player || fb.getUserData() instanceof Player) {
+			if(fa.getUserData() instanceof Boulder || fb.getUserData() instanceof Boulder) {
 				Actualplayer.hitByMint();
 			}
 		}

@@ -37,6 +37,7 @@ public class LevelGluttony extends GameScreen {
                 //Set true to be active when in range
                 p.getMintBody().setActive(true);
                 p.setActivng(true);
+                
             }
             // If id = 1, first pepper mint
             if(p.getID() == 1) {

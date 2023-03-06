@@ -22,6 +22,7 @@ import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.objects.Items.Coin;
 import com.mygdx.objects.Items.Item;
+import com.mygdx.objects.MovingObstacles.Boulder;
 import com.mygdx.objects.MovingObstacles.Enemy;
 import com.mygdx.objects.MovingObstacles.Peppermint;
 import com.mygdx.objects.Obstacles.ChocolatePuddle;
@@ -44,7 +45,7 @@ public class TileMapHelper {
 	protected Fixture fixture;
 
 	private Array<Peppermint> peppermints;
-
+	private Array<Boulder> boulders;
 	
 	
 	public TileMapHelper(GameScreen level) {
@@ -191,34 +192,13 @@ public class TileMapHelper {
 
 	}
 	
-	private void createSensorObj(PolygonMapObject polygonMapObject) {
-		BodyDef bodyDef2 = new BodyDef();
-		bodyDef2.type = BodyDef.BodyType.StaticBody;
-		Body body2 = gameScreen.getWorld().createBody(bodyDef2);
-		FixtureDef fixtureDef2 = new FixtureDef();
-		//Duplicate of createPolygonshape
-		float[]vertices= polygonMapObject.getPolygon().getTransformedVertices();
-		Vector2[] worldvertices = new Vector2[vertices.length/2];
-
-		for(int i = 0; i < vertices.length/2; i++) {
-			Vector2 current = new Vector2(vertices[i*2]/PPM, vertices[i*2+1]/PPM);
-			worldvertices[i] = current;
-			
-		}
-		
-		PolygonShape shape2 = new PolygonShape();
-		shape2.set(worldvertices);
-		fixtureDef2.shape = shape2;
-		fixtureDef2.isSensor = true;
-		body2.createFixture(fixtureDef2);
-		body2.createFixture(fixtureDef2).setUserData(polygonMapObject.getName());
-		shape2.dispose();	
-	}
-	
 	//Creating obstacles
 	private void parseObstacles(MapObjects mapObjects) {
 		peppermints = new Array<Peppermint>();
+		boulders = new Array<Boulder>();
 		int counter = 1;
+		int bcounter = 1;
+		
 		for (MapObject mapObject : mapObjects) {
 			//creating spikes
 			if (mapObject instanceof PolygonMapObject) {				
@@ -236,26 +216,38 @@ public class TileMapHelper {
 					new ChocolatePuddle(((RectangleMapObject) mapObject), gameScreen.getWorld());
 				}
 			}
-			//Creating peppermints, (in-complete)
+			//Creating peppermints
 			
 			if(mapObject instanceof EllipseMapObject) {
 				String ellipseName = mapObject.getName();
 				Ellipse ellipse = ((EllipseMapObject)mapObject).getEllipse();
 		
+				//System.out.println(ellipseName);
 				if(ellipseName.equals("peppermint")) {					
 					peppermints.add(new Peppermint(gameScreen.getWorld(),gameScreen, mapObject, counter));
 					counter++;
-				}				
+				}
+				if(ellipseName.equals("boulder")) {
+					boulders.add(new Boulder(gameScreen.getWorld(), gameScreen, mapObject, bcounter));
+					bcounter++;
+				}
+				
 			}
+			
 		}
 	}
 
 	public Array<Peppermint> getPeppermint(){
 		return peppermints;
 	}
+	
+	public Array<Boulder> getBoudler(){
+		return boulders;
+	}
 	public Array<Enemy> getEnemies(){
 		Array<Enemy> enemies = new Array<Enemy>();
 		enemies.addAll(peppermints);
+		enemies.addAll(boulders);
 		return enemies;
 	}
 

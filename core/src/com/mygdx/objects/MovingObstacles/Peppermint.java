@@ -100,7 +100,7 @@ public class Peppermint extends Enemy{
 		b2dBody = world.createBody(bodyDef);
 		shape.setRadius(radius /2);
 		shape.setPosition(new Vector2(1, 2.5f));
-		System.out.println("X: " + original_x + ", y: " + original_y);
+	//	System.out.println("X: " + original_x + ", y: " + original_y);
 		fixDef.shape = shape;
 		fixDef.density = 1.0f;
 		b2dBody.createFixture(fixDef).setUserData(this);
