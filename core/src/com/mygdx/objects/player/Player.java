@@ -173,7 +173,6 @@ public class Player extends GameEntity{
 	
 	// Basic Player Movement
 	private void jump() {
-	
 		if(!SLOW) {
 			velX = (float) 0.15;
 		}
@@ -184,11 +183,11 @@ public class Player extends GameEntity{
 			body.applyLinearImpulse(new Vector2(0, force),  body.getPosition(), true);
 			jumpCounter++;
 		}
-		if(body.getLinearVelocity().y < 0 && currState == State.JUMPING) {
+		if(body.getLinearVelocity().y < 0.00001f && currState == State.JUMPING) {
 			changeState(State.FALLING);
 		}
 		// reset Jump Counter
-		if(body.getLinearVelocity().y == 0 || body.getLinearVelocity().y == (float)-1.26217745E-29) {
+		if(body.getLinearVelocity().y >= -0.00001f && body.getLinearVelocity().y <= 0.00001f) {
 			changeState(State.WALKING);
 			jumpCounter = 0;
 		}
