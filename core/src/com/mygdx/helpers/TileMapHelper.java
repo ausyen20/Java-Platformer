@@ -69,9 +69,8 @@ public class TileMapHelper {
 		}
 		parseMapObjects(tiledMap.getLayers().get("Object Layer 1").getObjects());
 		
-		if (gameScreen.getClass()!=LevelEnvy.class) {
-			parseObjs(tiledMap.getLayers().get("Items").getObjects());
-		}		
+		parseObjs(tiledMap.getLayers().get("Items").getObjects());
+			
 		parseObstacles(tiledMap.getLayers().get("Obstacles Object").getObjects());
 		return new OrthogonalTiledMapRenderer(tiledMap);
 	}
@@ -164,6 +163,9 @@ public class TileMapHelper {
 				}
 				if (gameScreen.getClass()==LevelSloth.class) {
 					setLevelItems("SlothItems", rectangle, rectangleName);
+				}
+				if (gameScreen.getClass()==LevelEnvy.class) {
+					setLevelItems("EnvyItems", rectangle, rectangleName);
 				}
 				
 			}
