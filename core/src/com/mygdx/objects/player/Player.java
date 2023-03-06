@@ -312,14 +312,9 @@ public class Player extends GameEntity{
 				body.setTransform(1.73f, 0.83f, 0);
 				setDead(true);
 			}
-		}else if (body.getPosition().x >= 77f && body.getPosition().x < 117f) {
+		}else if (body.getPosition().x >= 77f && body.getPosition().x < 158f) {
 			if(body.getPosition().y < 0 || DEAD) {
 				body.setTransform(77.2f, 1.8388f, 0);
-				setDead(true);
-			}
-		}else if (body.getPosition().x >= 117f && body.getPosition().x < 158f) {
-			if(body.getPosition().y < 0 || DEAD) {
-				body.setTransform(118.5f, 3.33f, 0);
 				setDead(true);
 			}
 		}
