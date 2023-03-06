@@ -557,16 +557,16 @@
   <object id="186" name="boulder" x="4769" y="8" width="30" height="30">
    <ellipse/>
   </object>
-  <object id="189" name="boulder" x="1130.5" y="8" width="8" height="8">
+  <object id="189" name="boulder1" x="1130.5" y="8" width="8" height="8">
    <ellipse/>
   </object>
-  <object id="192" name="boulder" x="1144.5" y="8" width="8" height="8">
+  <object id="192" name="boulder1" x="1144.5" y="8" width="8" height="8">
    <ellipse/>
   </object>
-  <object id="193" name="boulder" x="1029.5" y="7.5" width="8" height="8">
+  <object id="193" name="boulder1" x="1029.5" y="7.5" width="8" height="8">
    <ellipse/>
   </object>
-  <object id="194" name="boulder" x="1043.5" y="7.5" width="8" height="8">
+  <object id="194" name="boulder1" x="1043.5" y="7.5" width="8" height="8">
    <ellipse/>
   </object>
  </objectgroup>

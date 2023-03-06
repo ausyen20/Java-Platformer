@@ -46,7 +46,7 @@ public class TileMapHelper {
 
 	private Array<Peppermint> peppermints;
 	private Array<Boulder> boulders;
-	
+	private Array<Boulder> boulders1;
 	
 	public TileMapHelper(GameScreen level) {
 		this.gameScreen = level;
@@ -198,8 +198,10 @@ public class TileMapHelper {
 	private void parseObstacles(MapObjects mapObjects) {
 		peppermints = new Array<Peppermint>();
 		boulders = new Array<Boulder>();
+		boulders1 = new Array<Boulder>();
 		int counter = 1;
 		int bcounter = 1;
+		int b1counter = 1;
 		
 		for (MapObject mapObject : mapObjects) {
 			//creating spikes
@@ -232,19 +234,24 @@ public class TileMapHelper {
 					boulders.add(new Boulder(gameScreen.getWorld(), gameScreen, mapObject, bcounter));
 					bcounter++;
 				}
-				
+				if(ellipseName.equals("boulder1")) {
+					boulders1.add(new Boulder(gameScreen.getWorld(), gameScreen, mapObject, b1counter));
+					b1counter++;
+				}	
 			}
-			
 		}
 	}
 
 	public Array<Peppermint> getPeppermint(){
 		return peppermints;
 	}
-	
 	public Array<Boulder> getBoudler(){
 		return boulders;
 	}
+	public Array<Boulder> getBoulder1(){
+		return boulders1;
+	}
+	
 	public Array<Enemy> getEnemies(){
 		Array<Enemy> enemies = new Array<Enemy>();
 		enemies.addAll(peppermints);

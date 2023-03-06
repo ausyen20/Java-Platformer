@@ -42,10 +42,60 @@ public class Boulder extends Enemy{
 	public void update(float dt) {
 		b2dBody.setLinearVelocity(velocity);
 	}
-
 	public void resetBoulder(float playerX, boolean respawn, Boulder b) {
-		
+		if(b.getID() == 1) {
+			b.b2dBody.setActive(false);
+			b.b2dBody.setTransform(b.getOriginalX(), b.getOriginalY(), 0);
+		}
+		if(b.getID() == 2) {
+			b.b2dBody.setActive(false);
+			b.b2dBody.setTransform(b.getOriginalX(), b.getOriginalY(), 0);
+		}
+		if(b.getID() == 3) {
+			b.b2dBody.setActive(false);
+			b.b2dBody.setTransform(b.getOriginalX(), b.getOriginalY(), 0);
+		}
+		if(b.getID() == 4) {
+			b.b2dBody.setActive(false);
+			b.b2dBody.setTransform(b.getOriginalX(), b.getOriginalY(), 0);
+		}
+		if(b.getID() == 5) {
+			b.b2dBody.setActive(false);
+			b.b2dBody.setTransform(b.getOriginalX(), b.getOriginalY(), 0);
+		}
 	}
+	
+	public void resetBoulder1(float playerX, boolean respawn, Boulder b) {
+		if(b.getID() == 1) {
+			b.b2dBody.setActive(false);
+			b.b2dBody.setTransform(b.getOriginalX(), b.getOriginalY(), 0);
+		}
+		if(b.getID() == 2) {
+			b.b2dBody.setActive(false);
+			b.b2dBody.setTransform(b.getOriginalX(), b.getOriginalY(), 0);
+		}
+		if(b.getID() == 3) {
+			b.b2dBody.setActive(false);
+			b.b2dBody.setTransform(b.getOriginalX(), b.getOriginalY(), 0);
+		}
+		if(b.getID() == 4) {
+			b.b2dBody.setActive(false);
+			b.b2dBody.setTransform(b.getOriginalX(), b.getOriginalY(), 0);
+		}
+	}
+	
+	/*
+		
+		if(p.getID() == 1) {
+				p.b2dBody.setActive(false);
+				p.b2dBody.setTransform(p.getOriginalX(), p.getOriginalY(), 0);
+		}
+		
+		if(p.getID() == 2) {
+			p.b2dBody.setActive(false);
+			p.b2dBody.setTransform(p.getOriginalX(), p.getOriginalY(), 0);
+		}
+	*/
 	@Override
 	public void onHit(Player player) {
 		// TODO Auto-generated method stub
@@ -99,5 +149,12 @@ public class Boulder extends Enemy{
 	}
 	public float getOriginalY() {
 		return originalY;
+	}
+	public boolean getActive() {
+		return active;
+	}
+	
+	public void setActivng(boolean active) {
+		this.active = active;
 	}
 }
