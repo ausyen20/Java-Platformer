@@ -216,8 +216,7 @@ public class TileMapHelper {
 					new ChocolatePuddle(((RectangleMapObject) mapObject), gameScreen.getWorld());
 				}
 			}
-			//Creating peppermints
-			
+			//Creating peppermints and boulders
 			if(mapObject instanceof EllipseMapObject) {
 				String ellipseName = mapObject.getName();
 				Ellipse ellipse = ((EllipseMapObject)mapObject).getEllipse();

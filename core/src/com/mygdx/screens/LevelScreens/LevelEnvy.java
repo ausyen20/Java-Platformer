@@ -25,7 +25,6 @@ public class LevelEnvy extends GameScreen {
         backgrounds[2] = new Texture("backgrounds/envy02.png");
         ((AudioManager) AudioManager.getInstance()).setMusic("Music/Envy.mp3");
         ((AudioManager) AudioManager.getInstance()).playMusic();
-
     }
 
     public void updateBoulder() {

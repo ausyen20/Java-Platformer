@@ -57,7 +57,6 @@ public class Boulder extends Enemy{
 		// TODO Auto-generated method stub
 		
 	}
-	
 	//Create boulder body
 	public Body defineBoulder(MapObject mapObj) {
 		Ellipse ellipse = ((EllipseMapObject)mapObj).getEllipse();

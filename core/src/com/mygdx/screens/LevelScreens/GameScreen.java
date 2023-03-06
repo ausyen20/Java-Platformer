@@ -567,7 +567,6 @@ public abstract class GameScreen implements Screen {
     public void updatePeppermint() {
         
     }
-    
     public void updateBoulder() {
 	
 	}

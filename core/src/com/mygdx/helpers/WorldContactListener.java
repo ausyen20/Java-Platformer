@@ -72,7 +72,6 @@ public class WorldContactListener implements ContactListener {
 				Actualplayer.hitByMint();
 			}
 		}
-		
 	}
 
 	@Override
