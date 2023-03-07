@@ -26,7 +26,7 @@ public class LevelEnvy extends GameScreen {
         ((AudioManager) AudioManager.getInstance()).setMusic("Music/Envy.mp3");
         ((AudioManager) AudioManager.getInstance()).playMusic();
     }
-
+	
     public void updateBoulder() {
     	//Boulder for shadow king stage
     	for(Boulder b : tileMapHelper.getBoudler()) {

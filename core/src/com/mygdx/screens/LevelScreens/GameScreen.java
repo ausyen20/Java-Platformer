@@ -38,6 +38,7 @@ import com.mygdx.helpers.Modes;
 import com.mygdx.indulge.Indulge;
 import com.mygdx.objects.Items.Coin;
 import com.mygdx.objects.Items.Item;
+import com.mygdx.objects.Obstacles.ShadowKing;
 import com.mygdx.objects.player.Player;
 
 
@@ -71,6 +72,7 @@ public abstract class GameScreen implements Screen {
     protected SpriteBatch bg_batch;
     protected SpriteBatch front_batch;
     protected SpriteBatch player_batch;
+    protected SpriteBatch king_batch;
     protected SpriteBatch textbatch;
     protected Texture[] backgrounds;
     protected float[] backgroundOffsets = {0, 0, 0};
@@ -109,11 +111,14 @@ public abstract class GameScreen implements Screen {
     private float timeSeconds = 0f;
     private float period = 2.8f;
     int recoverycooldown=0;
+    int kingcooldown=0;
+    int newItemCollected = 0;
     protected Label readygo;
     protected Group readygoGroup;
 
     // Objects
     public static Player player;
+    public static ShadowKing shadowKing;
     protected World world;
     protected ArrayList<Coin> coins; 
     protected Item item0;
@@ -133,16 +138,18 @@ public abstract class GameScreen implements Screen {
         bg_batch = new SpriteBatch();
         front_batch = new SpriteBatch();
         player_batch = new SpriteBatch();
+        king_batch = new SpriteBatch();
         textbatch = new SpriteBatch();
         
         coins = new ArrayList<Coin>();
-
+        shadowKing = new ShadowKing();
+        
         world = new World(new Vector2(0,-7f),false);
         box2DDebugRenderer = new Box2DDebugRenderer();
         tileMapHelper = new TileMapHelper(this);
         orthogonalTiledMapRenderer = tileMapHelper.setupMap();
         world.setContactListener(new WorldContactListener());
-
+        
         backgrounds = new Texture[3];
         player.initPos();
         playerLinearVel = new Vector2(0,0);
@@ -262,6 +269,7 @@ public abstract class GameScreen implements Screen {
         bg_batch.setProjectionMatrix(this.camera.combined);
         front_batch.setProjectionMatrix(this.camera.combined);
         player_batch.setProjectionMatrix(this.camera.combined);
+        king_batch.setProjectionMatrix(this.camera.combined);
         // batch for the background
         bg_batch.begin();
         renderBackground(deltaTime);
@@ -320,6 +328,8 @@ public abstract class GameScreen implements Screen {
         }
         front_batch.end();
 
+        drawKing();
+
         // batch for the player
         player_batch.begin();
         player_batch.setColor(1,1,1,1f);
@@ -332,7 +342,6 @@ public abstract class GameScreen implements Screen {
         		    recoverycooldown=0;
         	    }
             }
-        	
         }
         player.render(player_batch);
         player_batch.end();
@@ -348,6 +357,26 @@ public abstract class GameScreen implements Screen {
             Gdx.input.setInputProcessor(null);
         } 
         box2DDebugRenderer.render(world, camera.combined.scl(Constants.PPM));
+
+    }
+
+    public void drawKing() {
+        if (curScreen == LevelScreenTypes.ENVY) {
+            king_batch.begin();
+            king_batch.setColor(1,1,1,1f);
+            if (newItemCollected < player.getItemsCollected()) {
+                king_batch.setColor(1,0,0,1f);
+                if(!PAUSED) {
+                    kingcooldown++;
+                    if (kingcooldown>30) {
+                        newItemCollected = player.getItemsCollected();
+                        kingcooldown=0;
+                    }
+                }
+            }
+            shadowKing.render(king_batch, camera);
+            king_batch.end();
+        }   
     }
     
 
