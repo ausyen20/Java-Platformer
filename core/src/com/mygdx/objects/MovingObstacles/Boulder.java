@@ -1,5 +1,6 @@
 package com.mygdx.objects.MovingObstacles;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -24,7 +25,11 @@ public class Boulder extends Enemy{
 	private Body b2dBody;
 	private boolean active = false;
 	private GameScreen gameScreen;
-	
+	private float elapsedtime;
+	private Texture peppermintImage;
+	private TextureRegion[] frames;
+	private Animation<TextureRegion> animation;
+	private TextureRegion[][] splitFrames;
 	
 	public Boulder(World world, GameScreen gameScreen, MapObject mapObj, int ID) {
 		super(world, mapObj);
@@ -34,7 +39,13 @@ public class Boulder extends Enemy{
 		b2dBody = defineBoulder(mapObj);
 		velocity = new Vector2(-1, -3);
 		b2dBody.setActive(false);
-	
+		peppermintImage = new Texture("obstacles/boulder.png");
+		splitFrames = TextureRegion.split(peppermintImage, 20, 20);
+		frames = new TextureRegion[4];
+		for (int i = 0; i < 4; i++) {
+			frames[i] = splitFrames[0][i];
+		} 
+		animation = new Animation<TextureRegion>(1f/8f, frames);
 		
 	}
 
@@ -105,7 +116,9 @@ public class Boulder extends Enemy{
 	@Override
 	public void render(Batch batch) {
 		// TODO Auto-generated method stub
-		
+		elapsedtime += Gdx.graphics.getDeltaTime();
+		batch.draw(animation.getKeyFrame(elapsedtime, true), b2dBody.getWorldCenter().x * Constants.PPM - 10, b2dBody.getWorldCenter().y * Constants.PPM - 10);
+	
 	}
 	//Create boulder body
 	public Body defineBoulder(MapObject mapObj) {
