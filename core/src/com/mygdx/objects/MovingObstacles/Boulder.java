@@ -14,6 +14,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 import com.mygdx.helpers.Constants;
 import com.mygdx.objects.player.Player;
 import com.mygdx.screens.LevelScreens.GameScreen;
@@ -30,19 +31,24 @@ public class Boulder extends Enemy{
 	private TextureRegion[] frames;
 	private Animation<TextureRegion> animation;
 	private TextureRegion[][] splitFrames;
-	
-	public Boulder(World world, GameScreen gameScreen, MapObject mapObj, int ID) {
+	private float radius;
+	private int width;
+	private int height;
+
+	public Boulder(World world, GameScreen gameScreen, MapObject mapObj, int ID, int width, int height) {
 		super(world, mapObj);
 		this.ID= ID;
+		this.width = width;
+		this.height = height;
 		this.b2dBody = body;
 		this.gameScreen = gameScreen;
 		b2dBody = defineBoulder(mapObj);
 		velocity = new Vector2(-1, -3);
 		b2dBody.setActive(false);
 		peppermintImage = new Texture("obstacles/boulder.png");
-		splitFrames = TextureRegion.split(peppermintImage, 20, 20);
-		frames = new TextureRegion[4];
-		for (int i = 0; i < 4; i++) {
+		splitFrames = TextureRegion.split(peppermintImage, 32, 32);
+		frames = new TextureRegion[3];
+		for (int i = 0; i < 3; i++) {
 			frames[i] = splitFrames[0][i];
 		} 
 		animation = new Animation<TextureRegion>(1f/8f, frames);
@@ -117,14 +123,16 @@ public class Boulder extends Enemy{
 	public void render(Batch batch) {
 		// TODO Auto-generated method stub
 		elapsedtime += Gdx.graphics.getDeltaTime();
-		batch.draw(animation.getKeyFrame(elapsedtime, true), b2dBody.getWorldCenter().x * Constants.PPM - 10, b2dBody.getWorldCenter().y * Constants.PPM - 10);
-	
+		batch.draw(animation.getKeyFrame(elapsedtime, true), b2dBody.getWorldCenter().x * Constants.PPM - radius*16, b2dBody.getWorldCenter().y * Constants.PPM - radius*16,width,height);
 	}
+
+
+	
 	//Create boulder body
 	public Body defineBoulder(MapObject mapObj) {
 		Ellipse ellipse = ((EllipseMapObject)mapObj).getEllipse();
-		float radius = ellipse.width/Constants.PPM;
-
+		this.radius = ellipse.width/Constants.PPM;
+		System.out.println(radius);
 		originalX = ellipse.x/Constants.PPM ;
 		originalY = ellipse.y/Constants.PPM;
 		BodyDef bodyDef = new BodyDef();
@@ -148,6 +156,7 @@ public class Boulder extends Enemy{
 	public Body getBBody() {
 		return this.b2dBody;
 	}
+
 	public int getID() {
 		return this.ID;
 	}
