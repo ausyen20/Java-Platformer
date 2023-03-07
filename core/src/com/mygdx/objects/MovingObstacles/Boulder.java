@@ -132,7 +132,6 @@ public class Boulder extends Enemy{
 	public Body defineBoulder(MapObject mapObj) {
 		Ellipse ellipse = ((EllipseMapObject)mapObj).getEllipse();
 		this.radius = ellipse.width/Constants.PPM;
-		System.out.println(radius);
 		originalX = ellipse.x/Constants.PPM ;
 		originalY = ellipse.y/Constants.PPM;
 		BodyDef bodyDef = new BodyDef();
