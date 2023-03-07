@@ -9,20 +9,21 @@ import com.mygdx.helpers.Constants;
 import com.mygdx.objects.player.Player;
 
 public class ShadowKing {
-    private enum State {FLOATING, ATTACKING, DYING}
+    public enum State {FLOATING, ATTACKING, DEATH}
     private State currState;
 
     private Texture kingImage; 
 	private TextureRegion[] floatFrames;
 	private TextureRegion[] attackFrames;
-	private TextureRegion[] dieFrames;
+	private TextureRegion[] deathFrames;
 	private Animation<TextureRegion> animation;
 	private TextureRegion[][] splitFrames;
 	private float elapsedtime;
+    private boolean LOOPING;
 
     
     public ShadowKing() {
-        kingImage = new Texture("obstacles/shadowking-sheet.png");
+        kingImage = new Texture("obstacles/shadowkingsheet.png");
 		splitFrames = TextureRegion.split(kingImage, 40, 40);
         changeState(State.FLOATING);
     }
@@ -31,13 +32,18 @@ public class ShadowKing {
 		switch(state) {
 			case FLOATING:
                 floatAnimation();
-				currState = State.FLOATING;
+                currState = State.FLOATING;
+                LOOPING = true;
 				break;
 			case ATTACKING:
-				currState = State.ATTACKING;
+                currState = State.ATTACKING;
+                LOOPING = false;
 				break;
-			case DYING:
-				currState = State.DYING;
+			case DEATH:
+                deathAnimation();
+                currState = State.DEATH;
+                LOOPING = false;
+				elapsedtime = 0;
 				break;
 		}
 	}
@@ -50,8 +56,16 @@ public class ShadowKing {
 		animation = new Animation<TextureRegion>(1f/6f, floatFrames);
 	}
 
+    public void deathAnimation() {
+		deathFrames = new TextureRegion[12];
+		for (int i = 0; i < 12; i++) {
+			deathFrames[i] = splitFrames[1][i];
+		} 
+		animation = new Animation<TextureRegion>(1f/12f, deathFrames);
+	}
+
     public void render(SpriteBatch batch, OrthographicCamera camera) {
 		elapsedtime += Gdx.graphics.getDeltaTime();
-		batch.draw(animation.getKeyFrame(elapsedtime, true), camera.position.x - 25, 100, 50, 50);
-	}
+		batch.draw(animation.getKeyFrame(elapsedtime, LOOPING), camera.position.x - 25, 100, 50, 50);
+    }
 }

@@ -39,6 +39,7 @@ import com.mygdx.indulge.Indulge;
 import com.mygdx.objects.Items.Coin;
 import com.mygdx.objects.Items.Item;
 import com.mygdx.objects.Obstacles.ShadowKing;
+import com.mygdx.objects.Obstacles.ShadowKing.State;
 import com.mygdx.objects.player.Player;
 
 
@@ -371,6 +372,9 @@ public abstract class GameScreen implements Screen {
                     if (kingcooldown>30) {
                         newItemCollected = player.getItemsCollected();
                         kingcooldown=0;
+                    }
+                    if(newItemCollected == 3) {
+                        shadowKing.changeState(State.DEATH);
                     }
                 }
             }
