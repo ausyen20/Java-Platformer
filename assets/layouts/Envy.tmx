@@ -560,13 +560,13 @@
   <object id="189" name="boulder1" x="1130.5" y="8" width="8" height="8">
    <ellipse/>
   </object>
-  <object id="192" name="boulder1" x="1144.5" y="8" width="8" height="8">
+  <object id="192" name="boulder1" x="1149.17" y="0.333333" width="8" height="8">
    <ellipse/>
   </object>
-  <object id="193" name="boulder1" x="1029.5" y="7.5" width="8" height="8">
+  <object id="193" name="boulder1" x="1027.83" y="7.83333" width="8" height="8">
    <ellipse/>
   </object>
-  <object id="194" name="boulder1" x="1043.5" y="7.5" width="8" height="8">
+  <object id="194" name="boulder1" x="1042.5" y="1.16667" width="8" height="8">
    <ellipse/>
   </object>
  </objectgroup>
