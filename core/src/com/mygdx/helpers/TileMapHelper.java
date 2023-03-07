@@ -231,11 +231,11 @@ public class TileMapHelper {
 					counter++;
 				}
 				if(ellipseName.equals("boulder")) {
-					boulders.add(new Boulder(gameScreen.getWorld(), gameScreen, mapObject, bcounter));
+					boulders.add(new Boulder(gameScreen.getWorld(), gameScreen, mapObject, bcounter, (int)ellipse.width, (int)ellipse.height));
 					bcounter++;
 				}
 				if(ellipseName.equals("boulder1")) {
-					boulders1.add(new Boulder(gameScreen.getWorld(), gameScreen, mapObject, b1counter));
+					boulders1.add(new Boulder(gameScreen.getWorld(), gameScreen, mapObject, b1counter,(int)ellipse.width, (int)ellipse.height));
 					b1counter++;
 				}	
 			}

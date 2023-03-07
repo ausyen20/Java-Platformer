@@ -279,7 +279,10 @@ public abstract class GameScreen implements Screen {
         if (curScreen == LevelScreenTypes.GLUTTONY) {
             tileMapHelper.getPeppermint().forEach((c) -> c.render(front_batch));
         }
-        
+        if (curScreen == LevelScreenTypes.ENVY) {
+            tileMapHelper.getBoudler().forEach((c) -> c.render(front_batch));
+            tileMapHelper.getBoulder1().forEach((c) -> c.render(front_batch));
+        }
         switch(player.health) {
             case 1:
                 front_batch.draw(health_bar1, camera.position.x-160, 50);
