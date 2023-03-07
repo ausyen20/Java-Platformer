@@ -29,6 +29,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.helpers.Constants;
+import com.mygdx.helpers.DemoScreenTypes;
 import com.mygdx.helpers.LevelScreenTypes;
 import com.mygdx.helpers.MenuScreenTypes;
 import com.mygdx.helpers.TileMapHelper;
@@ -234,7 +235,10 @@ public abstract class GameScreen implements Screen {
         // If in assist mode, use A and S to change screens
         if (((Modes) Modes.getInstance()).getAssist()) {
             if (Gdx.input.isKeyJustPressed(Input.Keys.A) && curScreen != LevelScreenTypes.ENVY) {
-                ((Indulge) Indulge.getInstance()).change_levels(nextScreen);
+                if (nextScreen == LevelScreenTypes.GREED) {
+                    ((Indulge) Indulge.getInstance()).change_demo(DemoScreenTypes.DEMO_COINS);
+                }
+                else ((Indulge) Indulge.getInstance()).change_levels(nextScreen);
             }
             if (Gdx.input.isKeyJustPressed(Input.Keys.S) && curScreen != LevelScreenTypes.LUST) {
                 ((Indulge) Indulge.getInstance()).change_levels(prevScreen);

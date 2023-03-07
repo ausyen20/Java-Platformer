@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.mygdx.helpers.Constants;
+import com.mygdx.helpers.DemoScreenTypes;
 import com.mygdx.helpers.LevelScreenTypes;
 import com.mygdx.helpers.MenuScreenTypes;
 import com.mygdx.indulge.Indulge;
@@ -72,8 +73,10 @@ public class EndLevel extends Menu{
         {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                ((Indulge) Indulge.getInstance()).change_levels(nextScreen);
-
+                if (nextScreen == LevelScreenTypes.GREED) {
+                    ((Indulge) Indulge.getInstance()).change_demo(DemoScreenTypes.DEMO_COINS);
+                }
+                else ((Indulge) Indulge.getInstance()).change_levels(nextScreen);
             }
         });
         nextLevelText = new Texture("titleScreen/nextlevel.png");

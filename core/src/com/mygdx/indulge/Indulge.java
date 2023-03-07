@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.mygdx.helpers.DemoScreenTypes;
 import com.mygdx.helpers.LevelScreenTypes;
 import com.mygdx.helpers.MenuScreenTypes;
+import com.mygdx.screens.DemoScreens.DemoCoins;
 import com.mygdx.screens.DemoScreens.DemoItem;
 import com.mygdx.screens.DemoScreens.DemoJump;
 import com.mygdx.screens.LevelScreens.LevelEnvy;
@@ -91,6 +92,7 @@ public class Indulge extends Game {
         setScreen(new DemoItem());
         break;
       case DEMO_COINS:
+        setScreen(new DemoCoins());
         break;
     }
   }
