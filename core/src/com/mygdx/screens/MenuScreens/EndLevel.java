@@ -76,6 +76,9 @@ public class EndLevel extends Menu{
                 if (nextScreen == LevelScreenTypes.GREED) {
                     ((Indulge) Indulge.getInstance()).change_demo(DemoScreenTypes.DEMO_COINS);
                 }
+                else if (nextScreen == LevelScreenTypes.ENVY) {
+                    ((Indulge) Indulge.getInstance()).change_demo(DemoScreenTypes.DEMO_CROWN);
+                }
                 else ((Indulge) Indulge.getInstance()).change_levels(nextScreen);
             }
         });
