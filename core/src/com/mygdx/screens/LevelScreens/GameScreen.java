@@ -534,6 +534,11 @@ public abstract class GameScreen implements Screen {
             if (curScreen == LevelScreenTypes.GLUTTONY) {
                 tileMapHelper.getPeppermint().forEach((c) -> c.getMintBody().setLinearVelocity(0, 0));
             }
+            if (curScreen == LevelScreenTypes.ENVY) {
+                tileMapHelper.getBoudler().forEach((c) -> c.getBBody().setLinearVelocity(0, 0));
+                tileMapHelper.getBoulder1().forEach((c) -> c.getBBody().setLinearVelocity(0, 0));
+            }
+            
             world.setGravity(new Vector2(0, 0f));
         }
         
