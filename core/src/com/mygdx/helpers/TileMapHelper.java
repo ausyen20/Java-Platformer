@@ -6,12 +6,10 @@ import com.badlogic.gdx.maps.objects.EllipseMapObject;
 import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Ellipse;
-import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -37,7 +35,6 @@ import com.mygdx.screens.LevelScreens.LevelSloth;
 
 import static com.mygdx.helpers.Constants.PPM;
 
-import java.lang.System.Logger.Level;
 
 public class TileMapHelper {
 	private TiledMap tiledMap;
@@ -109,10 +106,6 @@ public class TileMapHelper {
 		bodyDef.type = BodyDef.BodyType.StaticBody;
 		Body body = gameScreen.getWorld().createBody(bodyDef);
 		FixtureDef fixDef = new FixtureDef();
-		// layout branch code
-		/*Shape shape = createPolygonShape(polygonmapObject);
-		body.createFixture(shape, 1000);
-		shape.dispose();*/
 		
 		String polygonName = polygonmapObject.getName();
 		Shape shape = createPolygonShape(polygonmapObject);
@@ -122,8 +115,6 @@ public class TileMapHelper {
 		fixDef.friction = 0;
 		body.createFixture(fixDef);
 		body.createFixture(fixDef).setUserData(polygonName);
-//		body.createFixture(shape, 1000);
-//		body.createFixture(shape, 1000).setUserData(polygonName);
 		shape.dispose();
 	}
 	private Shape createPolygonShape(PolygonMapObject polygonmapObject) {
@@ -143,11 +134,7 @@ public class TileMapHelper {
 
 	private void parseObjs(MapObjects mapObjects) {
 		for(MapObject mapObject : mapObjects) {
-			
-			if(mapObject instanceof PolygonMapObject) {
-				//createSensorObj((PolygonMapObject) mapObject);
-			}
-			
+						
 			if(mapObject instanceof RectangleMapObject) {
 				Rectangle rectangle = ((RectangleMapObject)mapObject).getRectangle();
 				String rectangleName = mapObject.getName();
@@ -225,7 +212,6 @@ public class TileMapHelper {
 				String ellipseName = mapObject.getName();
 				Ellipse ellipse = ((EllipseMapObject)mapObject).getEllipse();
 		
-				//System.out.println(ellipseName);
 				if(ellipseName.equals("peppermint")) {					
 					peppermints.add(new Peppermint(gameScreen.getWorld(),gameScreen, mapObject, counter));
 					counter++;

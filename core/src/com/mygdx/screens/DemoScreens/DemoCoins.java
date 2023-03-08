@@ -16,7 +16,6 @@ public class DemoCoins extends DemoScreen {
     
     public DemoCoins() {
         // Add demo assets
-        //backgroundText = new Texture("demos/lustdemoText.png");
         backgroundText = new Texture("demos/coinsdemotext.png");
         characterImage = new Texture("demos/coinsdemo-sheet.png");
         TextureRegion[][] tmpFrames = TextureRegion.split(characterImage, 320, 180);

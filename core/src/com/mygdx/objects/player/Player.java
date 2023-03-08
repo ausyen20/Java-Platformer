@@ -12,7 +12,6 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.mygdx.helpers.AudioManager;
 import com.mygdx.helpers.Constants;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class Player extends GameEntity{
 	
@@ -27,10 +26,7 @@ public class Player extends GameEntity{
 	private Animation<TextureRegion> animation;
 	private TextureRegion[][] splitFrames;
 	private float elapsedtime;
-	private Actor actor;
 	private int jumpCounter;
-	private String blockedKey = "blocked";
-	private TiledMapTileLayer collisionLayer;
 	private int itemsCollected;
 	private int coinsCollected;
 	public boolean DEAD;
@@ -41,7 +37,6 @@ public class Player extends GameEntity{
 	public boolean lowgravity=false;
 	FixtureDef fixDef = new FixtureDef();
 	
-	//Austin: Remove collisionLayer from constructor, it unnecessary code
 	public Player(float width, float height, Body body) {
 		super(width, height, body);
 		this.speed = 10f;

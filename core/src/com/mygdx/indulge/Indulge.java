@@ -103,7 +103,6 @@ public class Indulge extends Game {
 
   @Override
   public void dispose() {
-    //gameScreen.dispose();
   }
 
   @Override

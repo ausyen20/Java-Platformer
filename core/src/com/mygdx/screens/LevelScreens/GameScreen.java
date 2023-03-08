@@ -360,7 +360,7 @@ public abstract class GameScreen implements Screen {
         } else if (!LOSE_LEVEL && !WIN_LEVEL) {
             Gdx.input.setInputProcessor(null);
         } 
-        box2DDebugRenderer.render(world, camera.combined.scl(Constants.PPM));
+        //box2DDebugRenderer.render(world, camera.combined.scl(Constants.PPM));
 
     }
 
@@ -396,7 +396,6 @@ public abstract class GameScreen implements Screen {
 
     @Override
     public void resume() {
-        // TODO Auto-generated method stub
         
     }
 
@@ -511,11 +510,9 @@ public abstract class GameScreen implements Screen {
                     player.setSpawnsSloth();
                     break;
                 case GREED:
-                    // TEMPORARY!
                     player.setSpawnsGreed();
                     break;
                 case ENVY:
-                    // TEMPORARY!
                     player.setSpawnsEnvy();
                     break;
                 default:
@@ -544,8 +541,6 @@ public abstract class GameScreen implements Screen {
         
 	}
 
-
-	
 
 	public void cameraUpdate() {
         Vector3 position = camera.position;
@@ -627,13 +622,11 @@ public abstract class GameScreen implements Screen {
 
     @Override
     public void hide() {
-        // TODO Auto-generated method stub
         
     }
 
     @Override
     public void pause() {
-        // TODO Auto-generated method stub
         
     }
 

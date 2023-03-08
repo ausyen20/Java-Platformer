@@ -14,7 +14,6 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.Array;
 import com.mygdx.helpers.Constants;
 import com.mygdx.objects.player.Player;
 import com.mygdx.screens.LevelScreens.GameScreen;
@@ -101,27 +100,13 @@ public class Boulder extends Enemy{
 		}
 	}
 	
-	/*
-		
-		if(p.getID() == 1) {
-				p.b2dBody.setActive(false);
-				p.b2dBody.setTransform(p.getOriginalX(), p.getOriginalY(), 0);
-		}
-		
-		if(p.getID() == 2) {
-			p.b2dBody.setActive(false);
-			p.b2dBody.setTransform(p.getOriginalX(), p.getOriginalY(), 0);
-		}
-	*/
 	@Override
 	public void onHit(Player player) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void render(Batch batch) {
-		// TODO Auto-generated method stub
 		elapsedtime += Gdx.graphics.getDeltaTime();
 		batch.draw(animation.getKeyFrame(elapsedtime, true), b2dBody.getWorldCenter().x * Constants.PPM - radius*16, b2dBody.getWorldCenter().y * Constants.PPM - radius*16,width,height);
 	}
@@ -142,7 +127,6 @@ public class Boulder extends Enemy{
 		b2dBody = world.createBody(bodyDef);
 		shape.setRadius(radius /2);
 		shape.setPosition(new Vector2(1, 2.5f));
-	//	System.out.println("X: " + original_x + ", y: " + original_y);
 		fixDef.shape = shape;
 		fixDef.density = 1.0f;
 		b2dBody.createFixture(fixDef).setUserData(this);

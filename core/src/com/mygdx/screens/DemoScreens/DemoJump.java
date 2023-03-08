@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.helpers.Constants;
 import com.mygdx.helpers.DemoScreenTypes;
-import com.mygdx.helpers.LevelScreenTypes;
 import com.mygdx.indulge.Indulge;
 
 public class DemoJump extends DemoScreen {
@@ -17,7 +16,6 @@ public class DemoJump extends DemoScreen {
     
     public DemoJump() {
         // Add demo assets
-        //backgroundText = new Texture("demos/lustdemoText.png");
         backgroundText = new Texture("demos/demo1Text.png");
         characterImage = new Texture("demos/demo1anim1-sheet.png");
         TextureRegion[][] tmpFrames = TextureRegion.split(characterImage, 320, 180);

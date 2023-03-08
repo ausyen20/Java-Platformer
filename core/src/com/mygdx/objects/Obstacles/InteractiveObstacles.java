@@ -2,12 +2,8 @@ package com.mygdx.objects.Obstacles;
 
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.objects.player.Player;
-import com.mygdx.screens.LevelScreens.GameScreen;
 
 public abstract class InteractiveObstacles {
 	protected World world;

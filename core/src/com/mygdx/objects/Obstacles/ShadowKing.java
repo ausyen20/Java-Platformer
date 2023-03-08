@@ -5,16 +5,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.mygdx.helpers.Constants;
-import com.mygdx.objects.player.Player;
 
 public class ShadowKing {
-    public enum State {FLOATING, ATTACKING, DEATH}
+    public enum State {FLOATING, DEATH}
     private State currState;
 
     private Texture kingImage; 
 	private TextureRegion[] floatFrames;
-	private TextureRegion[] attackFrames;
 	private TextureRegion[] deathFrames;
 	private Animation<TextureRegion> animation;
 	private TextureRegion[][] splitFrames;
@@ -34,10 +31,6 @@ public class ShadowKing {
                 floatAnimation();
                 currState = State.FLOATING;
                 LOOPING = true;
-				break;
-			case ATTACKING:
-                currState = State.ATTACKING;
-                LOOPING = false;
 				break;
 			case DEATH:
                 deathAnimation();

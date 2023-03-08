@@ -16,7 +16,6 @@ public class DemoItem extends DemoScreen {
     
     public DemoItem() {
         // Add demo assets
-        //backgroundText = new Texture("demos/lustdemoText.png");
         backgroundText = new Texture("demos/demo2Text.png");
         characterImage = new Texture("demos/demo2anim1-sheet.png");
         TextureRegion[][] tmpFrames = TextureRegion.split(characterImage, 320, 180);

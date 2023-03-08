@@ -59,7 +59,6 @@ public class Peppermint extends Enemy{
 	
 	//Use to reset Mints
 	public void resetPeppermint(float playerX, boolean respawn, Peppermint p) {
-		//System.out.println("pID: " + p.getID() + ", pX: " + p.getOriginalX() + ", pY: " + p.getOriginalY());
 	
 		if(p.getID() == 1) {
 				p.b2dBody.setActive(false);
@@ -100,7 +99,6 @@ public class Peppermint extends Enemy{
 		b2dBody = world.createBody(bodyDef);
 		shape.setRadius(radius /2);
 		shape.setPosition(new Vector2(1, 2.5f));
-	//	System.out.println("X: " + original_x + ", y: " + original_y);
 		fixDef.shape = shape;
 		fixDef.density = 1.0f;
 		b2dBody.createFixture(fixDef).setUserData(this);
