@@ -1,2 +1,5 @@
-# 2223_LZSCC210_Group_3
-Repository for LZSCC.210 Group 3
+Platformer Game
+Developers: Austin Yen, Junior Sarr, Rina Alo, Danat Debbet
+
+This project aims to develop a platformer game that is theme-based on Seven-Sins.
+The game is developed using Java and Libgdx.
